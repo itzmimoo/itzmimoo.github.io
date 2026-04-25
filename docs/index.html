@@ -122,6 +122,7 @@ body {
 }
 .subject-card.italiano::before { background: linear-gradient(90deg, #534AB7, #7F77DD); }
 .subject-card.storia::before { background: linear-gradient(90deg, #BA7517, #c8a96e); }
+.subject-card.reti::before { background: linear-gradient(90deg, #0e7a6e, #14b8a6); }
 .subject-card.coming::before { background: linear-gradient(90deg, #333, #555); }
 
 .subject-card:hover {
@@ -151,6 +152,7 @@ body {
 }
 .italiano .card-icon { background: #1a183a; }
 .storia .card-icon { background: #2a1a04; }
+.reti .card-icon { background: #0d2220; }
 .coming .card-icon { background: #1a1a1a; }
 
 .card-label {
@@ -162,6 +164,7 @@ body {
 }
 .italiano .card-label { color: #7F77DD; }
 .storia .card-label { color: #c8a96e; }
+.reti .card-label { color: #14b8a6; }
 .coming .card-label { color: #444; }
 
 .card-title {
@@ -195,6 +198,7 @@ body {
 }
 .italiano .tag { background: #1a183a; color: #9f99e0; border: 1px solid #2e2a6a; }
 .storia .tag { background: #2a1a04; color: #d4a050; border: 1px solid #4a2e08; }
+ .reti .tag { background: #0d2220; color: #2dd4bf; border: 1px solid #134e4a; }
 .coming .tag { background: #1a1a1a; color: #444; border: 1px solid #2a2a2a; }
 
 .card-arrow {
@@ -208,6 +212,7 @@ body {
 }
 .italiano .card-arrow-text { color: #7F77DD; }
 .storia .card-arrow-text { color: #c8a96e; }
+.reti .card-arrow-text { color: #14b8a6; }
 .coming .card-arrow-text { color: #444; }
 .card-arrow-icon {
   width: 28px;
@@ -221,6 +226,7 @@ body {
 }
 .italiano .card-arrow-icon { background: #1a183a; color: #9f99e0; }
 .storia .card-arrow-icon { background: #2a1a04; color: #d4a050; }
+.reti .card-arrow-icon { background: #0d2220; color: #2dd4bf; }
 .coming .card-arrow-icon { background: #1a1a1a; color: #444; }
 .subject-card:not(.coming):hover .card-arrow-icon {
   transform: translateX(3px);
@@ -357,7 +363,7 @@ footer {
       </div>
     </a>
 
-    <div class="subject-card reti" href="reti.html">
+    <a class="subject-card reti" href="reti.html">
       <div class="card-icon">🛜</div>
       <div class="card-label">Tutto</div>
       <div class="card-title">Sistemi e Reti</div>
@@ -373,7 +379,7 @@ footer {
         <span class="card-arrow-text">Apri →</span>
         <span class="card-arrow-icon">→</span>
       </div>
-    </div>
+    </a>
 
   </div>
 </main>
