@@ -16,16 +16,28 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 .topbar-title { font-size: 15px; font-weight: 500; color: #e8e4dc; }
 .topbar-sub { font-size: 12px; color: #555; }
 
-/* NAV BAR */
+/* NAV BAR (chapter-level) */
 .nav-bar { display: flex; gap: 6px; padding: 16px 20px 0; overflow-x: auto; position: static; scrollbar-width: none; flex-wrap: nowrap; }
 .nav-bar::-webkit-scrollbar { display: none; }
 .nav-btn { flex-shrink: 0; font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 20px; border: 1px solid #2a2a2a; background: #181818; color: #888; cursor: pointer; transition: all 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
 .nav-btn.active { background: #0a2a1a; border-color: #1a6a3a; color: #4dd080; }
 
+/* SUB NAV (sub-section pills) */
+.sub-nav { display: flex; gap: 6px; margin: 16px 0 20px; flex-wrap: wrap; }
+.sub-btn { font-size: 11.5px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid #252525; background: #141414; color: #666; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.sub-btn.active { background: #0a2a1a; border-color: #1a5a30; color: #3dd080; }
+
 /* CONTENT */
 .content { padding: 20px; }
 .section { display: none; }
 .section.visible { display: block; }
+.sub-section { display: none; }
+.sub-section.visible { display: block; }
+
+/* CHAPTER HEADER */
+.chapter-header { margin-bottom: 20px; }
+.chapter-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+.chapter-title { font-size: 22px; font-weight: 600; color: #e8e4dc; line-height: 1.2; }
 
 /* ACCENT */
 :root {
@@ -115,7 +127,6 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
 .header-fig th { background: #1a2a1a; color: var(--accent); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 10px; border: 1px solid #2a3a2a; text-align: center; }
 .header-fig td { background: #181818; color: #d0ccc4; font-size: 12px; padding: 7px 10px; border: 1px solid #252525; text-align: center; vertical-align: middle; font-family: 'SF Mono', monospace; }
 .header-fig td.label { background: #0a2a1a; color: var(--accent); font-weight: 600; font-size: 11px; text-align: left; font-family: inherit; }
-.header-fig td.span2 { }
 .header-fig .bits { font-size: 10px; color: #555; padding: 3px 4px; background: transparent; border: none; }
 
 /* TCP header */
@@ -173,97 +184,110 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
 </div>
 
 <div class="nav-bar">
-  <button class="nav-btn active" onclick="show('mezzi',this)">Mezzi Trasmissivi</button>
-  <button class="nav-btn" onclick="show('architetture',this)">Architetture & Protocolli</button>
-  <button class="nav-btn" onclick="show('osi',this)">Modelli OSI / TCP-IP</button>
-  <button class="nav-btn" onclick="show('ip',this)">Protocollo IP</button>
-  <button class="nav-btn" onclick="show('router',this)">Router</button>
-  <button class="nav-btn" onclick="show('dns',this)">DNS</button>
-  <button class="nav-btn" onclick="show('dhcp',this)">DHCP</button>
-  <button class="nav-btn" onclick="show('tcp',this)">TCP</button>
-  <button class="nav-btn" onclick="show('udp',this)">UDP</button>
+  <button class="nav-btn active" onclick="showChapter('mezzi',this)">Mezzi Trasmissivi</button>
+  <button class="nav-btn" onclick="showChapter('architetture',this)">Architetture & Protocolli</button>
+  <button class="nav-btn" onclick="showChapter('osi',this)">Modelli OSI / TCP-IP</button>
+  <button class="nav-btn" onclick="showChapter('ip',this)">IP</button>
+  <button class="nav-btn" onclick="showChapter('router',this)">Router</button>
+  <button class="nav-btn" onclick="showChapter('dns',this)">DNS</button>
+  <button class="nav-btn" onclick="showChapter('dhcp',this)">DHCP</button>
+  <button class="nav-btn" onclick="showChapter('trasporto',this)">Livello Trasporto</button>
 </div>
 
 <div class="content">
 
 <!-- ============================= MEZZI TRASMISSIVI ============================= -->
 <div id="mezzi" class="section visible">
+  <div class="chapter-header" style="margin-top:16px">
+    <div class="chapter-label">Capitolo</div>
+    <div class="chapter-title">Mezzi Trasmissivi</div>
+  </div>
 
-  <div class="block green" style="margin-top:16px">
+  <div class="block green">
     <div class="btitle">Introduzione ai mezzi trasmissivi</div>
     <p>Un <strong>mezzo trasmissivo</strong> è il supporto fisico attraverso cui viaggiano i segnali tra due o più nodi di rete. La scelta del mezzo determina la banda disponibile, la distanza massima coperta, l'attenuazione del segnale, la latenza, l'immunità ai disturbi elettromagnetici e il costo di installazione. I mezzi si dividono in <strong>guidati</strong> (il segnale è confinato in un supporto fisico: doppino, cavo coassiale, fibra ottica) e <strong>non guidati</strong> (onde radio, infrarossi, microonde).</p>
   </div>
 
-  <div class="sep">Ethernet — Cablaggio in rame</div>
-
-  <div class="block blue">
-    <div class="byear blue">IEEE 802.3 — Standard Ethernet</div>
-    <div class="btitle">Doppino Intrecciato (Twisted Pair)</div>
-    <p>È il mezzo più diffuso nelle LAN. Ogni cavo contiene coppie di conduttori in rame intrecciati tra loro per ridurre le interferenze elettromagnetiche (<strong>crosstalk</strong> e <strong>EMI</strong>). L'intreccio crea campi magnetici opposti che si cancellano reciprocamente. Esistono due varianti principali:</p>
-    <ul>
-      <li><strong>UTP (Unshielded Twisted Pair)</strong>: senza schermatura, economico, facile da installare. Usato nella maggior parte delle installazioni LAN.</li>
-      <li><strong>STP/FTP (Shielded/Foiled)</strong>: con schermatura metallica per ambienti ad alta interferenza industriale.</li>
-    </ul>
-    <p style="margin-top:8px">Le categorie definiscono la banda massima: <strong>Cat 5e</strong> → fino a 1 Gbps su 100 m; <strong>Cat 6</strong> → fino a 10 Gbps su 55 m; <strong>Cat 6A</strong> → 10 Gbps su 100 m; <strong>Cat 8</strong> → 40 Gbps su 30 m. Il connettore standard è l'<strong>RJ-45</strong>. La distanza massima per un segmento Ethernet su Cat 5e/6 è <strong>100 metri</strong> prima che l'attenuazione richieda un repeater o uno switch.</p>
+  <div class="sub-nav">
+    <button class="sub-btn active" onclick="showSub('mezzi','rame',this)">Cablaggio in Rame</button>
+    <button class="sub-btn" onclick="showSub('mezzi','fibra',this)">Fibra Ottica</button>
   </div>
 
-  <div class="block blue">
-    <div class="btitle">Ethernet — Cenni tecnici sul protocollo MAC</div>
-    <p>Ethernet opera al livello 2 (Data Link) del modello OSI. Utilizza il meccanismo <strong>CSMA/CD</strong> (Carrier Sense Multiple Access with Collision Detection) sulle reti half-duplex: prima di trasmettere, il nodo ascolta il canale (Carrier Sense); se rileva una collisione durante la trasmissione, interrompe, attende un tempo casuale (backoff esponenziale) e ritrasmette. Nelle reti <strong>full-duplex</strong> (switch moderni) il CSMA/CD non è necessario perché ogni porta ha un dominio di collisione separato.</p>
-    <p style="margin-top:6px">Un <strong>frame Ethernet</strong> (IEEE 802.3) ha la struttura: <code>Preambolo (7B) | SFD (1B) | MAC dst (6B) | MAC src (6B) | Ethertype/Length (2B) | Payload (46–1500B) | FCS (4B)</code>. Il campo <strong>Ethertype</strong> identifica il protocollo di rete incapsulato (<code>0x0800</code> = IPv4, <code>0x86DD</code> = IPv6, <code>0x0806</code> = ARP). La dimensione massima del payload è <strong>1500 byte</strong> (MTU standard Ethernet).</p>
-  </div>
+  <!-- SUB: RAME -->
+  <div id="mezzi-rame" class="sub-section visible">
+    <div class="sep">Ethernet — Cablaggio in rame</div>
 
-  <div class="sep">Fibra Ottica — Il mezzo ad alte prestazioni</div>
-
-  <div class="block green">
-    <div class="byear green">Principio fisico — Riflessione Totale Interna</div>
-    <div class="btitle">Come funziona la fibra ottica</div>
-    <p>La fibra ottica trasmette dati sotto forma di <strong>impulsi luminosi</strong> (fotoni) attraverso un sottile filamento di vetro o silice. Il funzionamento si basa sul principio fisico della <strong>riflessione totale interna</strong>: quando un raggio di luce viaggia da un mezzo più denso (core) a uno meno denso (cladding), e l'angolo di incidenza supera il <strong>angolo critico</strong> θ<sub>c</sub>, la luce viene completamente riflessa verso l'interno e non fuoriesce.</p>
-    <p style="margin-top:6px">La legge di Snell governa il fenomeno: <code>n₁ · sin(θ₁) = n₂ · sin(θ₂)</code>. Quando <code>θ₁ ≥ θ_c = arcsin(n₂/n₁)</code> si ha riflessione totale. Il <strong>core</strong> ha un indice di rifrazione n₁ leggermente superiore al <strong>cladding</strong> (n₂), tipicamente n₁ ≈ 1.48 e n₂ ≈ 1.46. Intorno al cladding è presente una <strong>jacket</strong> protettiva in polimero. La luce rimane intrappolata nel core e si propaga per rimbalzo lungo tutta la lunghezza della fibra senza dispersione laterale, con attenuazione estremamente bassa (<strong>0.2 dB/km</strong> nella finestra a 1550 nm).</p>
-  </div>
-
-  <div class="grid2">
-    <div class="card-small">
-      <div class="badge green">SMF — Single-Mode Fiber</div>
-      <div class="ct">Fibra Monomodale</div>
+    <div class="block blue">
+      <div class="byear blue">IEEE 802.3 — Standard Ethernet</div>
+      <div class="btitle">Doppino Intrecciato (Twisted Pair)</div>
+      <p>È il mezzo più diffuso nelle LAN. Ogni cavo contiene coppie di conduttori in rame intrecciati tra loro per ridurre le interferenze elettromagnetiche (<strong>crosstalk</strong> e <strong>EMI</strong>). L'intreccio crea campi magnetici opposti che si cancellano reciprocamente. Esistono due varianti principali:</p>
       <ul>
-        <li>Diametro del core: <strong>8–10 µm</strong></li>
-        <li>Un solo modo di propagazione della luce</li>
-        <li>Sorgente luminosa: <strong>laser</strong> (LED non sufficiente)</li>
-        <li>Lunghezze d'onda operative: 1310 nm, 1550 nm</li>
-        <li>Distanza massima: <strong>decine–centinaia di km</strong></li>
-        <li>Banda: praticamente illimitata (Tbps con WDM)</li>
-        <li>Dispersion cromatica trascurabile</li>
-        <li>Usata in backbone, WAN, reti metropolitane, intercontinentale</li>
+        <li><strong>UTP (Unshielded Twisted Pair)</strong>: senza schermatura, economico, facile da installare. Usato nella maggior parte delle installazioni LAN.</li>
+        <li><strong>STP/FTP (Shielded/Foiled)</strong>: con schermatura metallica per ambienti ad alta interferenza industriale.</li>
       </ul>
+      <p style="margin-top:8px">Le categorie definiscono la banda massima: <strong>Cat 5e</strong> → fino a 1 Gbps su 100 m; <strong>Cat 6</strong> → fino a 10 Gbps su 55 m; <strong>Cat 6A</strong> → 10 Gbps su 100 m; <strong>Cat 8</strong> → 40 Gbps su 30 m. Il connettore standard è l'<strong>RJ-45</strong>. La distanza massima per un segmento Ethernet su Cat 5e/6 è <strong>100 metri</strong> prima che l'attenuazione richieda un repeater o uno switch.</p>
     </div>
-    <div class="card-small">
-      <div class="badge blue">MMF — Multi-Mode Fiber</div>
-      <div class="ct">Fibra Multimodale</div>
-      <ul>
-        <li>Diametro del core: <strong>50–62.5 µm</strong></li>
-        <li>Più modi di propagazione simultanei</li>
-        <li>Sorgente luminosa: <strong>LED o VCSEL</strong></li>
-        <li>Lunghezze d'onda operative: 850 nm, 1300 nm</li>
-        <li>Distanza massima: <strong>300–550 m</strong> (a 10 Gbps)</li>
-        <li>Problema: <strong>dispersione modale</strong> → i modi arrivano in tempi diversi</li>
-        <li>Profilo indice step-index o graded-index (riduce la dispersione)</li>
-        <li>Usata in LAN, data center, campus</li>
-      </ul>
+
+    <div class="block blue">
+      <div class="btitle">Ethernet — Cenni tecnici sul protocollo MAC</div>
+      <p>Ethernet opera al livello 2 (Data Link) del modello OSI. Utilizza il meccanismo <strong>CSMA/CD</strong> (Carrier Sense Multiple Access with Collision Detection) sulle reti half-duplex: prima di trasmettere, il nodo ascolta il canale (Carrier Sense); se rileva una collisione durante la trasmissione, interrompe, attende un tempo casuale (backoff esponenziale) e ritrasmette. Nelle reti <strong>full-duplex</strong> (switch moderni) il CSMA/CD non è necessario perché ogni porta ha un dominio di collisione separato.</p>
+      <p style="margin-top:6px">Un <strong>frame Ethernet</strong> (IEEE 802.3) ha la struttura: <code>Preambolo (7B) | SFD (1B) | MAC dst (6B) | MAC src (6B) | Ethertype/Length (2B) | Payload (46–1500B) | FCS (4B)</code>. Il campo <strong>Ethertype</strong> identifica il protocollo di rete incapsulato (<code>0x0800</code> = IPv4, <code>0x86DD</code> = IPv6, <code>0x0806</code> = ARP). La dimensione massima del payload è <strong>1500 byte</strong> (MTU standard Ethernet).</p>
     </div>
   </div>
 
-  <div class="block teal">
-    <div class="btitle">Vantaggi della fibra rispetto al rame</div>
-    <ul>
-      <li><strong>Banda</strong>: ordini di grandezza superiori al rame. Con il <strong>WDM (Wavelength Division Multiplexing)</strong> si trasmettono contemporaneamente decine/centinaia di lunghezze d'onda sullo stesso core, moltiplicando la capacità.</li>
-      <li><strong>Attenuazione bassissima</strong>: 0.2 dB/km vs ~10 dB/km del rame → distanze enormi senza amplificazione.</li>
-      <li><strong>Immunità EMI</strong>: il segnale è luminoso, non elettrico → nessun disturbo da campi elettromagnetici, nessun crosstalk.</li>
-      <li><strong>Sicurezza</strong>: non irradia segnale, difficilissimo da intercettare senza interrompere la comunicazione.</li>
-      <li><strong>Leggerezza e dimensioni</strong>: un singolo cavo può contenere centinaia di fibre.</li>
-    </ul>
-  </div>
+  <!-- SUB: FIBRA -->
+  <div id="mezzi-fibra" class="sub-section">
+    <div class="sep">Fibra Ottica — Il mezzo ad alte prestazioni</div>
 
+    <div class="block green">
+      <div class="byear green">Principio fisico — Riflessione Totale Interna</div>
+      <div class="btitle">Come funziona la fibra ottica</div>
+      <p>La fibra ottica trasmette dati sotto forma di <strong>impulsi luminosi</strong> (fotoni) attraverso un sottile filamento di vetro o silice. Il funzionamento si basa sul principio fisico della <strong>riflessione totale interna</strong>: quando un raggio di luce viaggia da un mezzo più denso (core) a uno meno denso (cladding), e l'angolo di incidenza supera il <strong>angolo critico</strong> θ<sub>c</sub>, la luce viene completamente riflessa verso l'interno e non fuoriesce.</p>
+      <p style="margin-top:6px">La legge di Snell governa il fenomeno: <code>n₁ · sin(θ₁) = n₂ · sin(θ₂)</code>. Quando <code>θ₁ ≥ θ_c = arcsin(n₂/n₁)</code> si ha riflessione totale. Il <strong>core</strong> ha un indice di rifrazione n₁ leggermente superiore al <strong>cladding</strong> (n₂), tipicamente n₁ ≈ 1.48 e n₂ ≈ 1.46. Intorno al cladding è presente una <strong>jacket</strong> protettiva in polimero. La luce rimane intrappolata nel core e si propaga per rimbalzo lungo tutta la lunghezza della fibra senza dispersione laterale, con attenuazione estremamente bassa (<strong>0.2 dB/km</strong> nella finestra a 1550 nm).</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card-small">
+        <div class="badge green">SMF — Single-Mode Fiber</div>
+        <div class="ct">Fibra Monomodale</div>
+        <ul>
+          <li>Diametro del core: <strong>8–10 µm</strong></li>
+          <li>Un solo modo di propagazione della luce</li>
+          <li>Sorgente luminosa: <strong>laser</strong> (LED non sufficiente)</li>
+          <li>Lunghezze d'onda operative: 1310 nm, 1550 nm</li>
+          <li>Distanza massima: <strong>decine–centinaia di km</strong></li>
+          <li>Banda: praticamente illimitata (Tbps con WDM)</li>
+          <li>Dispersion cromatica trascurabile</li>
+          <li>Usata in backbone, WAN, reti metropolitane, intercontinentale</li>
+        </ul>
+      </div>
+      <div class="card-small">
+        <div class="badge blue">MMF — Multi-Mode Fiber</div>
+        <div class="ct">Fibra Multimodale</div>
+        <ul>
+          <li>Diametro del core: <strong>50–62.5 µm</strong></li>
+          <li>Più modi di propagazione simultanei</li>
+          <li>Sorgente luminosa: <strong>LED o VCSEL</strong></li>
+          <li>Lunghezze d'onda operative: 850 nm, 1300 nm</li>
+          <li>Distanza massima: <strong>300–550 m</strong> (a 10 Gbps)</li>
+          <li>Problema: <strong>dispersione modale</strong> → i modi arrivano in tempi diversi</li>
+          <li>Profilo indice step-index o graded-index (riduce la dispersione)</li>
+          <li>Usata in LAN, data center, campus</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block teal">
+      <div class="btitle">Vantaggi della fibra rispetto al rame</div>
+      <ul>
+        <li><strong>Banda</strong>: ordini di grandezza superiori al rame. Con il <strong>WDM (Wavelength Division Multiplexing)</strong> si trasmettono contemporaneamente decine/centinaia di lunghezze d'onda sullo stesso core, moltiplicando la capacità.</li>
+        <li><strong>Attenuazione bassissima</strong>: 0.2 dB/km vs ~10 dB/km del rame → distanze enormi senza amplificazione.</li>
+        <li><strong>Immunità EMI</strong>: il segnale è luminoso, non elettrico → nessun disturbo da campi elettromagnetici, nessun crosstalk.</li>
+        <li><strong>Sicurezza</strong>: non irradia segnale, difficilissimo da intercettare senza interrompere la comunicazione.</li>
+        <li><strong>Leggerezza e dimensioni</strong>: un singolo cavo può contenere centinaia di fibre.</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <!-- ============================= ARCHITETTURE & PROTOCOLLI ============================= -->
@@ -337,286 +361,316 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
 <!-- ============================= OSI / TCP-IP ============================= -->
 <div id="osi" class="section">
 
-  <div class="block green" style="margin-top:16px">
+  <div class="chapter-header" style="margin-top:16px">
+    <div class="chapter-label">Capitolo</div>
+    <div class="chapter-title">Modelli OSI e TCP/IP</div>
+  </div>
+
+  <div class="block green">
     <div class="btitle">Il modello di riferimento: perché stratificare?</div>
     <p>La stratificazione (<strong>layering</strong>) è il principio architetturale fondamentale delle reti moderne. Decompone il problema complesso della comunicazione in strati indipendenti, ciascuno con responsabilità ben definite. Ogni strato offre servizi allo strato superiore tramite un'<strong>interfaccia</strong> e utilizza i servizi dello strato inferiore. Due entità sullo stesso strato in host diversi comunicano tramite un <strong>protocollo</strong> orizzontale. I vantaggi sono: modularità, interoperabilità, possibilità di sostituire l'implementazione di un layer senza toccare gli altri.</p>
   </div>
 
-  <div class="sep">Modello OSI — ISO/IEC 7498</div>
+  <div class="sub-nav">
+    <button class="sub-btn active" onclick="showSub('osi','osimodel',this)">Modello OSI</button>
+    <button class="sub-btn" onclick="showSub('osi','tcpip',this)">Modello TCP/IP</button>
+  </div>
 
-  <div class="card">
-    <div class="card-title g">I 7 livelli del modello OSI</div>
-    <div class="grid2">
-      <div>
-        <div class="block blue" style="margin-bottom:8px">
-          <div class="byear blue">Layer 7</div>
-          <div class="btitle">Application</div>
-          <p>Interfaccia con le applicazioni utente. Fornisce servizi di rete direttamente alle applicazioni (HTTP, FTP, SMTP, DNS, SNMP). Gestisce la semantica dei dati scambiati.</p>
+  <!-- SUB: OSI -->
+  <div id="osi-osimodel" class="sub-section visible">
+    <div class="sep">Modello OSI — ISO/IEC 7498</div>
+
+    <div class="card">
+      <div class="card-title g">I 7 livelli del modello OSI</div>
+      <div class="grid2">
+        <div>
+          <div class="block blue" style="margin-bottom:8px">
+            <div class="byear blue">Layer 7</div>
+            <div class="btitle">Application</div>
+            <p>Interfaccia con le applicazioni utente. Fornisce servizi di rete direttamente alle applicazioni (HTTP, FTP, SMTP, DNS, SNMP). Gestisce la semantica dei dati scambiati.</p>
+          </div>
+          <div class="block blue" style="margin-bottom:8px">
+            <div class="byear blue">Layer 6</div>
+            <div class="btitle">Presentation</div>
+            <p>Traduzione, codifica, compressione e cifratura dei dati. Garantisce che i dati prodotti da un'applicazione siano leggibili da un'altra (es. conversione ASCII↔EBCDIC, TLS/SSL).</p>
+          </div>
+          <div class="block blue" style="margin-bottom:8px">
+            <div class="byear blue">Layer 5</div>
+            <div class="btitle">Session</div>
+            <p>Gestione delle sessioni di comunicazione: instaurazione, mantenimento, sincronizzazione e terminazione. Gestisce i checkpoint per recovery dei dati (es. RPC, NetBIOS).</p>
+          </div>
+          <div class="block teal" style="margin-bottom:8px">
+            <div class="byear teal">Layer 4</div>
+            <div class="btitle">Transport <span class="pill imp">TCP / UDP</span></div>
+            <p>Comunicazione end-to-end tra processi. Multiplexing tramite porte. Affidabilità (TCP), controllo di flusso, controllo di congestione, o servizio best-effort (UDP). La PDU è il <strong>segmento</strong> (TCP) o <strong>datagramma</strong> (UDP).</p>
+          </div>
         </div>
-        <div class="block blue" style="margin-bottom:8px">
-          <div class="byear blue">Layer 6</div>
-          <div class="btitle">Presentation</div>
-          <p>Traduzione, codifica, compressione e cifratura dei dati. Garantisce che i dati prodotti da un'applicazione siano leggibili da un'altra (es. conversione ASCII↔EBCDIC, TLS/SSL).</p>
-        </div>
-        <div class="block blue" style="margin-bottom:8px">
-          <div class="byear blue">Layer 5</div>
-          <div class="btitle">Session</div>
-          <p>Gestione delle sessioni di comunicazione: instaurazione, mantenimento, sincronizzazione e terminazione. Gestisce i checkpoint per recovery dei dati (es. RPC, NetBIOS).</p>
-        </div>
-        <div class="block teal" style="margin-bottom:8px">
-          <div class="byear teal">Layer 4</div>
-          <div class="btitle">Transport <span class="pill imp">TCP / UDP</span></div>
-          <p>Comunicazione end-to-end tra processi. Multiplexing tramite porte. Affidabilità (TCP), controllo di flusso, controllo di congestione, o servizio best-effort (UDP). La PDU è il <strong>segmento</strong> (TCP) o <strong>datagramma</strong> (UDP).</p>
+        <div>
+          <div class="block amber" style="margin-bottom:8px">
+            <div class="byear amber">Layer 3</div>
+            <div class="btitle">Network <span class="pill imp">IP / Router</span></div>
+            <p>Instradamento (routing) dei pacchetti attraverso reti eterogenee. Indirizzamento logico (IPv4, IPv6). Frammentazione/reassembling. La PDU è il <strong>pacchetto</strong>. Dispositivo chiave: il <strong>router</strong>.</p>
+          </div>
+          <div class="block amber" style="margin-bottom:8px">
+            <div class="byear amber">Layer 2</div>
+            <div class="btitle">Data Link <span class="pill imp">MAC / Switch</span></div>
+            <p>Trasmissione affidabile su singolo link fisico. Indirizzamento fisico (MAC address 48 bit). Framing, rilevazione errori (CRC/FCS), controllo di accesso al mezzo (CSMA/CD). La PDU è il <strong>frame</strong>. Dispositivo: <strong>switch</strong>.</p>
+          </div>
+          <div class="block red" style="margin-bottom:8px">
+            <div class="byear red">Layer 1</div>
+            <div class="btitle">Physical</div>
+            <p>Trasmissione di bit grezzi sul mezzo fisico. Definisce tensioni, frequenze, codifiche del segnale (NRZ, Manchester), connettori, cablaggi. La PDU è il <strong>bit</strong>.</p>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="block amber" style="margin-bottom:8px">
-          <div class="byear amber">Layer 3</div>
-          <div class="btitle">Network <span class="pill imp">IP / Router</span></div>
-          <p>Instradamento (routing) dei pacchetti attraverso reti eterogenee. Indirizzamento logico (IPv4, IPv6). Frammentazione/reassembling. La PDU è il <strong>pacchetto</strong>. Dispositivo chiave: il <strong>router</strong>.</p>
-        </div>
-        <div class="block amber" style="margin-bottom:8px">
-          <div class="byear amber">Layer 2</div>
-          <div class="btitle">Data Link <span class="pill imp">MAC / Switch</span></div>
-          <p>Trasmissione affidabile su singolo link fisico. Indirizzamento fisico (MAC address 48 bit). Framing, rilevazione errori (CRC/FCS), controllo di accesso al mezzo (CSMA/CD). La PDU è il <strong>frame</strong>. Dispositivo: <strong>switch</strong>.</p>
-        </div>
-        <div class="block red" style="margin-bottom:8px">
-          <div class="byear red">Layer 1</div>
-          <div class="btitle">Physical</div>
-          <p>Trasmissione di bit grezzi sul mezzo fisico. Definisce tensioni, frequenze, codifiche del segnale (NRZ, Manchester), connettori, cablaggi. La PDU è il <strong>bit</strong>.</p>
-        </div>
+    </div>
+  </div>
+
+  <!-- SUB: TCP/IP -->
+  <div id="osi-tcpip" class="sub-section">
+    <div class="sep">Modello TCP/IP — Stack Internet (DoD)</div>
+
+    <div class="card">
+      <div class="card-title g">Il modello a 4 layer del TCP/IP</div>
+      <p style="margin-bottom:12px">Il modello TCP/IP (detto anche DoD o Internet Model) è il riferimento pratico su cui è costruita Internet. Ha 4 layer che collassano i 7 livelli OSI in un'architettura più pragmatica:</p>
+      <div class="block green">
+        <div class="byear green">Layer 4 — Application</div>
+        <p>Incorpora i layer OSI 5, 6, 7. I protocolli applicativi gestiscono direttamente sessione, presentazione e applicazione senza distinzione formale. Esempi: <strong>HTTP/HTTPS, DNS, DHCP, FTP, SMTP, SSH, SNMP, Telnet</strong>.</p>
       </div>
+      <div class="block teal">
+        <div class="byear teal">Layer 3 — Transport</div>
+        <p>Corrisponde al layer 4 OSI. I due protocolli fondamentali sono <strong>TCP</strong> (connection-oriented, affidabile) e <strong>UDP</strong> (connectionless, best-effort). Fornisce multiplexing via numeri di porta.</p>
+      </div>
+      <div class="block amber">
+        <div class="byear amber">Layer 2 — Internet</div>
+        <p>Corrisponde al layer 3 OSI. Protocollo principale: <strong>IP</strong> (IPv4/IPv6). Responsabile dell'indirizzamento logico e del routing inter-rete. Protocolli ausiliari: <strong>ICMP</strong> (controllo ed errori), <strong>ARP</strong> (risoluzione IP→MAC), <strong>OSPF, BGP</strong> (routing dinamico).</p>
+      </div>
+      <div class="block red">
+        <div class="byear red">Layer 1 — Network Access (Link)</div>
+        <p>Incorpora i layer OSI 1 e 2. Gestisce la trasmissione fisica e il framing sul singolo link. Dipende dalla tecnologia: Ethernet, Wi-Fi (IEEE 802.11), PPP, DSL, ecc.</p>
+      </div>
+      <div class="highlight">Il modello OSI è un modello di riferimento teorico-normativo; il TCP/IP è il modello implementato realmente. OSI è utile per la didattica e per descrivere le responsabilità; TCP/IP è ciò che gira su ogni dispositivo connesso a Internet.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Incapsulamento (Encapsulation) — il processo fondamentale</div>
+      <p>Quando un'applicazione invia dati, ogni layer aggiunge la propria <strong>intestazione (header)</strong> al payload ricevuto dal layer superiore. Questo processo è detto <strong>incapsulamento</strong>. In ricezione avviene il processo inverso (<strong>decapsulamento</strong>). La PDU (Protocol Data Unit) cambia nome a ogni livello:</p>
+      <ul style="margin-top:8px">
+        <li>Livello Applicazione → <strong>Message/Data</strong></li>
+        <li>Livello Trasporto (TCP) → <strong>Segmento</strong> (aggiunge header TCP)</li>
+        <li>Livello Internet (IP) → <strong>Pacchetto/Datagramma IP</strong> (aggiunge header IP)</li>
+        <li>Livello Data Link → <strong>Frame</strong> (aggiunge header MAC + FCS)</li>
+        <li>Livello Fisico → <strong>Bit</strong></li>
+      </ul>
+      <p style="margin-top:8px">Due host sullo stesso link fisico comunicano scambiando <strong>frame</strong>; due host su reti diverse comunicano scambiando <strong>pacchetti IP</strong>, ognuno dei quali viene incapsulato in frame diversi a ogni hop intermedio.</p>
     </div>
   </div>
-
-  <div class="sep">Modello TCP/IP — Stack Internet (DoD)</div>
-
-  <div class="card">
-    <div class="card-title g">Il modello a 4 layer del TCP/IP</div>
-    <p style="margin-bottom:12px">Il modello TCP/IP (detto anche DoD o Internet Model) è il riferimento pratico su cui è costruita Internet. Ha 4 layer che collassano i 7 livelli OSI in un'architettura più pragmatica:</p>
-    <div class="block green">
-      <div class="byear green">Layer 4 — Application</div>
-      <p>Incorpora i layer OSI 5, 6, 7. I protocolli applicativi gestiscono direttamente sessione, presentazione e applicazione senza distinzione formale. Esempi: <strong>HTTP/HTTPS, DNS, DHCP, FTP, SMTP, SSH, SNMP, Telnet</strong>.</p>
-    </div>
-    <div class="block teal">
-      <div class="byear teal">Layer 3 — Transport</div>
-      <p>Corrisponde al layer 4 OSI. I due protocolli fondamentali sono <strong>TCP</strong> (connection-oriented, affidabile) e <strong>UDP</strong> (connectionless, best-effort). Fornisce multiplexing via numeri di porta.</p>
-    </div>
-    <div class="block amber">
-      <div class="byear amber">Layer 2 — Internet</div>
-      <p>Corrisponde al layer 3 OSI. Protocollo principale: <strong>IP</strong> (IPv4/IPv6). Responsabile dell'indirizzamento logico e del routing inter-rete. Protocolli ausiliari: <strong>ICMP</strong> (controllo ed errori), <strong>ARP</strong> (risoluzione IP→MAC), <strong>OSPF, BGP</strong> (routing dinamico).</p>
-    </div>
-    <div class="block red">
-      <div class="byear red">Layer 1 — Network Access (Link)</div>
-      <p>Incorpora i layer OSI 1 e 2. Gestisce la trasmissione fisica e il framing sul singolo link. Dipende dalla tecnologia: Ethernet, Wi-Fi (IEEE 802.11), PPP, DSL, ecc.</p>
-    </div>
-    <div class="highlight">Il modello OSI è un modello di riferimento teorico-normativo; il TCP/IP è il modello implementato realmente. OSI è utile per la didattica e per descrivere le responsabilità; TCP/IP è ciò che gira su ogni dispositivo connesso a Internet.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Incapsulamento (Encapsulation) — il processo fondamentale</div>
-    <p>Quando un'applicazione invia dati, ogni layer aggiunge la propria <strong>intestazione (header)</strong> al payload ricevuto dal layer superiore. Questo processo è detto <strong>incapsulamento</strong>. In ricezione avviene il processo inverso (<strong>decapsulamento</strong>). La PDU (Protocol Data Unit) cambia nome a ogni livello:</p>
-    <ul style="margin-top:8px">
-      <li>Livello Applicazione → <strong>Message/Data</strong></li>
-      <li>Livello Trasporto (TCP) → <strong>Segmento</strong> (aggiunge header TCP)</li>
-      <li>Livello Internet (IP) → <strong>Pacchetto/Datagramma IP</strong> (aggiunge header IP)</li>
-      <li>Livello Data Link → <strong>Frame</strong> (aggiunge header MAC + FCS)</li>
-      <li>Livello Fisico → <strong>Bit</strong></li>
-    </ul>
-    <p style="margin-top:8px">Due host sullo stesso link fisico comunicano scambiando <strong>frame</strong>; due host su reti diverse comunicano scambiando <strong>pacchetti IP</strong>, ognuno dei quali viene incapsulato in frame diversi a ogni hop intermedio.</p>
-  </div>
-
 </div>
 
 <!-- ============================= PROTOCOLLO IP ============================= -->
 <div id="ip" class="section">
 
-  <div class="block green" style="margin-top:16px">
+  <div class="chapter-header" style="margin-top:16px">
+    <div class="chapter-label">Capitolo</div>
+    <div class="chapter-title">IP</div>
+  </div>
+
+  <div class="block green">
     <div class="btitle">IP — Internet Protocol</div>
-    <p>Il protocollo IP (definito in <strong>RFC 791</strong> per IPv4) opera al livello 3 (Network/Internet) ed è il protocollo di instradamento universale di Internet. È un protocollo <strong>connectionless</strong> e <strong>best-effort</strong>: non offre garanzie di consegna, di ordinamento, né di assenza di duplicati. Ogni pacchetto è instradato indipendentemente dagli altri. L'affidabilità è delegata ai livelli superiori (TCP). IP fornisce due servizi fondamentali: <strong>indirizzamento logico</strong> (indirizzi IP) e <strong>instradamento</strong> (routing) dei datagrammi attraverso reti eterogenee.</p>
+    <p>Il protocollo IP opera al livello 3 (Network/Internet) ed è il protocollo di instradamento universale di Internet. È un protocollo <strong>connectionless</strong> e <strong>best-effort</strong>: non offre garanzie di consegna, di ordinamento, né di assenza di duplicati. Ogni pacchetto è instradato indipendentemente dagli altri. L'affidabilità è delegata ai livelli superiori (TCP). IP fornisce due servizi fondamentali: <strong>indirizzamento logico</strong> (indirizzi IP) e <strong>instradamento</strong> (routing) dei datagrammi attraverso reti eterogenee.</p>
   </div>
 
-  <div class="sep">Header IPv4 — Struttura completa (senza opzionali)</div>
-
-  <div class="header-fig">
-    <table>
-      <tr>
-        <th colspan="8">bit 0–7</th>
-        <th colspan="8">bit 8–15</th>
-        <th colspan="8">bit 16–23</th>
-        <th colspan="8">bit 24–31</th>
-      </tr>
-      <tr>
-        <td class="label" colspan="1">Byte 0</td>
-        <td colspan="4" style="color:#3dd080;font-weight:600;">Version (4 bit)</td>
-        <td colspan="4" style="color:#5aabff;font-weight:600;">IHL (4 bit)</td>
-        <td colspan="8" style="color:#f0a830;font-weight:600;">DSCP / ToS (8 bit)</td>
-        <td colspan="16" style="color:#b0a4ff;font-weight:600;">Total Length (16 bit)</td>
-      </tr>
-      <tr>
-        <td class="label" colspan="1">Byte 4</td>
-        <td colspan="16" style="color:#ff8080;font-weight:600;">Identification (16 bit)</td>
-        <td colspan="3" style="color:#22d3ee;font-weight:600;font-size:11px;">Flags (3 bit)</td>
-        <td colspan="13" style="color:#3dd0a0;font-weight:600;">Fragment Offset (13 bit)</td>
-      </tr>
-      <tr>
-        <td class="label" colspan="1">Byte 8</td>
-        <td colspan="8" style="color:#f0a830;font-weight:600;">TTL (8 bit)</td>
-        <td colspan="8" style="color:#5aabff;font-weight:600;">Protocol (8 bit)</td>
-        <td colspan="16" style="color:#ff8080;font-weight:600;">Header Checksum (16 bit)</td>
-      </tr>
-      <tr>
-        <td class="label" colspan="1">Byte 12</td>
-        <td colspan="32" style="color:#3dd080;font-weight:600;">Source IP Address (32 bit)</td>
-      </tr>
-      <tr>
-        <td class="label" colspan="1">Byte 16</td>
-        <td colspan="32" style="color:#b0a4ff;font-weight:600;">Destination IP Address (32 bit)</td>
-      </tr>
-    </table>
+  <div class="sub-nav">
+    <button class="sub-btn active" onclick="showSub('ip','ipheader',this)">Protocollo IP</button>
+    <button class="sub-btn" onclick="showSub('ip','ipaddr',this)">Indirizzamento IP</button>
   </div>
 
-  <div class="sep">Descrizione dettagliata di ogni campo dell'header IPv4</div>
+  <!-- SUB: IP HEADER -->
+  <div id="ip-ipheader" class="sub-section visible">
+    <div class="sep">Header IPv4 — Struttura completa (senza opzionali)</div>
 
-  <div class="block green">
-    <div class="byear green">Version — 4 bit</div>
-    <div class="btitle">Versione del protocollo IP</div>
-    <p>Indica la versione del protocollo IP. Per IPv4 il valore è <code>0100</code> (decimale 4); per IPv6 è <code>0110</code> (decimale 6). Il router usa questo campo per determinare come interpretare il resto dell'header.</p>
-  </div>
+    <div class="header-fig">
+      <table>
+        <tr>
+          <th colspan="8">bit 0–7</th>
+          <th colspan="8">bit 8–15</th>
+          <th colspan="8">bit 16–23</th>
+          <th colspan="8">bit 24–31</th>
+        </tr>
+        <tr>
+          <td class="label" colspan="1">Byte 0</td>
+          <td colspan="4" style="color:#3dd080;font-weight:600;">Version (4 bit)</td>
+          <td colspan="4" style="color:#5aabff;font-weight:600;">IHL (4 bit)</td>
+          <td colspan="8" style="color:#f0a830;font-weight:600;">DSCP / ToS (8 bit)</td>
+          <td colspan="16" style="color:#b0a4ff;font-weight:600;">Total Length (16 bit)</td>
+        </tr>
+        <tr>
+          <td class="label" colspan="1">Byte 4</td>
+          <td colspan="16" style="color:#ff8080;font-weight:600;">Identification (16 bit)</td>
+          <td colspan="3" style="color:#22d3ee;font-weight:600;font-size:11px;">Flags (3 bit)</td>
+          <td colspan="13" style="color:#3dd0a0;font-weight:600;">Fragment Offset (13 bit)</td>
+        </tr>
+        <tr>
+          <td class="label" colspan="1">Byte 8</td>
+          <td colspan="8" style="color:#f0a830;font-weight:600;">TTL (8 bit)</td>
+          <td colspan="8" style="color:#5aabff;font-weight:600;">Protocol (8 bit)</td>
+          <td colspan="16" style="color:#ff8080;font-weight:600;">Header Checksum (16 bit)</td>
+        </tr>
+        <tr>
+          <td class="label" colspan="1">Byte 12</td>
+          <td colspan="32" style="color:#3dd080;font-weight:600;">Source IP Address (32 bit)</td>
+        </tr>
+        <tr>
+          <td class="label" colspan="1">Byte 16</td>
+          <td colspan="32" style="color:#b0a4ff;font-weight:600;">Destination IP Address (32 bit)</td>
+        </tr>
+      </table>
+    </div>
 
-  <div class="block blue">
-    <div class="byear blue">IHL (Internet Header Length) — 4 bit</div>
-    <div class="btitle">Lunghezza dell'intestazione</div>
-    <p>Specifica la lunghezza dell'header IP in <strong>word da 32 bit</strong>. Il valore minimo è 5 (5 × 32 bit = 20 byte, header senza opzioni). Il valore massimo è 15 (15 × 32 bit = 60 byte). È necessario perché il campo Options ha lunghezza variabile. Sapere dove finisce l'header è indispensabile per trovare l'inizio del payload (segmento TCP/UDP).</p>
-  </div>
+    <div class="sep">Descrizione dettagliata di ogni campo dell'header IPv4</div>
 
-  <div class="block amber">
-    <div class="byear amber">DSCP / Type of Service — 8 bit</div>
-    <div class="btitle">Differentiated Services / Qualità del servizio</div>
-    <p>Originariamente definito come <strong>ToS (Type of Service)</strong>, ridefinito da RFC 2474 come <strong>DSCP (Differentiated Services Code Point)</strong>. I 6 bit DSCP più significativi definiscono la classe di traffico per la QoS (Quality of Service): priorità del pacchetto, gestione in caso di congestione (Expedited Forwarding, Assured Forwarding). I 2 bit ECN (Explicit Congestion Notification) segnalano la congestione in rete senza dover scartare pacchetti.</p>
-  </div>
+    <div class="block green">
+      <div class="byear green">Version — 4 bit</div>
+      <div class="btitle">Versione del protocollo IP</div>
+      <p>Indica la versione del protocollo IP. Per IPv4 il valore è <code>0100</code> (decimale 4); per IPv6 è <code>0110</code> (decimale 6). Il router usa questo campo per determinare come interpretare il resto dell'header.</p>
+    </div>
 
-  <div class="block purple">
-    <div class="byear purple">Total Length — 16 bit</div>
-    <div class="btitle">Lunghezza totale del datagramma IP</div>
-    <p>Indica la dimensione totale del datagramma IP in byte, inclusi header e payload. Valore minimo: 20 byte (solo header). Valore massimo teorico: <strong>65.535 byte</strong>. Nella pratica il limite è imposto dalla MTU del link (1500 byte per Ethernet). Quando un datagramma supera la MTU, il router effettua la <strong>frammentazione</strong>.</p>
-  </div>
+    <div class="block blue">
+      <div class="byear blue">IHL (Internet Header Length) — 4 bit</div>
+      <div class="btitle">Lunghezza dell'intestazione</div>
+      <p>Specifica la lunghezza dell'header IP in <strong>word da 32 bit</strong>. Il valore minimo è 5 (5 × 32 bit = 20 byte, header senza opzioni). Il valore massimo è 15 (15 × 32 bit = 60 byte). È necessario perché il campo Options ha lunghezza variabile. Sapere dove finisce l'header è indispensabile per trovare l'inizio del payload (segmento TCP/UDP).</p>
+    </div>
 
-  <div class="block red">
-    <div class="byear red">Identification — 16 bit</div>
-    <div class="btitle">Identificatore del datagramma (per frammentazione)</div>
-    <p>Numero identificativo assegnato dal mittente al datagramma. Tutti i frammenti prodotti dalla frammentazione di un singolo datagramma originale condividono lo <strong>stesso valore di Identification</strong>. Il destinatario usa questo campo per raggruppare i frammenti appartenenti allo stesso datagramma originale durante il reassembling.</p>
-  </div>
+    <div class="block amber">
+      <div class="byear amber">DSCP / Type of Service — 8 bit</div>
+      <div class="btitle">Differentiated Services / Qualità del servizio</div>
+      <p>Originariamente definito come <strong>ToS (Type of Service)</strong>, ridefinito come <strong>DSCP (Differentiated Services Code Point)</strong>. I 6 bit DSCP più significativi definiscono la classe di traffico per la QoS (Quality of Service): priorità del pacchetto, gestione in caso di congestione (Expedited Forwarding, Assured Forwarding). I 2 bit ECN (Explicit Congestion Notification) segnalano la congestione in rete senza dover scartare pacchetti.</p>
+    </div>
 
-  <div class="block cyan">
-    <div class="byear cyan">Flags — 3 bit</div>
-    <div class="btitle">Controllo della frammentazione</div>
-    <ul>
-      <li><strong>Bit 0 (Reserved)</strong>: sempre 0.</li>
-      <li><strong>Bit 1 — DF (Don't Fragment)</strong>: se impostato a 1, il router <em>non deve</em> frammentare il pacchetto. Se il pacchetto supera la MTU del link successivo, viene scartato e il mittente riceve un messaggio ICMP "Fragmentation Needed". Usato dal meccanismo <strong>Path MTU Discovery</strong>.</li>
-      <li><strong>Bit 2 — MF (More Fragments)</strong>: se impostato a 1, indica che esistono altri frammenti successivi. L'ultimo frammento ha MF = 0. Il destinatario sa che il datagramma è completo quando riceve un frammento con MF = 0.</li>
-    </ul>
-  </div>
+    <div class="block purple">
+      <div class="byear purple">Total Length — 16 bit</div>
+      <div class="btitle">Lunghezza totale del datagramma IP</div>
+      <p>Indica la dimensione totale del datagramma IP in byte, inclusi header e payload. Valore minimo: 20 byte (solo header). Valore massimo teorico: <strong>65.535 byte</strong>. Nella pratica il limite è imposto dalla MTU del link (1500 byte per Ethernet). Quando un datagramma supera la MTU, il router effettua la <strong>frammentazione</strong>.</p>
+    </div>
 
-  <div class="block teal">
-    <div class="byear teal">Fragment Offset — 13 bit</div>
-    <div class="btitle">Posizione del frammento nel datagramma originale</div>
-    <p>Indica la posizione dei dati del frammento rispetto all'inizio del payload del datagramma originale, espressa in <strong>unità di 8 byte</strong>. Il primo frammento ha offset = 0. Il destinatario usa Identification + Fragment Offset per riassemblare correttamente tutti i frammenti nell'ordine giusto, indipendentemente dall'ordine di arrivo.</p>
-  </div>
+    <div class="block red">
+      <div class="byear red">Identification — 16 bit</div>
+      <div class="btitle">Identificatore del datagramma (per frammentazione)</div>
+      <p>Numero identificativo assegnato dal mittente al datagramma. Tutti i frammenti prodotti dalla frammentazione di un singolo datagramma originale condividono lo <strong>stesso valore di Identification</strong>. Il destinatario usa questo campo per raggruppare i frammenti appartenenti allo stesso datagramma originale durante il reassembling.</p>
+    </div>
 
-  <div class="block amber">
-    <div class="byear amber">TTL (Time to Live) — 8 bit</div>
-    <div class="btitle">Limite di hop per prevenire loop di routing</div>
-    <p>Il TTL è decrementato di 1 da ogni router che elabora il pacchetto. Quando raggiunge 0, il router scarta il pacchetto e invia un messaggio <strong>ICMP Time Exceeded</strong> al mittente. Funzione: prevenire che pacchetti con destinazione irraggiungibile circolino indefinitamente nella rete a causa di loop di routing. Valori tipici: 64 (Linux), 128 (Windows), 255 (router Cisco). Lo strumento <strong>traceroute</strong> sfrutta il TTL inviando datagrammi con TTL incrementale per mappare il percorso.</p>
-  </div>
-
-  <div class="block blue">
-    <div class="byear blue">Protocol — 8 bit</div>
-    <div class="btitle">Protocollo del livello superiore (demultiplexing)</div>
-    <p>Identifica il protocollo di livello 4 incapsulato nel payload IP, permettendo al livello IP in ricezione di passare il datagramma al processo corretto (<strong>demultiplexing</strong>). Valori standardizzati da IANA: <code>6</code> = TCP, <code>17</code> = UDP, <code>1</code> = ICMP, <code>89</code> = OSPF, <code>41</code> = IPv6 encapsulato, <code>50</code> = ESP (IPsec).</p>
-  </div>
-
-  <div class="block red">
-    <div class="byear red">Header Checksum — 16 bit</div>
-    <div class="btitle">Integrità dell'header IP</div>
-    <p>Checksum calcolato solo sull'header IP (non sul payload). Viene ricalcolato da ogni router perché il TTL cambia a ogni hop. Algoritmo: complemento a 1 della somma dei complementi a 1 delle word da 16 bit dell'header. Se il checksum non corrisponde, il datagramma viene scartato silenziosamente. In IPv6 questo campo è stato eliminato per efficienza (la verifica dell'integrità è delegata ai livelli superiori).</p>
-  </div>
-
-  <div class="block green">
-    <div class="byear green">Source / Destination IP Address — 32 bit ciascuno</div>
-    <div class="btitle">Indirizzi IP sorgente e destinazione</div>
-    <p>Indirizzi IPv4 a 32 bit in notazione puntata (dotted-decimal). L'indirizzo sorgente identifica il mittente del datagramma; l'indirizzo destinazione identifica il ricevente. Sono i campi su cui si basa tutto il processo di routing. Attenzione: in presenza di NAT (Network Address Translation) l'indirizzo sorgente viene modificato dai router di bordo.</p>
-  </div>
-
-  <div class="sep">Indirizzamento IP — Architettura e struttura</div>
-
-  <div class="block green">
-    <div class="btitle">Perché l'indirizzamento IP?</div>
-    <p>In una rete eterogenea composta da tecnologie diverse (Ethernet, Wi-Fi, ATM, PPP...) gli indirizzi fisici (MAC) sono specifici per ogni tecnologia e non sono gerarchici: non è possibile fare routing su di essi. L'indirizzamento IP introduce un <strong>piano di indirizzamento logico, gerarchico e uniforme</strong>, indipendente dalla tecnologia del link fisico sottostante. La gerarchia (rete + host) permette ai router di aggregare le rotte e costruire tabelle di routing scalabili.</p>
-  </div>
-
-  <div class="block blue">
-    <div class="btitle">Struttura di un indirizzo IPv4</div>
-    <p>Un indirizzo IPv4 è composto da <strong>32 bit</strong> divisi in due parti logiche: il <strong>network prefix</strong> (identifica la rete) e il <strong>host portion</strong> (identifica l'host all'interno di quella rete). La suddivisione è determinata dalla <strong>subnet mask</strong>. In notazione CIDR si scrive <code>192.168.1.0/24</code> dove <code>/24</code> indica che i primi 24 bit sono il network prefix.</p>
-    <ul style="margin-top:8px">
-      <li><strong>Network Address</strong>: tutti i bit host a 0. Es. <code>192.168.1.0/24</code>. Identifica la rete, non è assegnabile a un host.</li>
-      <li><strong>Broadcast Address</strong>: tutti i bit host a 1. Es. <code>192.168.1.255/24</code>. Un pacchetto inviato all'indirizzo broadcast è consegnato a tutti gli host della sottorete.</li>
-      <li><strong>Indirizzi host</strong>: tutti gli indirizzi tra network e broadcast. In una /24: 256 - 2 = <strong>254 host utilizzabili</strong>.</li>
-    </ul>
-  </div>
-
-  <div class="block teal">
-    <div class="btitle">CIDR — Classless Inter-Domain Routing (RFC 1519)</div>
-    <p>Prima del CIDR esisteva il <strong>classful addressing</strong>: Classe A (/8), Classe B (/16), Classe C (/24). Questo schema era estremamente rigido e causava un enorme spreco di indirizzi (es. un'organizzazione con 300 host doveva ottenere una Classe B con 65.534 indirizzi). Il CIDR ha abolito le classi fisse permettendo prefix di qualsiasi lunghezza (<strong>Variable Length Subnet Masking, VLSM</strong>). Oggi si assegnano blocchi della dimensione strettamente necessaria.</p>
-    <p style="margin-top:6px">La subnet mask in CIDR: <code>/24</code> = <code>255.255.255.0</code>; <code>/25</code> = <code>255.255.255.128</code>; <code>/30</code> = <code>255.255.255.252</code> (solo 2 host: usata per link punto-punto tra router).</p>
-  </div>
-
-  <div class="block amber">
-    <div class="btitle">Indirizzi privati RFC 1918 e NAT</div>
-    <p>Lo spazio di indirizzamento IPv4 a 32 bit teoricamente permette circa 4,3 miliardi di indirizzi. L'esaurimento degli indirizzi pubblici ha portato a riservare blocchi di indirizzi privati (RFC 1918), non instradabili su Internet:</p>
-    <ul style="margin-top:6px">
-      <li><code>10.0.0.0/8</code> — Classe A privata (16.777.214 host)</li>
-      <li><code>172.16.0.0/12</code> — Classe B privata (1.048.574 host)</li>
-      <li><code>192.168.0.0/16</code> — Classe C privata (65.534 host)</li>
-    </ul>
-    <p style="margin-top:6px">Il meccanismo <strong>NAT (Network Address Translation)</strong> permette a host con indirizzi privati di accedere a Internet traducendo gli indirizzi privati in uno o pochi indirizzi pubblici. Il router NAT mantiene una <strong>NAT table</strong> che mappa coppie (IP privato : porta sorgente) ↔ (IP pubblico : porta NAT).</p>
-  </div>
-
-  <div class="grid3">
-    <div class="card-small">
-      <div class="badge green">Indirizzi speciali</div>
+    <div class="block cyan">
+      <div class="byear cyan">Flags — 3 bit</div>
+      <div class="btitle">Controllo della frammentazione</div>
       <ul>
-        <li><code>0.0.0.0/0</code> — Default route</li>
-        <li><code>127.0.0.0/8</code> — Loopback</li>
-        <li><code>169.254.0.0/16</code> — APIPA (link-local)</li>
-        <li><code>224.0.0.0/4</code> — Multicast</li>
-        <li><code>255.255.255.255</code> — Broadcast limitato</li>
+        <li><strong>Bit 0 (Reserved)</strong>: sempre 0.</li>
+        <li><strong>Bit 1 — DF (Don't Fragment)</strong>: se impostato a 1, il router <em>non deve</em> frammentare il pacchetto. Se il pacchetto supera la MTU del link successivo, viene scartato e il mittente riceve un messaggio ICMP "Fragmentation Needed". Usato dal meccanismo <strong>Path MTU Discovery</strong>.</li>
+        <li><strong>Bit 2 — MF (More Fragments)</strong>: se impostato a 1, indica che esistono altri frammenti successivi. L'ultimo frammento ha MF = 0. Il destinatario sa che il datagramma è completo quando riceve un frammento con MF = 0.</li>
       </ul>
     </div>
-    <div class="card-small">
-      <div class="badge blue">Calcolo rete da CIDR</div>
-      <ul>
-        <li>IP: <code>192.168.10.130/26</code></li>
-        <li>Mask: <code>255.255.255.192</code></li>
-        <li>Network: AND bit a bit IP&amp;Mask</li>
-        <li>→ <code>192.168.10.128/26</code></li>
-        <li>Broadcast: <code>192.168.10.191</code></li>
-        <li>Host range: .129 – .190 (62 host)</li>
-      </ul>
+
+    <div class="block teal">
+      <div class="byear teal">Fragment Offset — 13 bit</div>
+      <div class="btitle">Posizione del frammento nel datagramma originale</div>
+      <p>Indica la posizione dei dati del frammento rispetto all'inizio del payload del datagramma originale, espressa in <strong>unità di 8 byte</strong>. Il primo frammento ha offset = 0. Il destinatario usa Identification + Fragment Offset per riassemblare correttamente tutti i frammenti nell'ordine giusto, indipendentemente dall'ordine di arrivo.</p>
     </div>
-    <div class="card-small">
-      <div class="badge amber">Subnetting logica</div>
-      <ul>
-        <li>Ogni bit sottratto all'host raddoppia il numero di reti</li>
-        <li>n bit host → 2<sup>n</sup> - 2 host</li>
-        <li>/30 → 4 indirizzi, 2 host</li>
-        <li>/29 → 8 indirizzi, 6 host</li>
-        <li>/28 → 16 indirizzi, 14 host</li>
-        <li>/27 → 32 indirizzi, 30 host</li>
-      </ul>
+
+    <div class="block amber">
+      <div class="byear amber">TTL (Time to Live) — 8 bit</div>
+      <div class="btitle">Limite di hop per prevenire loop di routing</div>
+      <p>Il TTL è decrementato di 1 da ogni router che elabora il pacchetto. Quando raggiunge 0, il router scarta il pacchetto e invia un messaggio <strong>ICMP Time Exceeded</strong> al mittente. Funzione: prevenire che pacchetti con destinazione irraggiungibile circolino indefinitamente nella rete a causa di loop di routing. Valori tipici: 64 (Linux), 128 (Windows), 255 (router Cisco). Lo strumento <strong>traceroute</strong> sfrutta il TTL inviando datagrammi con TTL incrementale per mappare il percorso.</p>
+    </div>
+
+    <div class="block blue">
+      <div class="byear blue">Protocol — 8 bit</div>
+      <div class="btitle">Protocollo del livello superiore (demultiplexing)</div>
+      <p>Identifica il protocollo di livello 4 incapsulato nel payload IP, permettendo al livello IP in ricezione di passare il datagramma al processo corretto (<strong>demultiplexing</strong>). Valori standardizzati da IANA: <code>6</code> = TCP, <code>17</code> = UDP, <code>1</code> = ICMP, <code>89</code> = OSPF, <code>41</code> = IPv6 encapsulato, <code>50</code> = ESP (IPsec).</p>
+    </div>
+
+    <div class="block red">
+      <div class="byear red">Header Checksum — 16 bit</div>
+      <div class="btitle">Integrità dell'header IP</div>
+      <p>Checksum calcolato solo sull'header IP (non sul payload). Viene ricalcolato da ogni router perché il TTL cambia a ogni hop. Algoritmo: complemento a 1 della somma dei complementi a 1 delle word da 16 bit dell'header. Se il checksum non corrisponde, il datagramma viene scartato silenziosamente. In IPv6 questo campo è stato eliminato per efficienza (la verifica dell'integrità è delegata ai livelli superiori).</p>
+    </div>
+
+    <div class="block green">
+      <div class="byear green">Source / Destination IP Address — 32 bit ciascuno</div>
+      <div class="btitle">Indirizzi IP sorgente e destinazione</div>
+      <p>Indirizzi IPv4 a 32 bit in notazione puntata (dotted-decimal). L'indirizzo sorgente identifica il mittente del datagramma; l'indirizzo destinazione identifica il ricevente. Sono i campi su cui si basa tutto il processo di routing. Attenzione: in presenza di NAT (Network Address Translation) l'indirizzo sorgente viene modificato dai router di bordo.</p>
     </div>
   </div>
 
+  <!-- SUB: INDIRIZZAMENTO IP -->
+  <div id="ip-ipaddr" class="sub-section">
+    <div class="sep">Indirizzamento IP — Architettura e struttura</div>
+
+    <div class="block green">
+      <div class="btitle">Perché l'indirizzamento IP?</div>
+      <p>In una rete eterogenea composta da tecnologie diverse (Ethernet, Wi-Fi, ATM, PPP...) gli indirizzi fisici (MAC) sono specifici per ogni tecnologia e non sono gerarchici: non è possibile fare routing su di essi. L'indirizzamento IP introduce un <strong>piano di indirizzamento logico, gerarchico e uniforme</strong>, indipendente dalla tecnologia del link fisico sottostante. La gerarchia (rete + host) permette ai router di aggregare le rotte e costruire tabelle di routing scalabili.</p>
+    </div>
+
+    <div class="block blue">
+      <div class="btitle">Struttura di un indirizzo IPv4</div>
+      <p>Un indirizzo IPv4 è composto da <strong>32 bit</strong> divisi in due parti logiche: il <strong>network prefix</strong> (identifica la rete) e il <strong>host portion</strong> (identifica l'host all'interno di quella rete). La suddivisione è determinata dalla <strong>subnet mask</strong>. In notazione CIDR si scrive <code>192.168.1.0/24</code> dove <code>/24</code> indica che i primi 24 bit sono il network prefix.</p>
+      <ul style="margin-top:8px">
+        <li><strong>Network Address</strong>: tutti i bit host a 0. Es. <code>192.168.1.0/24</code>. Identifica la rete, non è assegnabile a un host.</li>
+        <li><strong>Broadcast Address</strong>: tutti i bit host a 1. Es. <code>192.168.1.255/24</code>. Un pacchetto inviato all'indirizzo broadcast è consegnato a tutti gli host della sottorete.</li>
+        <li><strong>Indirizzi host</strong>: tutti gli indirizzi tra network e broadcast. In una /24: 256 - 2 = <strong>254 host utilizzabili</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="block teal">
+      <div class="btitle">CIDR — Classless Inter-Domain Routing</div>
+      <p>Prima del CIDR esisteva il <strong>classful addressing</strong>: Classe A (/8), Classe B (/16), Classe C (/24). Questo schema era estremamente rigido e causava un enorme spreco di indirizzi (es. un'organizzazione con 300 host doveva ottenere una Classe B con 65.534 indirizzi). Il CIDR ha abolito le classi fisse permettendo prefix di qualsiasi lunghezza (<strong>Variable Length Subnet Masking, VLSM</strong>). Oggi si assegnano blocchi della dimensione strettamente necessaria.</p>
+      <p style="margin-top:6px">La subnet mask in CIDR: <code>/24</code> = <code>255.255.255.0</code>; <code>/25</code> = <code>255.255.255.128</code>; <code>/30</code> = <code>255.255.255.252</code> (solo 2 host: usata per link punto-punto tra router).</p>
+    </div>
+
+    <div class="block amber">
+      <div class="btitle">Indirizzi privati e NAT</div>
+      <p>Lo spazio di indirizzamento IPv4 a 32 bit teoricamente permette circa 4,3 miliardi di indirizzi. L'esaurimento degli indirizzi pubblici ha portato a riservare blocchi di indirizzi privati (non instradabili su Internet):</p>
+      <ul style="margin-top:6px">
+        <li><code>10.0.0.0/8</code> — Classe A privata (16.777.214 host)</li>
+        <li><code>172.16.0.0/12</code> — Classe B privata (1.048.574 host)</li>
+        <li><code>192.168.0.0/16</code> — Classe C privata (65.534 host)</li>
+      </ul>
+      <p style="margin-top:6px">Il meccanismo <strong>NAT (Network Address Translation)</strong> permette a host con indirizzi privati di accedere a Internet traducendo gli indirizzi privati in uno o pochi indirizzi pubblici. Il router NAT mantiene una <strong>NAT table</strong> che mappa coppie (IP privato : porta sorgente) ↔ (IP pubblico : porta NAT).</p>
+    </div>
+
+    <div class="grid3">
+      <div class="card-small">
+        <div class="badge green">Indirizzi speciali</div>
+        <ul>
+          <li><code>0.0.0.0/0</code> — Default route</li>
+          <li><code>127.0.0.0/8</code> — Loopback</li>
+          <li><code>169.254.0.0/16</code> — APIPA (link-local)</li>
+          <li><code>224.0.0.0/4</code> — Multicast</li>
+          <li><code>255.255.255.255</code> — Broadcast limitato</li>
+        </ul>
+      </div>
+      <div class="card-small">
+        <div class="badge blue">Calcolo rete da CIDR</div>
+        <ul>
+          <li>IP: <code>192.168.10.130/26</code></li>
+          <li>Mask: <code>255.255.255.192</code></li>
+          <li>Network: AND bit a bit IP&amp;Mask</li>
+          <li>→ <code>192.168.10.128/26</code></li>
+          <li>Broadcast: <code>192.168.10.191</code></li>
+          <li>Host range: .129 – .190 (62 host)</li>
+        </ul>
+      </div>
+      <div class="card-small">
+        <div class="badge amber">Subnetting logica</div>
+        <ul>
+          <li>Ogni bit sottratto all'host raddoppia il numero di reti</li>
+          <li>n bit host → 2<sup>n</sup> - 2 host</li>
+          <li>/30 → 4 indirizzi, 2 host</li>
+          <li>/29 → 8 indirizzi, 6 host</li>
+          <li>/28 → 16 indirizzi, 14 host</li>
+          <li>/27 → 32 indirizzi, 30 host</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ============================= ROUTER ============================= -->
@@ -625,15 +679,41 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
   <div class="block green" style="margin-top:16px">
     <div class="btitle">Cos'è un Router</div>
     <p>Un <strong>router</strong> è un dispositivo di livello 3 (Network) che interconnette reti diverse e instrada i pacchetti IP tra di esse. A differenza degli switch (che operano a L2 e instradano frame in base agli indirizzi MAC all'interno di una stessa rete), il router prende decisioni di forwarding basate sugli <strong>indirizzi IP di destinazione</strong> dei pacchetti, permettendo la comunicazione tra reti logicamente distinte. Ogni interfaccia del router appartiene a una rete IP diversa e ha un proprio indirizzo IP.</p>
+    <p style="margin-top:6px">Il router svolge tre funzioni principali: <strong>Addressing</strong> (assegna e gestisce gli indirizzi IP sulle proprie interfacce), <strong>Routing</strong> (decide il percorso migliore per ogni pacchetto consultando la routing table) e <strong>Fragmentation</strong> (se un pacchetto è troppo grande per il link di uscita, lo suddivide in frammenti più piccoli compatibili con la MTU di quel link).</p>
   </div>
 
-  <div class="sep">Componenti hardware di un router</div>
+  <div class="sep">Componenti hardware interni di un router</div>
+
+  <div class="grid2">
+    <div class="card-small" style="border-top: 3px solid #3dd080;">
+      <div class="badge green">CPU (Central Processing Unit)</div>
+      <div class="ct">Processore principale</div>
+      <p>È il "cervello" del router. Esegue il sistema operativo del router (es. Cisco IOS, JunOS) e i <strong>protocolli di routing dinamico</strong> (OSPF, BGP, RIP, EIGRP). La CPU gestisce anche la configurazione del dispositivo, le sessioni di management (SSH, SNMP), il calcolo delle tabelle di routing e la risposta ai messaggi di controllo come ICMP. Nei router moderni, la CPU non si occupa del forwarding normale dei pacchetti (che avviene in hardware dedicato) ma solo dei pacchetti speciali o delle eccezioni.</p>
+    </div>
+    <div class="card-small" style="border-top: 3px solid #5aabff;">
+      <div class="badge blue">RAM (Random Access Memory)</div>
+      <div class="ct">Memoria di lavoro</div>
+      <p>È la memoria volatile principale del router. Contiene tutto ciò che il router usa durante il funzionamento: la <strong>routing table</strong> (tabella delle rotte attive, detta anche RIB — Routing Information Base), la <strong>ARP table</strong> (mappatura IP↔MAC), i <strong>buffer dei pacchetti</strong> in transito (code di ingresso e uscita), la configurazione in esecuzione (running-config) e lo stato dei protocolli di routing attivi. Se il router viene spento, tutto il contenuto della RAM viene perso. Più RAM significa routing table più grande e buffer più profondi.</p>
+    </div>
+    <div class="card-small" style="border-top: 3px solid #f0a830;">
+      <div class="badge amber">NVRAM / Flash (Memoria non volatile)</div>
+      <div class="ct">Archiviazione persistente</div>
+      <p>Il router usa due tipi di memoria permanente. La <strong>NVRAM (Non-Volatile RAM)</strong> contiene la configurazione di avvio (startup-config): le impostazioni salvate che il router carica all'accensione. La memoria <strong>Flash</strong> (simile a una chiavetta USB interna) contiene l'immagine del sistema operativo del router (il firmware). Queste memorie non perdono i dati in assenza di alimentazione. Quando si salva la configurazione con il comando <code>write memory</code>, la running-config dalla RAM viene copiata nella NVRAM.</p>
+    </div>
+    <div class="card-small" style="border-top: 3px solid #3dd0a0;">
+      <div class="badge teal">Cache / FIB (Forwarding Information Base)</div>
+      <div class="ct">Tabella di forwarding veloce</div>
+      <p>Per evitare che la CPU debba consultare la routing table completa per ogni singolo pacchetto (operazione lenta), i router moderni mantengono una <strong>FIB (Forwarding Information Base)</strong>: una versione ottimizzata e precompilata della routing table, caricata direttamente nelle <strong>ASIC</strong> (chip hardware dedicati al forwarding). Questa cache hardware consente il <strong>forwarding a velocità di linea</strong> — cioè alla massima velocità del link — senza coinvolgere la CPU. La FIB viene aggiornata ogni volta che la routing table cambia.</p>
+    </div>
+  </div>
+
+  <div class="sep">Porte e matrice di commutazione</div>
 
   <div class="grid2">
     <div class="card-small">
       <div class="badge green">Input Ports</div>
       <div class="ct">Porte di ingresso</div>
-      <p>Terminano il link fisico in ingresso. Eseguono le funzioni del livello fisico (ricezione segnale), del livello data-link (decapsulamento del frame) e del livello network (lookup nella routing table per determinare la porta di uscita). Le implementazioni moderne eseguono il <strong>lookup a velocità di linea</strong> per evitare colli di bottiglia.</p>
+      <p>Terminano il link fisico in ingresso. Eseguono le funzioni del livello fisico (ricezione segnale), del livello data-link (decapsulamento del frame) e del livello network (lookup nella FIB per determinare la porta di uscita). Le implementazioni moderne eseguono il <strong>lookup a velocità di linea</strong> per evitare colli di bottiglia.</p>
     </div>
     <div class="card-small">
       <div class="badge blue">Switching Fabric</div>
@@ -652,42 +732,35 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
     </div>
   </div>
 
-  <div class="sep">Funzioni del router: instradamento diretto e indiretto</div>
+  <div class="sep">Funzioni del router: addressing, routing e fragmentation</div>
+
+  <div class="block green">
+    <div class="byear green">Funzione 1</div>
+    <div class="btitle">Addressing — Gestione degli indirizzi IP</div>
+    <p>Ogni interfaccia fisica del router deve avere un <strong>indirizzo IP</strong> appartenente alla rete a cui è connessa. Questo indirizzo funge da <strong>default gateway</strong> per gli host di quella rete: quando un host deve inviare un pacchetto a una rete diversa dalla propria, lo indirizza al router come primo hop. Il router gestisce anche la propria <strong>ARP table</strong>, associando gli indirizzi IP dei vicini diretti ai loro indirizzi MAC, necessari per costruire i frame di livello 2 sui singoli link.</p>
+  </div>
 
   <div class="block blue">
-    <div class="btitle">Instradamento Diretto (Direct Delivery)</div>
-    <p>Si verifica quando mittente e destinatario si trovano nella <strong>stessa rete IP</strong> (stesso network prefix). Il mittente esegue un AND bit a bit tra l'IP di destinazione e la propria subnet mask: se il risultato coincide con il proprio network address, la destinazione è nella stessa rete. In questo caso il pacchetto viene consegnato direttamente al destinatario tramite il layer 2 (ARP per risolvere IP→MAC, poi frame Ethernet direttamente). Il router non è coinvolto nel forwarding.</p>
+    <div class="byear blue">Funzione 2</div>
+    <div class="btitle">Routing — Instradamento diretto e indiretto</div>
+    <p><strong>Instradamento Diretto</strong>: mittente e destinatario si trovano nella stessa rete IP (stesso network prefix). Il mittente esegue un AND bit a bit tra l'IP di destinazione e la propria subnet mask: se il risultato coincide con il proprio network address, la destinazione è nella stessa rete. Il pacchetto viene consegnato direttamente tramite ARP, senza coinvolgere il router.</p>
+    <p style="margin-top:6px"><strong>Instradamento Indiretto</strong>: mittente e destinatario si trovano in reti IP diverse. Il mittente invia il pacchetto al <strong>default gateway</strong>. Il router riceve il pacchetto, esamina l'IP di destinazione, consulta la propria <strong>routing table / FIB</strong> e applica il principio del <strong>Longest Prefix Match (LPM)</strong>: tra tutte le voci che matchano l'IP di destinazione, viene selezionata quella con il prefix più lungo (più specifico). Ad ogni hop il router decrementa il <strong>TTL</strong> di 1, ricalcola il <strong>checksum</strong> IP e sostituisce l'indirizzo MAC di destinazione del frame con quello del prossimo hop.</p>
+    <p style="margin-top:6px">Le rotte possono essere <strong>statiche</strong> (configurate manualmente, nessun overhead di protocollo, usate per reti piccole) oppure <strong>dinamiche</strong> (apprese tramite protocolli come OSPF, BGP, RIP, EIGRP — si adattano automaticamente ai guasti di rete).</p>
   </div>
 
   <div class="block amber">
-    <div class="btitle">Instradamento Indiretto (Indirect Delivery)</div>
-    <p>Si verifica quando mittente e destinatario si trovano in <strong>reti IP diverse</strong>. Il mittente verifica che la destinazione non è nella stessa rete e invia il pacchetto al <strong>default gateway</strong> (il router di accesso locale). Il router riceve il pacchetto, esamina l'indirizzo IP di destinazione, consulta la propria <strong>routing table / FIB</strong> e determina la <strong>next-hop address</strong> (prossimo router) o l'interfaccia di uscita. Il pacchetto è inoltrato hop-by-hop fino alla destinazione.</p>
-    <p style="margin-top:6px">Ad ogni hop il router: decrementa il <strong>TTL</strong> di 1 (scarta se TTL=0 e manda ICMP Time Exceeded); ricalcola il <strong>checksum</strong> dell'header IP; sostituisce l'indirizzo MAC di destinazione del frame con quello del prossimo hop (ARP lookup).</p>
+    <div class="byear amber">Funzione 3</div>
+    <div class="btitle">Fragmentation — Frammentazione dei pacchetti</div>
+    <p>Ogni link di rete ha una <strong>MTU (Maximum Transmission Unit)</strong>: la dimensione massima di un frame che può essere trasmesso su quel link (Ethernet standard: 1500 byte). Quando un pacchetto IP che deve attraversare un link ha una dimensione superiore alla MTU di quel link, il router esegue la <strong>frammentazione</strong>: suddivide il datagramma originale in più frammenti più piccoli, ciascuno con il proprio header IP.</p>
+    <p style="margin-top:6px">Ogni frammento porta lo stesso valore di <strong>Identification</strong> del datagramma originale (così il destinatario sa che appartengono allo stesso messaggio), un <strong>Fragment Offset</strong> che indica la posizione dei suoi dati nel flusso originale, e il flag <strong>MF (More Fragments)</strong> impostato a 1 (tranne l'ultimo frammento). Il riassemblaggio avviene esclusivamente alla <strong>destinazione finale</strong>, non nei router intermedi. Se il bit <strong>DF (Don't Fragment)</strong> è impostato nell'header e il pacchetto supera la MTU, il router scarta il pacchetto e invia un messaggio ICMP al mittente.</p>
   </div>
-
-  <div class="block teal">
-    <div class="btitle">Routing Table — struttura e lookup</div>
-    <p>La routing table contiene voci nella forma <code>(network_prefix/mask, next_hop, interfaccia_uscita, metrica)</code>. Il router applica il principio del <strong>Longest Prefix Match (LPM)</strong>: tra tutte le voci che matchano l'IP di destinazione, viene selezionata quella con il prefix più lungo (più specifico). Esempio: se esistono voci per <code>10.0.0.0/8</code> e <code>10.1.2.0/24</code>, un pacchetto per <code>10.1.2.5</code> matcha entrambe ma viene instradato sulla voce <code>/24</code> (più specifica). La voce <strong>default route</strong> (<code>0.0.0.0/0</code>) ha prefix length 0 ed è usata per tutti i pacchetti senza match più specifico.</p>
-  </div>
-
-  <div class="grid2">
-    <div class="card-small">
-      <div class="badge green">Routing statico</div>
-      <p>Le rotte sono configurate manualmente dall'amministratore. Non si adatta automaticamente ai cambiamenti topologici. Usato per reti piccole, rotte di default, stub network. Nessun overhead di protocollo.</p>
-    </div>
-    <div class="card-small">
-      <div class="badge blue">Routing dinamico</div>
-      <p>I router scambiano informazioni di topologia tramite protocolli di routing. I principali: <strong>OSPF</strong> (link-state, intra-dominio), <strong>BGP</strong> (path-vector, inter-dominio, protocollo di routing di Internet), <strong>RIP</strong> (distance-vector, semplice ma obsoleto), <strong>EIGRP</strong> (Cisco proprietario). Si adattano automaticamente ai guasti.</p>
-    </div>
-  </div>
-
 </div>
 
 <!-- ============================= DNS ============================= -->
 <div id="dns" class="section">
 
   <div class="block green" style="margin-top:16px">
-    <div class="btitle">DNS — Domain Name System (RFC 1034, 1035)</div>
+    <div class="btitle">DNS — Domain Name System</div>
     <p>Il <strong>DNS</strong> è il sistema distribuito e gerarchico che risolve i <strong>nomi di dominio</strong> (es. <code>www.example.com</code>) nei corrispondenti indirizzi IP e viceversa. È un'infrastruttura critica di Internet: senza DNS ogni utente dovrebbe memorizzare gli indirizzi IP numerici. Il DNS è progettato come un database distribuito con gerarchia ad albero, non esiste un singolo server centrale. Opera prevalentemente su <strong>UDP porta 53</strong> (per query standard) e su <strong>TCP porta 53</strong> per trasferimenti di zona e query con risposta superiore a 512 byte.</p>
   </div>
 
@@ -798,7 +871,7 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
   <div class="sep">Struttura del messaggio DNS e trasporto</div>
 
   <div class="block blue">
-    <div class="btitle">Formato del messaggio DNS (RFC 1035)</div>
+    <div class="btitle">Formato del messaggio DNS</div>
     <p>Query e response DNS condividono lo stesso formato di messaggio a 5 sezioni:</p>
     <ul style="margin-top:6px">
       <li><strong>Header (12 byte fissi)</strong>: Transaction ID (16 bit, correlazione query/response), Flags (QR, Opcode, AA, TC, RD, RA, Z, RCODE), contatori delle sezioni (QDCOUNT, ANCOUNT, NSCOUNT, ARCOUNT).</li>
@@ -816,7 +889,7 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
 <div id="dhcp" class="section">
 
   <div class="block green" style="margin-top:16px">
-    <div class="btitle">DHCP — Dynamic Host Configuration Protocol (RFC 2131)</div>
+    <div class="btitle">DHCP — Dynamic Host Configuration Protocol</div>
     <p>Il <strong>DHCP</strong> è un protocollo applicativo che automatizza la configurazione IP dei dispositivi su una rete. Senza DHCP, ogni host richiederebbe configurazione manuale di tutti i parametri di rete, con rischio di conflitti e errori. DHCP è un'<strong>estensione di BOOTP</strong> (Bootstrap Protocol), opera sul modello <strong>client-server</strong> e si basa su messaggi <strong>broadcast</strong>: il client, non avendo ancora un indirizzo IP, non può effettuare comunicazioni unicast verso il server.</p>
   </div>
 
@@ -897,274 +970,318 @@ code { font-family: 'SF Mono', 'Fira Code', monospace; background: #1a1a1a; bord
 
 </div>
 
-<!-- ============================= TCP ============================= -->
-<div id="tcp" class="section">
+<!-- ============================= LIVELLO TRASPORTO ============================= -->
+<div id="trasporto" class="section">
 
-  <div class="block green" style="margin-top:16px">
-    <div class="btitle">TCP — Transmission Control Protocol (RFC 793)</div>
-    <p>TCP è il protocollo di trasporto <strong>connection-oriented, full-duplex, affidabile e orientato al flusso di byte</strong>. Offre: garanzia di consegna di tutti i byte, ordinamento (i byte arrivano nell'ordine in cui sono stati inviati), controllo di flusso (non sovraccaricare il ricevitore), controllo di congestione (non sovraccaricare la rete), rilevazione e correzione degli errori. Opera tra coppie di socket (IP:porta) e mantiene stato per tutta la durata della connessione (<strong>stateful</strong>). TCP segmenta il flusso di byte in <strong>segmenti TCP</strong> che vengono incapsulati in datagrammi IP.</p>
+  <div class="chapter-header" style="margin-top:16px">
+    <div class="chapter-label">Capitolo</div>
+    <div class="chapter-title">Livello Trasporto</div>
   </div>
-
-  <div class="sep">Three-Way Handshake — Apertura della connessione</div>
-
-  <div class="block blue">
-    <div class="btitle">Instaurazione della connessione TCP</div>
-    <p>Prima di qualsiasi scambio di dati, TCP deve instaurare la connessione tramite una procedura a tre passi (<strong>3-way handshake</strong>) che sincronizza i <strong>numeri di sequenza</strong> iniziali (ISN) di entrambi i lati:</p>
-    <ul style="margin-top:8px">
-      <li><strong>Step 1 — SYN</strong>: il client invia un segmento con il flag <strong>SYN=1</strong> e un numero di sequenza casuale <strong>ISN_C</strong> (Initial Sequence Number del Client). Il segmento non contiene dati applicativi. Il client entra nello stato <code>SYN_SENT</code>.</li>
-      <li><strong>Step 2 — SYN-ACK</strong>: il server riceve il SYN, entra nello stato <code>SYN_RECEIVED</code>, e risponde con un segmento con i flag <strong>SYN=1</strong> e <strong>ACK=1</strong>. Il campo Acknowledgment Number è impostato a <code>ISN_C + 1</code> (conferma il SYN del client). Il server include il proprio <strong>ISN_S</strong> nel campo Sequence Number.</li>
-      <li><strong>Step 3 — ACK</strong>: il client risponde con un segmento con <strong>ACK=1</strong>. Il campo Acknowledgment Number è <code>ISN_S + 1</code>. La connessione è ora stabilita (<code>ESTABLISHED</code>) su entrambi i lati. In questo segmento il client può già includere dati applicativi.</li>
-    </ul>
-    <p style="margin-top:8px">La randomizzazione degli ISN è fondamentale per la sicurezza: previene attacchi <strong>TCP Session Hijacking</strong> e <strong>IP Spoofing</strong>. La chiusura della connessione avviene con uno scambio <strong>FIN/ACK</strong> a 4 passi (four-way teardown), o con un <strong>RST</strong> per chiusura immediata abortiva.</p>
-  </div>
-
-  <div class="sep">TCP Header — Struttura completa</div>
-
-  <div class="tcp-fig">
-    <table>
-      <tr>
-        <th colspan="8">bit 0–7</th>
-        <th colspan="8">bit 8–15</th>
-        <th colspan="8">bit 16–23</th>
-        <th colspan="8">bit 24–31</th>
-      </tr>
-      <tr>
-        <td class="label">Byte 0</td>
-        <td colspan="16" style="color:#5aabff;font-weight:600;">Source Port (16 bit)</td>
-        <td colspan="16" style="color:#b0a4ff;font-weight:600;">Destination Port (16 bit)</td>
-      </tr>
-      <tr>
-        <td class="label">Byte 4</td>
-        <td colspan="32" style="color:#3dd080;font-weight:600;">Sequence Number (32 bit)</td>
-      </tr>
-      <tr>
-        <td class="label">Byte 8</td>
-        <td colspan="32" style="color:#f0a830;font-weight:600;">Acknowledgment Number (32 bit)</td>
-      </tr>
-      <tr>
-        <td class="label">Byte 12</td>
-        <td colspan="4" style="color:#ff8080;font-weight:600;font-size:11px;">Data Offset (4)</td>
-        <td colspan="3" style="color:#888;font-weight:600;font-size:11px;">Res (3)</td>
-        <td colspan="9" style="color:#22d3ee;font-weight:600;font-size:11px;">Flags: NS CWR ECE URG ACK PSH RST SYN FIN (9)</td>
-        <td colspan="16" style="color:#3dd0a0;font-weight:600;">Window Size (16 bit)</td>
-      </tr>
-      <tr>
-        <td class="label">Byte 16</td>
-        <td colspan="16" style="color:#ff8080;font-weight:600;">Checksum (16 bit)</td>
-        <td colspan="16" style="color:#b0a4ff;font-weight:600;">Urgent Pointer (16 bit)</td>
-      </tr>
-      <tr>
-        <td class="label">Byte 20+</td>
-        <td colspan="32" style="color:#888;font-weight:600;">Options (variabile, padding a multiplo di 32 bit)</td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="sep">Descrizione dettagliata dei campi TCP</div>
-
-  <div class="grid2">
-    <div class="block blue" style="margin-bottom:10px">
-      <div class="byear blue">Source Port / Destination Port — 16 bit ciascuno</div>
-      <p>Identificano il processo mittente e destinatario tramite il numero di porta (0–65535). La coppia <code>(IP sorgente, porta sorgente, IP destinazione, porta destinazione)</code> forma una <strong>connessione TCP univoca (socket pair)</strong>. Le porte 0–1023 sono <em>well-known</em> (HTTP=80, HTTPS=443, SSH=22, FTP=21). Le porte 1024–49151 sono <em>registered</em>. Le porte 49152–65535 sono porte effimere assegnate dinamicamente ai client.</p>
-    </div>
-    <div class="block green" style="margin-bottom:10px">
-      <div class="byear green">Sequence Number — 32 bit</div>
-      <p>Numero che identifica la posizione nel flusso di byte del <strong>primo byte di payload</strong> contenuto in questo segmento. Permette al ricevitore di riordinare i segmenti arrivati fuori sequenza e di rilevare i duplicati. Nel segmento SYN, il Sequence Number contiene l'ISN (Initial Sequence Number) scelto casualmente. Con 32 bit il numero wrappa a 0 dopo 4 GB di dati trasmessi.</p>
-    </div>
-    <div class="block amber" style="margin-bottom:10px">
-      <div class="byear amber">Acknowledgment Number — 32 bit</div>
-      <p>Valido solo se il flag ACK è impostato. Contiene il numero di sequenza del <strong>prossimo byte che il ricevitore si aspetta</strong> di ricevere. Implementa un ACK cumulativo: un valore ACK=N conferma la ricezione di tutti i byte fino a N-1. Questo campo è il meccanismo base della conferma di ricezione e del controllo degli errori in TCP.</p>
-    </div>
-    <div class="block red" style="margin-bottom:10px">
-      <div class="byear red">Data Offset — 4 bit</div>
-      <p>Indica la lunghezza dell'header TCP in <strong>word da 32 bit</strong> (analogamente all'IHL in IP). Valore minimo: 5 (20 byte, senza opzioni). Valore massimo: 15 (60 byte). Necessario per determinare dove inizia il payload (i dati applicativi) dato che il campo Options ha lunghezza variabile.</p>
-    </div>
-  </div>
-
-  <div class="block cyan">
-    <div class="byear cyan">Flags di controllo — 9 bit (URG, ACK, PSH, RST, SYN, FIN + NS, CWR, ECE)</div>
-    <div class="btitle">I flag TCP — significato operativo</div>
-    <ul>
-      <li><strong>SYN</strong>: sincronizzazione — usato nell'apertura della connessione (handshake).</li>
-      <li><strong>ACK</strong>: acknowledgment — il campo Acknowledgment Number è valido.</li>
-      <li><strong>FIN</strong>: fine — il mittente ha terminato l'invio di dati (chiusura ordinata).</li>
-      <li><strong>RST</strong>: reset — chiusura immediata e abortiva della connessione. Usato per rispondere a pacchetti inattesi o per segnalare un errore critico.</li>
-      <li><strong>PSH</strong>: push — il ricevitore deve consegnare immediatamente i dati all'applicazione senza attendere il riempimento del buffer.</li>
-      <li><strong>URG</strong>: urgent — il campo Urgent Pointer è valido; i dati urgenti (out-of-band) devono essere processati con priorità.</li>
-      <li><strong>ECE / CWR</strong>: usati con ECN (Explicit Congestion Notification) per segnalare la congestione senza perdita di pacchetti.</li>
-      <li><strong>NS</strong>: nonce sum — sperimentale, protezione contro alterazioni accidentali dei bit ECN.</li>
-    </ul>
-  </div>
-
-  <div class="block teal">
-    <div class="byear teal">Window Size — 16 bit</div>
-    <div class="btitle">Dimensione della finestra di ricezione — controllo di flusso</div>
-    <p>Indica il numero di byte che il <strong>ricevitore</strong> è in grado di accettare nel proprio buffer di ricezione. Il mittente non deve trasmettere più byte non ancora confermati di quanti indicato dalla Window Size del ricevitore. Valore massimo nominale: 65.535 byte. Con l'opzione <strong>Window Scale</strong> (RFC 1323) la finestra può essere moltiplicata per un fattore fino a 2<sup>14</sup>, raggiungendo fino a ~1 GB di finestra (necessario per reti ad alto BDP — Bandwidth-Delay Product). Se Window Size = 0, il mittente deve fermarsi (zero-window probing).</p>
-  </div>
-
-  <div class="block red">
-    <div class="byear red">Checksum — 16 bit</div>
-    <p>Verifica l'integrità dell'header TCP <strong>e del payload</strong> applicativo. A differenza del checksum IP (solo header), il checksum TCP copre anche i dati. Il calcolo include uno <strong>pseudo-header</strong> contenente IP sorgente, IP destinazione, protocollo (6) e lunghezza TCP: questo lega il segmento TCP all'indirizzo IP, proteggendo da eventuali errori di routing (consegna a un host sbagliato). In TCP il checksum è <strong>obbligatorio</strong> (non opzionale come in UDP).</p>
-  </div>
-
-  <div class="block purple">
-    <div class="byear purple">Urgent Pointer — 16 bit</div>
-    <p>Valido solo se il flag URG è impostato. Indica un offset positivo dal numero di sequenza corrente che punta all'ultimo byte urgente nel segmento. I dati urgenti (out-of-band) vengono consegnati all'applicazione con priorità rispetto al flusso normale. Poco usato nella pratica moderna; in origine serviva per segnalazioni critiche come l'interruzione di un processo remoto (Ctrl+C in Telnet).</p>
-  </div>
-
-  <div class="sep">Sliding Window — Controllo di flusso e affidabilità</div>
-
-  <div class="card">
-    <div class="card-title g">Meccanismo della finestra scorrevole (Sliding Window)</div>
-    <p style="margin-bottom:10px">La <strong>sliding window</strong> è il meccanismo con cui TCP implementa contemporaneamente l'affidabilità, il controllo di flusso e l'efficienza di trasmissione. Senza di essa, il mittente dovrebbe attendere l'ACK di ogni segmento prima di inviare il successivo (stop-and-wait), rendendo il canale inutilizzato per la durata del Round Trip Time (RTT). La sliding window consente di avere più segmenti <em>in volo</em> (inviati ma non ancora confermati) contemporaneamente.</p>
-
-    <div class="block blue">
-      <div class="btitle">Struttura della finestra del mittente</div>
-      <p>Il buffer di invio del mittente è logicamente diviso in 4 categorie rispetto alla finestra corrente:</p>
-      <ul style="margin-top:6px">
-        <li><strong>Inviati e confermati (ACK ricevuto)</strong>: possono essere rimossi dal buffer. La finestra avanza.</li>
-        <li><strong>Inviati ma non ancora confermati (in-flight)</strong>: in attesa di ACK. Rientrano nella finestra corrente. Se scade il timer (RTO — Retransmission Timeout), vengono ritrasmessi.</li>
-        <li><strong>Non inviati ma dentro la finestra (usable window)</strong>: possono essere inviati immediatamente senza attendere ACK.</li>
-        <li><strong>Non inviati e oltre la finestra</strong>: non possono essere inviati finché la finestra non avanza.</li>
-      </ul>
-      <p style="margin-top:6px">La finestra del mittente è determinata dal <strong>minimo</strong> tra la finestra di ricezione del destinatario (rwnd) e la finestra di congestione (cwnd): <code>finestra effettiva = min(rwnd, cwnd)</code>.</p>
-    </div>
-
-    <div class="block teal">
-      <div class="btitle">Espansione e riduzione della finestra — Slow Start e Congestion Avoidance</div>
-      <p>La <strong>congestion window (cwnd)</strong> è la variabile che limita la quantità di dati non confermati in funzione dello stato della rete. TCP inizia con cwnd piccola e la adatta dinamicamente:</p>
-      <ul style="margin-top:6px">
-        <li><strong>Slow Start</strong>: all'inizio della connessione cwnd parte da 1 MSS (Maximum Segment Size, tipicamente 1460 byte su Ethernet). Ad ogni ACK ricevuto, cwnd aumenta di 1 MSS → crescita <strong>esponenziale</strong> (raddoppio per ogni RTT) finché non raggiunge la soglia ssthresh.</li>
-        <li><strong>Congestion Avoidance</strong>: superata la soglia ssthresh, cwnd cresce di <code>MSS²/cwnd</code> per RTT → crescita <strong>lineare</strong> (additiva). Questo è l'algoritmo AIMD (Additive Increase Multiplicative Decrease).</li>
-        <li><strong>Rilevamento di perdita — timeout RTO</strong>: il mittente non riceve ACK entro il RTO. Sintomo di congestione severa. ssthresh = cwnd/2, cwnd = 1 MSS, si riparte con Slow Start. Riduzione drastica.</li>
-        <li><strong>Rilevamento di perdita — Triple Duplicate ACK (Fast Retransmit)</strong>: il mittente riceve 3 ACK duplicati per lo stesso sequence number → significa che i segmenti successivi sono arrivati ma quello specifico manca. ssthresh = cwnd/2, cwnd = ssthresh (Fast Recovery, TCP Reno/CUBIC). Ritrasmissione immediata senza attendere RTO.</li>
-      </ul>
-      <p style="margin-top:6px">La finestra si <strong>espande</strong> quando gli ACK arrivano regolarmente (rete non congestionata) e si <strong>restringe</strong> in caso di perdita di pacchetti o quando il ricevitore segnala Window Size ridotta (buffer pieno). TCP CUBIC (default Linux) e TCP BBR (Google) sono le varianti moderne che migliorano il comportamento su reti ad alto BDP.</p>
-    </div>
-
-    <div class="block amber">
-      <div class="btitle">Controllo degli errori — ACK cumulativo e ritrasmissione</div>
-      <p>Il controllo degli errori in TCP si basa su:</p>
-      <ul style="margin-top:6px">
-        <li><strong>Sequence Number e ACK cumulativo</strong>: il ricevitore conferma sempre il prossimo byte atteso. Se arriva un segmento fuori ordine, il ricevitore lo bufferizza e continua ad inviare ACK per l'ultimo byte in sequenza ricevuto (generando ACK duplicati).</li>
-        <li><strong>SACK (Selective Acknowledgment)</strong>: estensione opzionale (RFC 2018) che permette al ricevitore di segnalare i blocchi di byte ricevuti fuori ordine, consentendo al mittente di ritrasmettere solo i segmenti mancanti invece di tutto ciò che è oltre il punto di perdita.</li>
-        <li><strong>Timer di ritrasmissione (RTO)</strong>: TCP stima il RTT con algoritmo di Jacobson e calcola l'RTO come <code>RTO = SRTT + 4·RTTVAR</code>. Se l'ACK non arriva entro l'RTO, il segmento viene ritrasmesso e l'RTO viene raddoppiato (backoff esponenziale).</li>
-        <li><strong>Checksum obbligatorio</strong>: rileva corruzione in header e payload (vedi campo checksum header).</li>
-      </ul>
-    </div>
-  </div>
-
-</div>
-
-<!-- ============================= UDP ============================= -->
-<div id="udp" class="section">
-
-  <div class="block green" style="margin-top:16px">
-    <div class="btitle">UDP — User Datagram Protocol (RFC 768)</div>
-    <p>UDP è il protocollo di trasporto <strong>connectionless, senza stato (stateless), inaffidabile e best-effort</strong>. Non offre garanzie di consegna, né di ordinamento, né di rilevazione di duplicati. Non prevede handshake, controllo di flusso, né controllo di congestione. Ogni datagramma UDP è completamente indipendente dagli altri e può percorrere percorsi diversi nella rete. L'header UDP è <strong>fisso a 8 byte</strong>, contro i 20+ byte di TCP. Questo overhead minimo lo rende ideale per applicazioni dove la latenza è critica e una minima perdita di dati è accettabile, o dove l'applicazione stessa implementa i propri meccanismi di controllo.</p>
-  </div>
-
-  <div class="sep">Struttura dell'header UDP</div>
-
-  <div class="udp-fig">
-    <table>
-      <tr>
-        <th colspan="8">bit 0–7</th>
-        <th colspan="8">bit 8–15</th>
-        <th colspan="8">bit 16–23</th>
-        <th colspan="8">bit 24–31</th>
-      </tr>
-      <tr>
-        <td class="label">Byte 0</td>
-        <td colspan="16" style="color:#b0a4ff;font-weight:600;">Source Port (16 bit)</td>
-        <td colspan="16" style="color:#5aabff;font-weight:600;">Destination Port (16 bit)</td>
-      </tr>
-      <tr>
-        <td class="label">Byte 4</td>
-        <td colspan="16" style="color:#3dd0a0;font-weight:600;">Length (16 bit)</td>
-        <td colspan="16" style="color:#f0a830;font-weight:600;">Checksum (16 bit)</td>
-      </tr>
-      <tr>
-        <td class="label">Byte 8+</td>
-        <td colspan="32" style="color:#888;font-weight:600;">Data (payload — variabile)</td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="sep">Descrizione dei campi dell'header UDP</div>
-
-  <div class="grid2">
-    <div class="block purple">
-      <div class="byear purple">Source Port — 16 bit</div>
-      <p>Numero di porta del processo mittente. Consente al destinatario di inviare risposte. In alcuni protocolli (es. DNS query da client) può essere una porta effimera casuale assegnata dal SO. In altri casi può essere 0 se non è richiesta risposta.</p>
-    </div>
-    <div class="block blue">
-      <div class="byear blue">Destination Port — 16 bit</div>
-      <p>Numero di porta del processo destinatario. Identifica l'applicazione/servizio a cui deve essere consegnato il datagramma. Porte well-known rilevanti per UDP: DNS (53), DHCP server (67), DHCP client (68), TFTP (69), SNMP (161), NTP (123), RIP (520), QUIC (443).</p>
-    </div>
-    <div class="block teal">
-      <div class="byear teal">Length — 16 bit</div>
-      <p>Lunghezza totale del datagramma UDP in byte, inclusi header (8 byte fissi) e payload. Valore minimo: 8 (datagramma senza payload). Valore massimo teorico: 65.535 byte, ma limitato in pratica dalla MTU del link (il datagramma viene frammentato a livello IP se necessario). Dimensione massima del payload: 65.535 - 8 = 65.527 byte.</p>
-    </div>
-    <div class="block amber">
-      <div class="byear amber">Checksum — 16 bit</div>
-      <p>Verifica dell'integrità di header e payload. In IPv4 il checksum UDP è <strong>opzionale</strong> (un valore di 0 indica che non è stato calcolato); in IPv6 è <strong>obbligatorio</strong>. Come in TCP, il calcolo include uno pseudo-header con IP sorgente, IP destinazione, protocollo (17=UDP) e lunghezza: lega l'integrità al pair di indirizzi IP, rilevando consegne errate oltre che corruzione del dato.</p>
-    </div>
-  </div>
-
-  <div class="sep">Quando si usa UDP</div>
 
   <div class="block green">
-    <div class="btitle">Casi d'uso di UDP rispetto a TCP</div>
-    <p>UDP non è un protocollo "rotto" o incompleto: è la scelta corretta quando:</p>
-    <ul style="margin-top:6px">
-      <li><strong>Latenza ultra-bassa</strong>: il round-trip dell'handshake TCP (minimo 1 RTT prima di inviare dati) è inaccettabile. UDP trasmette immediatamente. Usato in: DNS (query/response singola), DHCP, NTP, giochi online, VoIP, videoconferenze (WebRTC).</li>
-      <li><strong>Perdita tollerabile</strong>: in streaming audio/video real-time, un pacchetto perso causa al massimo un breve glitch; la ritrasmissione arriverebbe troppo tardi per essere utile. Meglio perdere che rallentare.</li>
-      <li><strong>Multicast/Broadcast</strong>: TCP è point-to-point (richiede una connessione per ogni destinatario). UDP supporta nativamente multicast e broadcast. Usato da: DHCP, RIP, mDNS, SSDP, routing protocols.</li>
-      <li><strong>Applicazioni che implementano affidabilità personalizzata</strong>: QUIC (HTTP/3) usa UDP ma implementa multiplexing di stream, controllo di congestione e crittografia a livello applicativo, superando le limitazioni di TCP senza rinunciare all'affidabilità.</li>
-      <li><strong>Transazioni semplici richiesta-risposta</strong>: DNS, SNMP, TFTP — un singolo scambio di messaggi dove l'overhead del TCP non vale la pena.</li>
-    </ul>
+    <div class="btitle">Il livello di trasporto: comunicazione end-to-end</div>
+    <p>Il livello di trasporto si occupa della comunicazione diretta tra i processi applicativi in esecuzione sugli host di una rete. Mentre il livello IP garantisce solo il trasporto del pacchetto da un host all'altro (senza garanzie), il livello di trasporto offre servizi aggiuntivi ai processi: multiplexing tramite porte, controllo degli errori, ordinamento dei dati. I due protocolli fondamentali sono <strong>TCP</strong> (affidabile, orientato alla connessione) e <strong>UDP</strong> (veloce, senza connessione).</p>
   </div>
 
-  <div class="sep">Confronto TCP vs UDP</div>
+  <div class="sub-nav">
+    <button class="sub-btn active" onclick="showSub('trasporto','tcp',this)">TCP</button>
+    <button class="sub-btn" onclick="showSub('trasporto','udp',this)">UDP</button>
+    <button class="sub-btn" onclick="showSub('trasporto','sliding',this)">Sliding Window</button>
+    <button class="sub-btn" onclick="showSub('trasporto','confronto',this)">Confronto TCP vs UDP</button>
+  </div>
 
-  <div class="compare-grid">
-    <div class="compare-col tcp-c">
-      <div class="compare-col-title">TCP</div>
-      <div class="row-label">Connessione</div><p style="font-size:13px">Connection-oriented (3-way handshake)</p>
-      <div class="row-label">Affidabilità</div><p style="font-size:13px">Garantita (ACK, ritrasmissione, ordinamento)</p>
-      <div class="row-label">Controllo flusso</div><p style="font-size:13px">Sì (sliding window, rwnd)</p>
-      <div class="row-label">Controllo congestione</div><p style="font-size:13px">Sì (AIMD, Slow Start, cwnd)</p>
-      <div class="row-label">Overhead header</div><p style="font-size:13px">20–60 byte</p>
-      <div class="row-label">Latenza</div><p style="font-size:13px">Più alta (handshake + controllo)</p>
-      <div class="row-label">Multicast</div><p style="font-size:13px">Non supportato</p>
-      <div class="row-label">Casi d'uso</div><p style="font-size:13px">HTTP/S, SSH, FTP, SMTP, database</p>
+  <!-- SUB: TCP -->
+  <div id="trasporto-tcp" class="sub-section visible">
+    <div class="block green" style="margin-top:4px">
+      <div class="btitle">TCP — Transmission Control Protocol</div>
+      <p>TCP è il protocollo di trasporto <strong>connection-oriented, full-duplex, affidabile e orientato al flusso di byte</strong>. Offre: garanzia di consegna di tutti i byte, ordinamento (i byte arrivano nell'ordine in cui sono stati inviati), controllo di flusso (non sovraccaricare il ricevitore), controllo di congestione (non sovraccaricare la rete), rilevazione e correzione degli errori. Opera tra coppie di socket (IP:porta) e mantiene stato per tutta la durata della connessione (<strong>stateful</strong>). TCP segmenta il flusso di byte in <strong>segmenti TCP</strong> che vengono incapsulati in datagrammi IP.</p>
     </div>
-    <div class="compare-col udp-c">
-      <div class="compare-col-title">UDP</div>
-      <div class="row-label">Connessione</div><p style="font-size:13px">Connectionless (nessun handshake)</p>
-      <div class="row-label">Affidabilità</div><p style="font-size:13px">Best-effort (nessuna garanzia)</p>
-      <div class="row-label">Controllo flusso</div><p style="font-size:13px">No</p>
-      <div class="row-label">Controllo congestione</div><p style="font-size:13px">No (l'app deve gestirlo)</p>
-      <div class="row-label">Overhead header</div><p style="font-size:13px">8 byte (fisso)</p>
-      <div class="row-label">Latenza</div><p style="font-size:13px">Minima (trasmissione immediata)</p>
-      <div class="row-label">Multicast</div><p style="font-size:13px">Supportato nativamente</p>
-      <div class="row-label">Casi d'uso</div><p style="font-size:13px">DNS, DHCP, streaming, VoIP, QUIC</p>
+
+    <div class="sep">Three-Way Handshake — Apertura della connessione</div>
+
+    <div class="block blue">
+      <div class="btitle">Instaurazione della connessione TCP</div>
+      <p>Prima di qualsiasi scambio di dati, TCP deve instaurare la connessione tramite una procedura a tre passi (<strong>3-way handshake</strong>) che sincronizza i <strong>numeri di sequenza</strong> iniziali (ISN) di entrambi i lati:</p>
+      <ul style="margin-top:8px">
+        <li><strong>Step 1 — SYN</strong>: il client invia un segmento con il flag <strong>SYN=1</strong> e un numero di sequenza casuale <strong>ISN_C</strong> (Initial Sequence Number del Client). Il segmento non contiene dati applicativi. Il client entra nello stato <code>SYN_SENT</code>.</li>
+        <li><strong>Step 2 — SYN-ACK</strong>: il server riceve il SYN, entra nello stato <code>SYN_RECEIVED</code>, e risponde con un segmento con i flag <strong>SYN=1</strong> e <strong>ACK=1</strong>. Il campo Acknowledgment Number è impostato a <code>ISN_C + 1</code> (conferma il SYN del client). Il server include il proprio <strong>ISN_S</strong> nel campo Sequence Number.</li>
+        <li><strong>Step 3 — ACK</strong>: il client risponde con un segmento con <strong>ACK=1</strong>. Il campo Acknowledgment Number è <code>ISN_S + 1</code>. La connessione è ora stabilita (<code>ESTABLISHED</code>) su entrambi i lati. In questo segmento il client può già includere dati applicativi.</li>
+      </ul>
+      <p style="margin-top:8px">La randomizzazione degli ISN è fondamentale per la sicurezza: previene attacchi <strong>TCP Session Hijacking</strong> e <strong>IP Spoofing</strong>. La chiusura della connessione avviene con uno scambio <strong>FIN/ACK</strong> a 4 passi (four-way teardown), o con un <strong>RST</strong> per chiusura immediata abortiva.</p>
+    </div>
+
+    <div class="sep">TCP Header — Struttura completa</div>
+
+    <div class="tcp-fig">
+      <table>
+        <tr>
+          <th colspan="8">bit 0–7</th>
+          <th colspan="8">bit 8–15</th>
+          <th colspan="8">bit 16–23</th>
+          <th colspan="8">bit 24–31</th>
+        </tr>
+        <tr>
+          <td class="label">Byte 0</td>
+          <td colspan="16" style="color:#5aabff;font-weight:600;">Source Port (16 bit)</td>
+          <td colspan="16" style="color:#b0a4ff;font-weight:600;">Destination Port (16 bit)</td>
+        </tr>
+        <tr>
+          <td class="label">Byte 4</td>
+          <td colspan="32" style="color:#3dd080;font-weight:600;">Sequence Number (32 bit)</td>
+        </tr>
+        <tr>
+          <td class="label">Byte 8</td>
+          <td colspan="32" style="color:#f0a830;font-weight:600;">Acknowledgment Number (32 bit)</td>
+        </tr>
+        <tr>
+          <td class="label">Byte 12</td>
+          <td colspan="4" style="color:#ff8080;font-weight:600;font-size:11px;">Data Offset (4)</td>
+          <td colspan="3" style="color:#888;font-weight:600;font-size:11px;">Res (3)</td>
+          <td colspan="9" style="color:#22d3ee;font-weight:600;font-size:11px;">Flags: NS CWR ECE URG ACK PSH RST SYN FIN (9)</td>
+          <td colspan="16" style="color:#3dd0a0;font-weight:600;">Window Size (16 bit)</td>
+        </tr>
+        <tr>
+          <td class="label">Byte 16</td>
+          <td colspan="16" style="color:#ff8080;font-weight:600;">Checksum (16 bit)</td>
+          <td colspan="16" style="color:#b0a4ff;font-weight:600;">Urgent Pointer (16 bit)</td>
+        </tr>
+        <tr>
+          <td class="label">Byte 20+</td>
+          <td colspan="32" style="color:#888;font-weight:600;">Options (variabile, padding a multiplo di 32 bit)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sep">Descrizione dettagliata dei campi TCP</div>
+
+    <div class="grid2">
+      <div class="block blue" style="margin-bottom:10px">
+        <div class="byear blue">Source Port / Destination Port — 16 bit ciascuno</div>
+        <p>Identificano il processo mittente e destinatario tramite il numero di porta (0–65535). La coppia <code>(IP sorgente, porta sorgente, IP destinazione, porta destinazione)</code> forma una <strong>connessione TCP univoca (socket pair)</strong>. Le porte 0–1023 sono <em>well-known</em> (HTTP=80, HTTPS=443, SSH=22, FTP=21). Le porte 1024–49151 sono <em>registered</em>. Le porte 49152–65535 sono porte effimere assegnate dinamicamente ai client.</p>
+      </div>
+      <div class="block green" style="margin-bottom:10px">
+        <div class="byear green">Sequence Number — 32 bit</div>
+        <p>Numero che identifica la posizione nel flusso di byte del <strong>primo byte di payload</strong> contenuto in questo segmento. Permette al ricevitore di riordinare i segmenti arrivati fuori sequenza e di rilevare i duplicati. Nel segmento SYN, il Sequence Number contiene l'ISN (Initial Sequence Number) scelto casualmente. Con 32 bit il numero wrappa a 0 dopo 4 GB di dati trasmessi.</p>
+      </div>
+      <div class="block amber" style="margin-bottom:10px">
+        <div class="byear amber">Acknowledgment Number — 32 bit</div>
+        <p>Valido solo se il flag ACK è impostato. Contiene il numero di sequenza del <strong>prossimo byte che il ricevitore si aspetta</strong> di ricevere. Implementa un ACK cumulativo: un valore ACK=N conferma la ricezione di tutti i byte fino a N-1. Questo campo è il meccanismo base della conferma di ricezione e del controllo degli errori in TCP.</p>
+      </div>
+      <div class="block red" style="margin-bottom:10px">
+        <div class="byear red">Data Offset — 4 bit</div>
+        <p>Indica la lunghezza dell'header TCP in <strong>word da 32 bit</strong> (analogamente all'IHL in IP). Valore minimo: 5 (20 byte, senza opzioni). Valore massimo: 15 (60 byte). Necessario per determinare dove inizia il payload (i dati applicativi) dato che il campo Options ha lunghezza variabile.</p>
+      </div>
+    </div>
+
+    <div class="block cyan">
+      <div class="byear cyan">Flags di controllo — 9 bit (URG, ACK, PSH, RST, SYN, FIN + NS, CWR, ECE)</div>
+      <div class="btitle">I flag TCP — significato operativo</div>
+      <ul>
+        <li><strong>SYN</strong>: sincronizzazione — usato nell'apertura della connessione (handshake).</li>
+        <li><strong>ACK</strong>: acknowledgment — il campo Acknowledgment Number è valido.</li>
+        <li><strong>FIN</strong>: fine — il mittente ha terminato l'invio di dati (chiusura ordinata).</li>
+        <li><strong>RST</strong>: reset — chiusura immediata e abortiva della connessione. Usato per rispondere a pacchetti inattesi o per segnalare un errore critico.</li>
+        <li><strong>PSH</strong>: push — il ricevitore deve consegnare immediatamente i dati all'applicazione senza attendere il riempimento del buffer.</li>
+        <li><strong>URG</strong>: urgent — il campo Urgent Pointer è valido; i dati urgenti (out-of-band) devono essere processati con priorità.</li>
+        <li><strong>ECE / CWR</strong>: usati con ECN (Explicit Congestion Notification) per segnalare la congestione senza perdita di pacchetti.</li>
+        <li><strong>NS</strong>: nonce sum — sperimentale, protezione contro alterazioni accidentali dei bit ECN.</li>
+      </ul>
+    </div>
+
+    <div class="block teal">
+      <div class="byear teal">Window Size — 16 bit</div>
+      <div class="btitle">Dimensione della finestra di ricezione — controllo di flusso</div>
+      <p>Indica il numero di byte che il <strong>ricevitore</strong> è in grado di accettare nel proprio buffer di ricezione. Il mittente non deve trasmettere più byte non ancora confermati di quanti indicato dalla Window Size del ricevitore. Valore massimo nominale: 65.535 byte. Con l'opzione <strong>Window Scale</strong> la finestra può essere moltiplicata per un fattore fino a 2<sup>14</sup>, raggiungendo fino a ~1 GB di finestra (necessario per reti ad alto BDP — Bandwidth-Delay Product). Se Window Size = 0, il mittente deve fermarsi (zero-window probing).</p>
+    </div>
+
+    <div class="block red">
+      <div class="byear red">Checksum — 16 bit</div>
+      <p>Verifica l'integrità dell'header TCP <strong>e del payload</strong> applicativo. A differenza del checksum IP (solo header), il checksum TCP copre anche i dati. Il calcolo include uno <strong>pseudo-header</strong> contenente IP sorgente, IP destinazione, protocollo (6) e lunghezza TCP: questo lega il segmento TCP all'indirizzo IP, proteggendo da eventuali errori di routing (consegna a un host sbagliato). In TCP il checksum è <strong>obbligatorio</strong> (non opzionale come in UDP).</p>
+    </div>
+
+    <div class="block purple">
+      <div class="byear purple">Urgent Pointer — 16 bit</div>
+      <p>Valido solo se il flag URG è impostato. Indica un offset positivo dal numero di sequenza corrente che punta all'ultimo byte urgente nel segmento. I dati urgenti (out-of-band) vengono consegnati all'applicazione con priorità rispetto al flusso normale. Poco usato nella pratica moderna; in origine serviva per segnalazioni critiche come l'interruzione di un processo remoto (Ctrl+C in Telnet).</p>
     </div>
   </div>
 
+  <!-- SUB: UDP -->
+  <div id="trasporto-udp" class="sub-section">
+    <div class="block green" style="margin-top:4px">
+      <div class="btitle">UDP — User Datagram Protocol</div>
+      <p>UDP è il protocollo di trasporto <strong>connectionless, senza stato (stateless), inaffidabile e best-effort</strong>. Non offre garanzie di consegna, né di ordinamento, né di rilevazione di duplicati. Non prevede handshake, controllo di flusso, né controllo di congestione. Ogni datagramma UDP è completamente indipendente dagli altri e può percorrere percorsi diversi nella rete. L'header UDP è <strong>fisso a 8 byte</strong>, contro i 20+ byte di TCP. Questo overhead minimo lo rende ideale per applicazioni dove la latenza è critica e una minima perdita di dati è accettabile, o dove l'applicazione stessa implementa i propri meccanismi di controllo.</p>
+    </div>
+
+    <div class="sep">Struttura dell'header UDP</div>
+
+    <div class="udp-fig">
+      <table>
+        <tr>
+          <th colspan="8">bit 0–7</th>
+          <th colspan="8">bit 8–15</th>
+          <th colspan="8">bit 16–23</th>
+          <th colspan="8">bit 24–31</th>
+        </tr>
+        <tr>
+          <td class="label">Byte 0</td>
+          <td colspan="16" style="color:#b0a4ff;font-weight:600;">Source Port (16 bit)</td>
+          <td colspan="16" style="color:#5aabff;font-weight:600;">Destination Port (16 bit)</td>
+        </tr>
+        <tr>
+          <td class="label">Byte 4</td>
+          <td colspan="16" style="color:#3dd0a0;font-weight:600;">Length (16 bit)</td>
+          <td colspan="16" style="color:#f0a830;font-weight:600;">Checksum (16 bit)</td>
+        </tr>
+        <tr>
+          <td class="label">Byte 8+</td>
+          <td colspan="32" style="color:#888;font-weight:600;">Data (payload — variabile)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sep">Descrizione dei campi dell'header UDP</div>
+
+    <div class="grid2">
+      <div class="block purple">
+        <div class="byear purple">Source Port — 16 bit</div>
+        <p>Numero di porta del processo mittente. Consente al destinatario di inviare risposte. In alcuni protocolli (es. DNS query da client) può essere una porta effimera casuale assegnata dal SO. In altri casi può essere 0 se non è richiesta risposta.</p>
+      </div>
+      <div class="block blue">
+        <div class="byear blue">Destination Port — 16 bit</div>
+        <p>Numero di porta del processo destinatario. Identifica l'applicazione/servizio a cui deve essere consegnato il datagramma. Porte well-known rilevanti per UDP: DNS (53), DHCP server (67), DHCP client (68), TFTP (69), SNMP (161), NTP (123), RIP (520), QUIC (443).</p>
+      </div>
+      <div class="block teal">
+        <div class="byear teal">Length — 16 bit</div>
+        <p>Lunghezza totale del datagramma UDP in byte, inclusi header (8 byte fissi) e payload. Valore minimo: 8 (datagramma senza payload). Valore massimo teorico: 65.535 byte, ma limitato in pratica dalla MTU del link (il datagramma viene frammentato a livello IP se necessario). Dimensione massima del payload: 65.535 - 8 = 65.527 byte.</p>
+      </div>
+      <div class="block amber">
+        <div class="byear amber">Checksum — 16 bit</div>
+        <p>Verifica dell'integrità di header e payload. In IPv4 il checksum UDP è <strong>opzionale</strong> (un valore di 0 indica che non è stato calcolato); in IPv6 è <strong>obbligatorio</strong>. Come in TCP, il calcolo include uno pseudo-header con IP sorgente, IP destinazione, protocollo (17=UDP) e lunghezza: lega l'integrità al pair di indirizzi IP, rilevando consegne errate oltre che corruzione del dato.</p>
+      </div>
+    </div>
+
+    <div class="sep">Quando si usa UDP</div>
+
+    <div class="block green">
+      <div class="btitle">Casi d'uso di UDP rispetto a TCP</div>
+      <p>UDP non è un protocollo "rotto" o incompleto: è la scelta corretta quando:</p>
+      <ul style="margin-top:6px">
+        <li><strong>Latenza ultra-bassa</strong>: il round-trip dell'handshake TCP (minimo 1 RTT prima di inviare dati) è inaccettabile. UDP trasmette immediatamente. Usato in: DNS (query/response singola), DHCP, NTP, giochi online, VoIP, videoconferenze (WebRTC).</li>
+        <li><strong>Perdita tollerabile</strong>: in streaming audio/video real-time, un pacchetto perso causa al massimo un breve glitch; la ritrasmissione arriverebbe troppo tardi per essere utile. Meglio perdere che rallentare.</li>
+        <li><strong>Multicast/Broadcast</strong>: TCP è point-to-point (richiede una connessione per ogni destinatario). UDP supporta nativamente multicast e broadcast. Usato da: DHCP, RIP, mDNS, SSDP, routing protocols.</li>
+        <li><strong>Applicazioni che implementano affidabilità personalizzata</strong>: QUIC (HTTP/3) usa UDP ma implementa multiplexing di stream, controllo di congestione e crittografia a livello applicativo, superando le limitazioni di TCP senza rinunciare all'affidabilità.</li>
+        <li><strong>Transazioni semplici richiesta-risposta</strong>: DNS, SNMP, TFTP — un singolo scambio di messaggi dove l'overhead del TCP non vale la pena.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SUB: SLIDING WINDOW -->
+  <div id="trasporto-sliding" class="sub-section">
+    <div class="card" style="margin-top:4px">
+      <div class="card-title g">Sliding Window — Finestra scorrevole</div>
+      <p style="margin-bottom:12px">La <strong>sliding window</strong> (finestra scorrevole) è il meccanismo con cui TCP gestisce contemporaneamente l'affidabilità, il controllo di flusso e l'efficienza nella trasmissione. Per capirne l'importanza, immagina come funzionerebbe TCP senza di essa.</p>
+
+      <div class="block blue">
+        <div class="btitle">Il problema: stop-and-wait</div>
+        <p>Senza la sliding window, TCP userebbe un approccio detto <strong>stop-and-wait</strong>: il mittente invia un segmento, poi si ferma e aspetta che il destinatario risponda con un ACK (conferma di ricezione) prima di poter inviare il segmento successivo. Questo approccio è estremamente inefficiente perché per tutta la durata del <strong>Round Trip Time (RTT)</strong> — cioè il tempo che il pacchetto impiega ad arrivare e il tempo che l'ACK impiega a tornare — il canale di comunicazione rimane completamente inutilizzato. Su una connessione con latenza alta (es. un link intercontinentale con RTT di 150 ms) si potrebbero inviare solo pochi segmenti al secondo, sprecando la quasi totalità della banda disponibile.</p>
+      </div>
+
+      <div class="block green">
+        <div class="btitle">La soluzione: più segmenti contemporaneamente in volo</div>
+        <p>La sliding window risolve il problema permettendo al mittente di inviare <strong>più segmenti consecutivi senza aspettare l'ACK di ognuno</strong>. Questi segmenti si trovano "in volo" sulla rete contemporaneamente — sono stati inviati ma non ancora confermati. La finestra definisce il numero massimo di byte che possono essere in volo in ogni momento. Finché la finestra non è piena, il mittente può continuare a inviare. Solo quando la finestra è satura deve fermarsi e aspettare che arrivino gli ACK, che fanno avanzare (scorrere) la finestra in avanti e liberano spazio per nuovi dati.</p>
+      </div>
+
+      <div class="block teal">
+        <div class="btitle">Come è organizzato il buffer del mittente</div>
+        <p>Il mittente divide mentalmente il proprio buffer di invio in quattro zone distinte in base allo stato di ogni byte:</p>
+        <ul style="margin-top:6px">
+          <li><strong>Zona 1 — Inviati e confermati</strong>: il destinatario ha già ricevuto e confermato questi dati con un ACK. Possono essere eliminati dal buffer: non servono più. La finestra avanza di pari passo con gli ACK ricevuti.</li>
+          <li><strong>Zona 2 — Inviati ma non ancora confermati (in-flight)</strong>: questi segmenti sono stati trasmessi in rete ma l'ACK non è ancora arrivato. Il mittente li mantiene in memoria perché, se scade il timer di ritrasmissione, dovrà rispedirli. Occupano spazio nella finestra corrente.</li>
+          <li><strong>Zona 3 — Non inviati ma dentro la finestra (usable window)</strong>: sono i dati pronti per essere trasmessi immediatamente, senza aspettare ulteriori ACK. Il mittente può spedirli appena vuole.</li>
+          <li><strong>Zona 4 — Oltre la finestra</strong>: dati che il mittente non può ancora inviare perché la finestra è piena o perché il ricevitore non ha ancora dichiarato di avere abbastanza spazio nel buffer.</li>
+        </ul>
+        <p style="margin-top:6px">Ogni volta che arriva un ACK, la finestra <em>scorre</em> verso destra: i dati confermati escono dalla zona 2, la zona 3 si espande, e nuovi dati dalla zona 4 entrano nella finestra.</p>
+      </div>
+
+      <div class="block amber">
+        <div class="btitle">Due finestre che lavorano insieme: rwnd e cwnd</div>
+        <p>In TCP esistono in realtà due finestre che controllano quanti dati possono essere in volo contemporaneamente, e la finestra effettiva è sempre il <strong>minimo</strong> tra le due:</p>
+        <ul style="margin-top:6px">
+          <li><strong>rwnd (Receive Window / finestra di ricezione)</strong>: è comunicata dal <em>ricevitore</em> al mittente tramite il campo Window Size dell'header TCP. Indica quanti byte il ricevitore riesce ad accettare nel suo buffer in quel momento. Se il buffer del ricevitore si sta riempiendo (l'applicazione non legge i dati velocemente), rwnd si riduce. Se scende a zero, il mittente deve smettere di inviare finché non arriva un aggiornamento. Questo meccanismo si chiama <strong>controllo di flusso</strong>: protegge il ricevitore dall'essere sommerso da troppi dati.</li>
+          <li><strong>cwnd (Congestion Window / finestra di congestione)</strong>: è gestita dal <em>mittente</em> in modo autonomo e stima quanti dati la <em>rete</em> riesce a gestire senza andare in congestione. Non viene comunicata esplicitamente: il mittente la regola in base ai segnali che riceve dalla rete (se gli ACK arrivano regolarmente, la rete sta bene; se i pacchetti si perdono, significa che la rete è congestionata). Questo meccanismo si chiama <strong>controllo di congestione</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="block purple">
+        <div class="btitle">Come cresce e si riduce la finestra di congestione (cwnd)</div>
+        <p>TCP adatta continuamente cwnd in base allo stato della rete attraverso due fasi principali:</p>
+        <ul style="margin-top:6px">
+          <li><strong>Slow Start (Partenza lenta)</strong>: all'inizio di ogni connessione TCP non sa quanta banda la rete può offrire. Per questo parte con una cwnd piccola (tipicamente 1 o pochi segmenti) e la aumenta <em>in modo rapido</em> ad ogni ACK ricevuto. La crescita è esponenziale: se tutto va bene, la finestra raddoppia ad ogni ciclo di RTT. Il nome "slow start" è controintuitivo — si chiama così perché si parte lentamente (cwnd piccola), non perché cresca lentamente.</li>
+          <li><strong>Congestion Avoidance (Evitamento della congestione)</strong>: quando cwnd supera una soglia chiamata <strong>ssthresh</strong>, TCP rallenta la crescita per non saturare bruscamente la rete. La crescita diventa lineare: la finestra cresce di un segmento per ogni RTT completo, invece di raddoppiare.</li>
+          <li><strong>Rilevamento della congestione — perdita di pacchetti</strong>: se un ACK non arriva entro il timeout, significa che il pacchetto probabilmente si è perso nella rete. TCP interpreta questo come un segnale di congestione severa e riduce drasticamente cwnd, ripartendo con Slow Start. Se invece riceve <strong>3 ACK duplicati</strong> per lo stesso segmento (significa che i segmenti successivi sono arrivati ma uno specifico manca), la reazione è meno drastica: cwnd viene ridotta a metà e si riprende con crescita lineare — questo si chiama <strong>Fast Retransmit e Fast Recovery</strong>.</li>
+        </ul>
+        <p style="margin-top:6px">L'effetto complessivo è un andamento a "dente di sega" della cwnd: cresce gradualmente finché non si perde qualcosa, poi si riduce e ricomincia a crescere. Questo comportamento adattivo fa sì che TCP occupi la banda disponibile senza esaurire le risorse della rete.</p>
+      </div>
+
+      <div class="block gray">
+        <div class="btitle">Ritrasmissione e gestione degli errori</div>
+        <p>Quando un segmento si perde, il mittente lo scopre in due modi: o scade il <strong>timer di ritrasmissione (RTO)</strong> senza che arrivi l'ACK, oppure riceve tre ACK duplicati. In entrambi i casi, il segmento mancante viene rispedito. Il meccanismo <strong>SACK (Selective Acknowledgment)</strong> è un'estensione opzionale che permette al ricevitore di segnalare esattamente quali blocchi di byte ha ricevuto fuori ordine: in questo modo il mittente può ritrasmettere solo i segmenti effettivamente mancanti, senza dover rispedire tutto ciò che viene dopo il punto di perdita. Senza SACK, in caso di perdita multipla, la ritrasmissione è molto meno efficiente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUB: CONFRONTO -->
+  <div id="trasporto-confronto" class="sub-section">
+    <div class="compare-grid" style="margin-top:4px">
+      <div class="compare-col tcp-c">
+        <div class="compare-col-title">TCP</div>
+        <div class="row-label">Connessione</div><p style="font-size:13px">Connection-oriented (3-way handshake)</p>
+        <div class="row-label">Affidabilità</div><p style="font-size:13px">Garantita (ACK, ritrasmissione, ordinamento)</p>
+        <div class="row-label">Controllo flusso</div><p style="font-size:13px">Sì (sliding window, rwnd)</p>
+        <div class="row-label">Controllo congestione</div><p style="font-size:13px">Sì (AIMD, Slow Start, cwnd)</p>
+        <div class="row-label">Overhead header</div><p style="font-size:13px">20–60 byte</p>
+        <div class="row-label">Latenza</div><p style="font-size:13px">Più alta (handshake + controllo)</p>
+        <div class="row-label">Multicast</div><p style="font-size:13px">Non supportato</p>
+        <div class="row-label">Casi d'uso</div><p style="font-size:13px">HTTP/S, SSH, FTP, SMTP, database</p>
+      </div>
+      <div class="compare-col udp-c">
+        <div class="compare-col-title">UDP</div>
+        <div class="row-label">Connessione</div><p style="font-size:13px">Connectionless (nessun handshake)</p>
+        <div class="row-label">Affidabilità</div><p style="font-size:13px">Best-effort (nessuna garanzia)</p>
+        <div class="row-label">Controllo flusso</div><p style="font-size:13px">No</p>
+        <div class="row-label">Controllo congestione</div><p style="font-size:13px">No (l'app deve gestirlo)</p>
+        <div class="row-label">Overhead header</div><p style="font-size:13px">8 byte (fisso)</p>
+        <div class="row-label">Latenza</div><p style="font-size:13px">Minima (trasmissione immediata)</p>
+        <div class="row-label">Multicast</div><p style="font-size:13px">Supportato nativamente</p>
+        <div class="row-label">Casi d'uso</div><p style="font-size:13px">DNS, DHCP, streaming, VoIP, QUIC</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 </div><!-- end .content -->
 
 <script>
-function show(id, btn) {
+function showChapter(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
   document.getElementById(id).classList.add('visible');
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   window.scrollTo(0, 0);
 }
+
+function showSub(chapter, subId, btn) {
+  // hide all sub-sections in this chapter
+  var chapterEl = document.getElementById(chapter);
+  chapterEl.querySelectorAll('.sub-section').forEach(s => s.classList.remove('visible'));
+  // show target
+  document.getElementById(chapter + '-' + subId).classList.add('visible');
+  // update sub-nav buttons
+  chapterEl.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
 function tq(el) {
   el.classList.toggle('open');
   el.nextElementSibling.classList.toggle('open');
