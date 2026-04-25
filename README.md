@@ -14,7 +14,7 @@ Lo studio può essere intenso. Abbiamo deciso di sviluppare questo sito per:
 | Developer | Ruolo | Classe |
 | :--- | :--- | :--- |
 | **Mimo** | Founder & Contributor | 4° Superiore |
-| **Darkmaster** | Co-Founder & Contributor | 4° Superiore |
+| **Darkmaster** | Co-Founder | 4° Superiore |
 
 ## 🛠️ Tecnologie utilizzate
 
