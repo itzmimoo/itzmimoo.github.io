@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matematica by NIGGAS s.r.l.</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #0f0f0f; color: #e8e4dc; min-height: 100vh; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid #222; background: #0f0f0f; position: relative; top: 0; z-index: 100; }
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.back-btn { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #888; text-decoration: none; padding: 6px 12px; border-radius: 8px; border: 1px solid #2a2a2a; background: #181818; transition: all 0.15s; }
+.back-btn:hover { color: #e8e4dc; border-color: #3a3a3a; }
+.topbar-title { font-size: 15px; font-weight: 500; color: #e8e4dc; }
+.topbar-sub { font-size: 12px; color: #555; }
+
+.chapter-bar { display: flex; gap: 8px; padding: 14px 20px 0; overflow-x: auto; scrollbar-width: none; }
+.chapter-bar::-webkit-scrollbar { display: none; }
+.chapter-btn { flex-shrink: 0; font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 20px; border: 1px solid #2a2a2a; background: #181818; color: #888; cursor: pointer; transition: all 0.15s; letter-spacing: 0.02em; }
+.chapter-btn.active { background: #E24B4A; border-color: #E24B4A; color: #fff; }
+.chapter-btn.locked { opacity: 0.45; cursor: default; }
+.chapter-btn.locked:hover { background: #181818; border-color: #2a2a2a; color: #888; }
+
+.chapter { display: none; padding: 20px; }
+.chapter.visible { display: block; }
+
+.chapter-header { margin-bottom: 20px; margin-top: 8px; }
+.chapter-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: #E24B4A; text-transform: uppercase; margin-bottom: 5px; }
+.chapter-title { font-size: 24px; font-weight: 600; color: #e8e4dc; line-height: 1.2; }
+
+/* NAV */
+.nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.nav button { font-size: 12px; padding: 6px 14px; border-radius: 20px; border: 1px solid #2a2a2a; background: #181818; color: #888; cursor: pointer; transition: all 0.15s; }
+.nav button.active, .nav button:hover { background: #2a0a0a; color: #ff7070; border-color: #5a1a1a; }
+
+.section { display: none; }
+.section.visible { display: block; }
+
+/* CARDS */
+.block { border-left: 3px solid; padding: 0.9rem 1.1rem; margin-bottom: 1rem; border-radius: 0 10px 10px 0; background: #181818; }
+.block.red { border-color: #E24B4A; }
+.block.amber { border-color: #BA7517; }
+.block.blue { border-color: #378ADD; }
+.block.teal { border-color: #1D9E75; }
+.block.purple { border-color: #7B68EE; }
+.block.gray { border-color: #555; }
+
+.btitle { font-size: 15px; font-weight: 500; color: #e8e4dc; margin-bottom: 6px; }
+.bsub { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 5px; }
+.bsub.red { color: #ff7070; } .bsub.amber { color: #f0a830; } .bsub.blue { color: #5aabff; }
+.bsub.teal { color: #3dd0a0; } .bsub.purple { color: #b0a4ff; } .bsub.gray { color: #888; }
+
+.block p, .block li { font-size: 13.5px; color: #aaa; line-height: 1.65; }
+.block ul { padding-left: 1.2rem; }
+.block li { margin-bottom: 3px; }
+.kw { font-weight: 500; color: #e8e4dc; }
+.formula { display: inline-block; font-family: 'Courier New', monospace; background: #1a1a1a; border: 1px solid #333; border-radius: 5px; padding: 2px 8px; font-size: 13px; color: #ff9060; margin: 2px 2px; }
+.formula-block { font-family: 'Courier New', monospace; background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 14px; color: #ff9060; line-height: 1.8; }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-bottom: 1rem; }
+.card { background: #181818; border: 1px solid #252525; border-radius: 12px; padding: 1rem 1.1rem; }
+.card-title { font-size: 14px; font-weight: 500; color: #d0ccc4; margin-bottom: 0.5rem; }
+.card p, .card li { font-size: 13px; color: #888; line-height: 1.6; }
+.card ul { padding-left: 1.1rem; margin-top: 4px; }
+.badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+.badge.red { background: #2a0a0a; color: #ff8080; }
+.badge.amber { background: #2a1a04; color: #f0a830; }
+.badge.blue { background: #0a1e38; color: #5aabff; }
+.badge.teal { background: #042a1a; color: #3dd0a0; }
+.badge.purple { background: #1a1438; color: #b0a4ff; }
+.badge.gray { background: #1a1a1a; color: #888; }
+
+.pill { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-left: 6px; font-weight: 600; vertical-align: middle; }
+.pill.imp { background: #3a1515; color: #ff8080; }
+.pill.tip { background: #142514; color: #80d880; }
+
+.sep { font-size: 11px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.08em; margin: 1.5rem 0 0.75rem; border-bottom: 1px solid #222; padding-bottom: 0.3rem; }
+
+/* SVG GRAPHS */
+.graph-wrap { background: #141414; border: 1px solid #2a2a2a; border-radius: 12px; padding: 16px; margin: 10px 0; text-align: center; }
+.graph-label { font-size: 11px; color: #555; margin-bottom: 8px; letter-spacing: 0.05em; text-transform: uppercase; }
+.graph-caption { font-size: 12px; color: #666; margin-top: 8px; font-style: italic; }
+svg text { font-family: -apple-system, sans-serif; }
+
+/* STEP CARDS */
+.step-list { counter-reset: step; }
+.step-item { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.step-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #2a0a0a; color: #ff7070; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 1px solid #5a1a1a; margin-top: 2px; }
+.step-content { flex: 1; }
+.step-title { font-size: 13.5px; font-weight: 500; color: #e8e4dc; margin-bottom: 3px; }
+.step-desc { font-size: 13px; color: #888; line-height: 1.6; }
+
+/* LOCKED */
+.locked-overlay { position: relative; }
+.locked-overlay::after { content: '🔒 Non ancora studiato'; position: absolute; inset: 0; background: rgba(15,15,15,0.88); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #555; letter-spacing: 0.05em; }
+/* can't do ::after with flex trick cleanly, use a div overlay instead */
+
+.lock-cover { position: relative; }
+.lock-cover .lock-mask { position: absolute; inset: 0; background: rgba(15,15,15,0.88); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; z-index: 10; pointer-events: none; }
+.lock-mask-icon { font-size: 22px; }
+.lock-mask-text { font-size: 12px; color: #555; letter-spacing: 0.06em; }
+
+/* DISCONTINUITY CARDS */
+.disc-card { border: 1px solid #2a2a2a; border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 10px; background: #181818; }
+.disc-type { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+.disc-name { font-size: 16px; font-weight: 600; color: #e8e4dc; margin-bottom: 6px; }
+.disc-rule { font-size: 13px; color: #aaa; line-height: 1.6; margin-bottom: 10px; }
+
+/* EXPO/LOG tables */
+.prop-table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+.prop-table th { font-size: 11px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 10px; border-bottom: 1px solid #2a2a2a; text-align: left; }
+.prop-table td { font-size: 13px; color: #aaa; padding: 7px 10px; border-bottom: 1px solid #1e1e1e; vertical-align: top; }
+.prop-table tr:last-child td { border-bottom: none; }
+.prop-table td:first-child { color: #e8e4dc; font-weight: 500; width: 40%; }
+
+@media (max-width: 600px) {
+  .chapter { padding: 14px; }
+  .grid2 { grid-template-columns: 1fr; }
+  .topbar { padding: 12px 14px; }
+  .chapter-bar { padding: 12px 14px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="back-btn" href="index.html">← Home</a>
+    <div>
+      <div class="topbar-title">Matematica</div>
+      <div class="topbar-sub">NIGGAS s.r.l.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-bar">
+  <button class="chapter-btn active" onclick="switchChapter('studio', this)">📈 Studio di funzioni</button>
+  <button class="chapter-btn" onclick="switchChapter('discontinuita', this)">⚡ Discontinuità</button>
+  <button class="chapter-btn" onclick="switchChapter('grafici', this)">📊 Grafici esp. e log.</button>
+</div>
+
+<!-- ========================= STUDIO DI FUNZIONI ========================= -->
+<div id="studio" class="chapter visible">
+  <div class="chapter-header">
+    <div class="chapter-label">Capitolo 1</div>
+    <div class="chapter-title">Studio di funzioni — passi in ordine</div>
+  </div>
+
+  <div class="nav">
+    <button class="active" onclick="showS('s_passi', this)">Tutti i passi</button>
+    <button onclick="showS('s_parita', this)">1. Parità</button>
+    <button onclick="showS('s_dominio', this)">2. Dominio (C.E.)</button>
+    <button onclick="showS('s_segno', this)">3. Segno</button>
+    <button onclick="showS('s_intersezioni', this)">4. Intersezioni</button>
+    <button onclick="showS('s_limiti', this)">5. Limiti</button>
+    <button onclick="showS('s_asintoti', this)">6. Asintoti</button>
+    <button onclick="showS('s_derivata', this)">7–10. Derivata →</button>
+  </div>
+
+  <!-- TUTTI I PASSI -->
+  <div id="s_passi" class="section visible">
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content"><div class="step-title">Parità</div><div class="step-desc">f(−x) = f(x) → pari (sim. asse y) &nbsp;|&nbsp; f(−x) = −f(x) → dispari (sim. origine)</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content"><div class="step-title">Dominio (C.E.)</div><div class="step-desc">Trova dove la funzione esiste. Denominatore ≠ 0, argomento log > 0, radice pari ≥ 0, ecc.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content"><div class="step-title">Segno — f(x) > 0</div><div class="step-desc">Studia quando la funzione è positiva (sopra l'asse x) e quando è negativa.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content"><div class="step-title">Intersezioni con gli assi</div><div class="step-desc">Con asse x: f(x) = 0. Con asse y: f(0) = ?</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content"><div class="step-title">Limiti</div><div class="step-desc">Limiti a +∞ e −∞ (se il C.E. lo permette). Limiti nei punti esclusi dal dominio → da destra e da sinistra.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">6</div>
+        <div class="step-content"><div class="step-title">Asintoti</div><div class="step-desc">Orizzontali (y = c), verticali (x = c), obliqui (y = mx + q)</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">7</div>
+        <div class="step-content"><div class="step-title">Punti di discontinuità</div><div class="step-desc">3 specie: I (salto), II (almeno un limite infinito), III (eliminabile)</div></div>
+      </div>
+      <div class="step-item" style="position:relative;">
+        <div class="step-num" style="opacity:0.4">8</div>
+        <div class="step-content" style="opacity:0.4"><div class="step-title">Derivata prima f'(x)</div><div class="step-desc">Calcola f'(x)</div></div>
+      </div>
+      <div class="step-item" style="position:relative;">
+        <div class="step-num" style="opacity:0.4">9</div>
+        <div class="step-content" style="opacity:0.4"><div class="step-title">f'(x) = 0 e f'(x) > 0</div><div class="step-desc">Zeri → massimi, minimi, flessi orizzontali. Segno → crescenza/decrescenza (schema frecce)</div></div>
+      </div>
+      <div class="step-item" style="position:relative;">
+        <div class="step-num" style="opacity:0.4">10</div>
+        <div class="step-content" style="opacity:0.4"><div class="step-title">Derivata seconda f''(x)</div><div class="step-desc">f''(x) > 0 → concavo ∪ | f''(x) < 0 → convesso ∩ | flessi obliqui</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">✏</div>
+        <div class="step-content"><div class="step-title">Disegno finale</div><div class="step-desc">Riporta tutto sugli assi cartesiani man mano che trovi i dati.</div></div>
+      </div>
+    </div>
+    <div class="block gray" style="margin-top:8px">
+      <p style="font-size:13px;color:#888;"><span class="kw">Regola d'oro:</span> riporta ogni informazione sul grafico <em>immediatamente</em> dopo averla trovata. Non aspettare la fine.</p>
+    </div>
+    <div class="block red" style="margin-top:6px">
+      <p style="font-size:13px;color:#888;">I passi dal <span class="kw">7 in poi (derivata)</span> sono oscurati — non ancora programmati in quarta. Clicca su "7–10. Derivata →" per vederli ugualmente.</p>
+    </div>
+  </div>
+
+  <!-- PARITA -->
+  <div id="s_parita" class="section">
+    <div class="block red">
+      <div class="bsub red">Passo 1</div>
+      <div class="btitle">Parità della funzione</div>
+      <p>Calcola f(−x) e confrontala con f(x).</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge teal">Funzione PARI</div>
+        <div class="card-title">f(−x) = f(x)</div>
+        <p>Simmetrica rispetto all'<span class="kw">asse y</span>.<br>Basta studiare x ≥ 0 e specchiare.</p>
+        <div class="graph-wrap" style="margin-top:10px">
+          <svg viewBox="0 0 160 120" width="140" height="105">
+            <line x1="10" y1="60" x2="150" y2="60" stroke="#333" stroke-width="1.2"/>
+            <line x1="80" y1="10" x2="80" y2="110" stroke="#333" stroke-width="1.2"/>
+            <text x="148" y="57" fill="#555" font-size="9">x</text>
+            <text x="83" y="14" fill="#555" font-size="9">y</text>
+            <path d="M 15 100 Q 80 5 145 100" fill="none" stroke="#3dd0a0" stroke-width="2"/>
+            <text x="55" y="113" fill="#3dd0a0" font-size="9">f(x) = x²</text>
+          </svg>
+          <div class="graph-caption">simmetria rispetto a y</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="badge red">Funzione DISPARI</div>
+        <div class="card-title">f(−x) = −f(x)</div>
+        <p>Simmetrica rispetto all'<span class="kw">origine</span>.<br>Basta studiare x ≥ 0 e ruotare di 180°.</p>
+        <div class="graph-wrap" style="margin-top:10px">
+          <svg viewBox="0 0 160 120" width="140" height="105">
+            <line x1="10" y1="60" x2="150" y2="60" stroke="#333" stroke-width="1.2"/>
+            <line x1="80" y1="10" x2="80" y2="110" stroke="#333" stroke-width="1.2"/>
+            <text x="148" y="57" fill="#555" font-size="9">x</text>
+            <text x="83" y="14" fill="#555" font-size="9">y</text>
+            <path d="M 15 105 C 30 80 55 65 80 60 C 105 55 130 40 145 15" fill="none" stroke="#ff7070" stroke-width="2"/>
+            <text x="55" y="113" fill="#ff7070" font-size="9">f(x) = x³</text>
+          </svg>
+          <div class="graph-caption">simmetria rispetto all'origine</div>
+        </div>
+      </div>
+    </div>
+    <div class="block gray">
+      <p>Se <span class="formula">f(−x) ≠ f(x)</span> e <span class="formula">f(−x) ≠ −f(x)</span> → <span class="kw">funzione né pari né dispari</span>. Nessuna simmetria.</p>
+    </div>
+  </div>
+
+  <!-- DOMINIO -->
+  <div id="s_dominio" class="section">
+    <div class="block red">
+      <div class="bsub red">Passo 2</div>
+      <div class="btitle">Dominio — Campo di Esistenza (C.E.)</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge red">Frazione</div>
+        <div class="card-title">B(x) ≠ 0</div>
+        <p>Il denominatore non può essere zero. Risolvi B(x) = 0 e <span class="kw">escludi</span> quei valori.</p>
+      </div>
+      <div class="card">
+        <div class="badge amber">Radice pari (√)</div>
+        <div class="card-title">A(x) ≥ 0</div>
+        <p>Il contenuto deve essere ≥ 0.<br>Radice pari al denominatore: A(x) > 0 (stretto).</p>
+      </div>
+      <div class="card">
+        <div class="badge teal">Radice dispari (∛)</div>
+        <div class="card-title">x ∈ ℝ</div>
+        <p>Nessun limite. Esiste per tutti i reali.<br>Radice dispari al denominatore: A(x) ≠ 0.</p>
+      </div>
+      <div class="card">
+        <div class="badge blue">Logaritmo</div>
+        <div class="card-title">f(x) > 0</div>
+        <p>L'argomento del logaritmo deve essere <span class="kw">strettamente positivo</span>.</p>
+      </div>
+      <div class="card">
+        <div class="badge purple">Esponenziale a^f(x)</div>
+        <div class="card-title">Dominio di f(x)</div>
+        <p>Calcola il dominio dell'esponente f(x). La base a > 0 e a ≠ 1.</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">sin / cos</div>
+        <div class="card-title">x ∈ ℝ</div>
+        <p>Seno e coseno esistono per tutti i reali.</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">tan(x)</div>
+        <div class="card-title">x ≠ π/2 + kπ</div>
+        <p>Escludi i valori dove il coseno è zero: x ≠ π/2 + kπ, k ∈ ℤ</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">|x| valore assoluto</div>
+        <div class="card-title">x ∈ ℝ</div>
+        <p>Nessun limite, sempre definito.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGNO -->
+  <div id="s_segno" class="section">
+    <div class="block red">
+      <div class="bsub red">Passo 3</div>
+      <div class="btitle">Studio del segno — f(x) > 0</div>
+      <p>Stai cercando <span class="kw">dove il grafico è sopra l'asse x</span> (positivo) e dove è sotto (negativo).</p>
+    </div>
+    <div class="block amber">
+      <div class="btitle">Come fare</div>
+      <ul>
+        <li>Risolvi <span class="formula">f(x) > 0</span></li>
+        <li>Disegna uno <span class="kw">schema dei segni</span> (tabella con gli zeri e i segni tra di essi)</li>
+        <li>Ricordati di <span class="kw">tenere conto del C.E.</span>: fuori dal dominio non puoi scrivere nulla</li>
+        <li>Per frazioni: studia il segno di numeratore e denominatore separatamente, poi applica la regola dei segni</li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge teal">Regola dei segni</div>
+        <div class="card-title">Frazione N/D</div>
+        <p>+ / + = + &nbsp;&nbsp; − / − = +<br>+ / − = − &nbsp;&nbsp; − / + = −<br><br>Fai la tabella degli zeri di N e D.</p>
+      </div>
+      <div class="card">
+        <div class="badge blue">Risultato sul grafico</div>
+        <div class="card-title">Segno positivo → curva sopra asse x</div>
+        <p>Segnati gli intervalli dove f > 0 direttamente sul grafico con tratti sopra l'asse.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERSEZIONI -->
+  <div id="s_intersezioni" class="section">
+    <div class="block red">
+      <div class="bsub red">Passo 4</div>
+      <div class="btitle">Intersezioni con gli assi</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge red">Asse x (ascisse)</div>
+        <div class="card-title">f(x) = 0</div>
+        <p>Risolvi l'equazione f(x) = 0.<br>Ogni soluzione è un punto della forma <span class="kw">(x₀, 0)</span>.<br>Deve stare nel dominio!</p>
+      </div>
+      <div class="card">
+        <div class="badge blue">Asse y (ordinate)</div>
+        <div class="card-title">f(0) = ?</div>
+        <p>Calcola f(0).<br>Se 0 ∈ dominio → il punto è <span class="kw">(0, f(0))</span>.<br>Se 0 ∉ dominio → nessuna intersezione con l'asse y.</p>
+      </div>
+    </div>
+    <div class="block gray">
+      <p>Riporta i punti trovati subito sul grafico. Sono dati certi.</p>
+    </div>
+  </div>
+
+  <!-- LIMITI -->
+  <div id="s_limiti" class="section">
+    <div class="block red">
+      <div class="bsub red">Passo 5</div>
+      <div class="btitle">Limiti</div>
+    </div>
+    <div class="block amber">
+      <div class="btitle">Quando calcolare i limiti</div>
+      <ul>
+        <li><span class="kw">Limiti a +∞ e −∞</span> — sempre, se il C.E. arriva all'infinito</li>
+        <li><span class="kw">Limiti nei punti esclusi dal dominio</span> — sia da destra (x→c⁺) che da sinistra (x→c⁻)</li>
+      </ul>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge teal">Forme indeterminate</div>
+        <div class="card-title">Quando il limite non è immediato</div>
+        <ul>
+          <li><span class="formula">∞/∞</span> — raccogli il termine di grado maggiore</li>
+          <li><span class="formula">0/0</span> — semplifica / fattorizza</li>
+          <li><span class="formula">∞ − ∞</span> — porta a forma comune</li>
+          <li><span class="formula">0 · ∞</span> — riscrivi come 0/0 o ∞/∞</li>
+          <li><span class="formula">1^∞</span> → formula speciale con e</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="badge blue">Limite razionale a ∞</div>
+        <div class="card-title">Dividi per x^n (grado massimo)</div>
+        <p>Raccogli al numeratore e denominatore il termine con la x di grado più alto. Tutti gli altri → 0.</p>
+        <div class="formula-block">lim (3x²+x)/(x²−5) = 3/1 = 3<br>→ asintoto orizzontale y = 3</div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge red">Limite da destra/sinistra</div>
+        <div class="card-title">Nei punti di "buco" nel dominio</div>
+        <p>Se c ∉ dominio (es. denominatore = 0):<br><br>lim<sub>x→c⁺</sub> f(x) = ?<br>lim<sub>x→c⁻</sub> f(x) = ?<br><br>I segni determinano se la curva va a +∞ o −∞.</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">Limiti notevoli utili</div>
+        <div class="card-title">Da ricordare</div>
+        <div class="formula-block">lim<sub>x→0</sub> sin(x)/x = 1<br>lim<sub>x→∞</sub> (1+1/x)ˣ = e<br>lim<sub>x→0</sub> (1+x)^(1/x) = e</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASINTOTI -->
+  <div id="s_asintoti" class="section">
+    <div class="block red">
+      <div class="bsub red">Passo 6</div>
+      <div class="btitle">Asintoti</div>
+    </div>
+
+    <div class="block teal">
+      <div class="bsub teal">Asintoto Orizzontale</div>
+      <div class="btitle">y = c &nbsp;&nbsp; <span style="font-size:13px;font-weight:400;color:#888">equazione: retta orizzontale</span></div>
+      <div class="formula-block">lim<sub>x→+∞</sub> f(x) = L &nbsp; → &nbsp; asintoto orizzontale y = L (a +∞)<br>lim<sub>x→−∞</sub> f(x) = M &nbsp; → &nbsp; asintoto orizzontale y = M (a −∞)</div>
+      <p>Se il limite è un numero finito → asintoto. Se è ∞ → niente asintoto orizzontale lì.</p>
+      <div class="graph-wrap" style="margin-top:10px">
+        <svg viewBox="0 0 220 110" width="200" height="100">
+          <line x1="10" y1="55" x2="210" y2="55" stroke="#333" stroke-width="1"/>
+          <line x1="110" y1="5" x2="110" y2="105" stroke="#333" stroke-width="1"/>
+          <line x1="10" y1="30" x2="210" y2="30" stroke="#1D9E75" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <path d="M 15 95 C 50 90 80 50 100 35 C 115 28 140 28 210 29" fill="none" stroke="#3dd0a0" stroke-width="2"/>
+          <text x="170" y="26" fill="#1D9E75" font-size="9">y = L</text>
+          <text x="205" y="52" fill="#555" font-size="9">x</text>
+        </svg>
+        <div class="graph-caption">la curva si avvicina all'asintoto orizzontale senza mai toccarlo (o toccandolo)</div>
+      </div>
+    </div>
+
+    <div class="block red">
+      <div class="bsub red">Asintoto Verticale</div>
+      <div class="btitle">x = c &nbsp;&nbsp; <span style="font-size:13px;font-weight:400;color:#888">equazione: retta verticale</span></div>
+      <div class="formula-block">lim<sub>x→c⁺</sub> f(x) = ±∞ &nbsp; oppure &nbsp; lim<sub>x→c⁻</sub> f(x) = ±∞</div>
+      <p>Basta che <span class="kw">uno dei due limiti laterali sia infinito</span>. Si trova nei punti esclusi dal dominio.</p>
+      <div class="graph-wrap" style="margin-top:10px">
+        <svg viewBox="0 0 220 110" width="200" height="100">
+          <line x1="10" y1="55" x2="210" y2="55" stroke="#333" stroke-width="1"/>
+          <line x1="110" y1="5" x2="110" y2="105" stroke="#333" stroke-width="1"/>
+          <line x1="140" y1="5" x2="140" y2="105" stroke="#E24B4A" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <path d="M 15 60 Q 80 58 115 10" fill="none" stroke="#ff7070" stroke-width="2"/>
+          <path d="M 165 100 Q 190 60 210 56" fill="none" stroke="#ff7070" stroke-width="2"/>
+          <text x="143" y="13" fill="#E24B4A" font-size="9">x = c</text>
+          <text x="205" y="52" fill="#555" font-size="9">x</text>
+        </svg>
+        <div class="graph-caption">la curva va all'infinito avvicinandosi a x = c</div>
+      </div>
+    </div>
+
+    <div class="block purple">
+      <div class="bsub purple">Asintoto Obliquo</div>
+      <div class="btitle">y = mx + q &nbsp;&nbsp; <span style="font-size:13px;font-weight:400;color:#888">retta inclinata</span></div>
+      <p>Esiste <span class="kw">solo se il limite a ∞ NON è finito e NON è ∞</span> (cioè, il grado del numeratore = grado denominatore + 1).</p>
+      <div class="formula-block">m = lim<sub>x→∞</sub> f(x)/x<br><br>q = lim<sub>x→∞</sub> [f(x) − mx]</div>
+      <ul style="margin-top:8px">
+        <li>Se m = 0 → non è obliquo ma orizzontale</li>
+        <li>Se m = ∞ → non esiste</li>
+        <li>Calcola m prima, poi q con m già trovato</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DERIVATA (accessibile ma "locked style") -->
+  <div id="s_derivata" class="section">
+    <div class="block gray" style="border-color:#555;opacity:0.7">
+      <div class="bsub gray">Passi 7–10 — Non ancora in programma (quarta)</div>
+      <div class="btitle">Derivata — preview</div>
+      <p>Questi passi si studieranno più avanti. Sono visibili per chi vuole anticipare.</p>
+    </div>
+    <div class="grid2">
+      <div class="card" style="opacity:0.65">
+        <div class="badge gray">Passo 7</div>
+        <div class="card-title">Punti di discontinuità</div>
+        <p>Classificazione in 3 specie — vedi il capitolo "Discontinuità" nel menu in alto.</p>
+      </div>
+      <div class="card" style="opacity:0.65">
+        <div class="badge gray">Passo 8 — f'(x)</div>
+        <div class="card-title">Derivata prima</div>
+        <p>Calcola f'(x) con le regole di derivazione.<br><br>Prodotto: (fg)' = f'g + fg'<br>Quoziente: (f/g)' = (f'g − fg') / g²<br>Catena: (f(g))' = f'(g) · g'</p>
+      </div>
+      <div class="card" style="opacity:0.65">
+        <div class="badge gray">Passo 9 — f'(x) = 0</div>
+        <div class="card-title">Massimi, minimi, flessi orizzontali</div>
+        <p>Risolvi f'(x) = 0 → punti critici.<br>Schema delle frecce → ↑ crescente, ↓ decrescente.<br>↑→↓ = massimo, ↓→↑ = minimo.</p>
+      </div>
+      <div class="card" style="opacity:0.65">
+        <div class="badge gray">Passo 10 — f''(x)</div>
+        <div class="card-title">Derivata seconda — concavità</div>
+        <p>f''(x) > 0 → concavo ∪ (aperto verso l'alto)<br>f''(x) < 0 → convesso ∩ (aperto verso il basso)<br>f''(x) = 0 → possibile flesso obliquo.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========================= DISCONTINUITÀ ========================= -->
+<div id="discontinuita" class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-label">Capitolo 2</div>
+    <div class="chapter-title">Punti di discontinuità — 3 specie</div>
+  </div>
+
+  <div class="block gray" style="margin-bottom:16px">
+    <p>Un punto x = c è di <span class="kw">discontinuità</span> quando la funzione non è continua in quel punto (perché non è definita lì, o il limite non esiste, o non coincide con il valore della funzione).</p>
+  </div>
+
+  <!-- PRIMA SPECIE -->
+  <div class="disc-card" style="border-top:3px solid #E24B4A">
+    <div class="disc-type" style="color:#E24B4A">Prima specie</div>
+    <div class="disc-name">Discontinuità a salto</div>
+    <div class="disc-rule">
+      Il limite destro e il limite sinistro <span class="kw">esistono entrambi</span> e sono <span class="kw">finiti</span>, ma sono <span class="kw">diversi tra loro</span>.
+    </div>
+    <div class="formula-block">lim<sub>x→c⁻</sub> f(x) = L₁ &nbsp;&nbsp; lim<sub>x→c⁺</sub> f(x) = L₂ &nbsp;&nbsp; con L₁ ≠ L₂</div>
+    <div class="graph-wrap" style="margin-top:10px">
+      <svg viewBox="0 0 220 120" width="200" height="109">
+        <line x1="10" y1="60" x2="210" y2="60" stroke="#333" stroke-width="1"/>
+        <line x1="110" y1="10" x2="110" y2="110" stroke="#333" stroke-width="1"/>
+        <line x1="110" y1="10" x2="110" y2="110" stroke="#E24B4A" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- left piece -->
+        <path d="M 15 85 L 107 40" fill="none" stroke="#ff7070" stroke-width="2"/>
+        <!-- right piece -->
+        <path d="M 113 75 L 205 35" fill="none" stroke="#ff7070" stroke-width="2"/>
+        <!-- open circles -->
+        <circle cx="108" cy="40" r="3.5" fill="#0f0f0f" stroke="#ff7070" stroke-width="1.5"/>
+        <circle cx="112" cy="75" r="3.5" fill="#0f0f0f" stroke="#ff7070" stroke-width="1.5"/>
+        <text x="113" y="57" fill="#E24B4A" font-size="9">c</text>
+        <text x="60" y="36" fill="#888" font-size="8">L₁</text>
+        <text x="143" y="78" fill="#888" font-size="8">L₂</text>
+        <text x="205" y="57" fill="#555" font-size="9">x</text>
+      </svg>
+      <div class="graph-caption">la curva "salta" — L₁ ≠ L₂</div>
+    </div>
+    <div class="block red" style="margin-top:10px">
+      <p>Il <span class="kw">salto</span> vale |L₁ − L₂|. La funzione può o non può essere definita in c — non cambia la specie.</p>
+    </div>
+  </div>
+
+  <!-- SECONDA SPECIE -->
+  <div class="disc-card" style="border-top:3px solid #BA7517;margin-top:14px">
+    <div class="disc-type" style="color:#BA7517">Seconda specie</div>
+    <div class="disc-name">Discontinuità essenziale</div>
+    <div class="disc-rule">
+      <span class="kw">Almeno uno</span> dei due limiti laterali <span class="kw">non esiste</span> oppure è <span class="kw">infinito</span>.
+    </div>
+    <div class="formula-block">lim<sub>x→c⁻</sub> f(x) = ±∞ &nbsp; oppure &nbsp; lim<sub>x→c⁺</sub> f(x) = ±∞<br>&nbsp;<br>oppure: almeno uno dei limiti laterali non esiste (es. oscillazione)</div>
+    <div class="graph-wrap" style="margin-top:10px">
+      <svg viewBox="0 0 220 120" width="200" height="109">
+        <line x1="10" y1="60" x2="210" y2="60" stroke="#333" stroke-width="1"/>
+        <line x1="110" y1="10" x2="110" y2="110" stroke="#333" stroke-width="1"/>
+        <line x1="110" y1="10" x2="110" y2="110" stroke="#BA7517" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- ramo che va a +inf da sx -->
+        <path d="M 15 80 Q 60 75 90 50 Q 100 35 106 12" fill="none" stroke="#f0a830" stroke-width="2"/>
+        <!-- ramo che va a +inf da dx -->
+        <path d="M 114 12 Q 120 40 135 65 Q 165 80 205 82" fill="none" stroke="#f0a830" stroke-width="2"/>
+        <text x="113" y="57" fill="#BA7517" font-size="9">c</text>
+        <text x="205" y="57" fill="#555" font-size="9">x</text>
+        <text x="55" y="30" fill="#888" font-size="8">→ +∞</text>
+      </svg>
+      <div class="graph-caption">almeno un lato va a ∞ — asintoto verticale</div>
+    </div>
+    <div class="block amber" style="margin-top:10px">
+      <p>Questa specie include i punti dove c'è un <span class="kw">asintoto verticale</span>. Ma anche se la funzione oscilla senza limite (come sin(1/x) per x→0) è seconda specie.</p>
+    </div>
+  </div>
+
+  <!-- TERZA SPECIE -->
+  <div class="disc-card" style="border-top:3px solid #1D9E75;margin-top:14px">
+    <div class="disc-type" style="color:#1D9E75">Terza specie</div>
+    <div class="disc-name">Discontinuità eliminabile</div>
+    <div class="disc-rule">
+      Il limite destro e il limite sinistro <span class="kw">esistono, coincidono</span> (il limite esiste), ma il <span class="kw">valore della funzione in quel punto è diverso</span> dal limite (o la funzione non è definita lì).
+    </div>
+    <div class="formula-block">lim<sub>x→c</sub> f(x) = L &nbsp;&nbsp; ma &nbsp;&nbsp; f(c) ≠ L &nbsp;&nbsp; (oppure f(c) non esiste)</div>
+    <div class="graph-wrap" style="margin-top:10px">
+      <svg viewBox="0 0 220 120" width="200" height="109">
+        <line x1="10" y1="60" x2="210" y2="60" stroke="#333" stroke-width="1"/>
+        <line x1="110" y1="10" x2="110" y2="110" stroke="#333" stroke-width="1"/>
+        <!-- curva con buco -->
+        <path d="M 15 85 Q 65 70 107 45" fill="none" stroke="#3dd0a0" stroke-width="2"/>
+        <path d="M 113 45 Q 155 25 205 20" fill="none" stroke="#3dd0a0" stroke-width="2"/>
+        <!-- buco (cerchio aperto) al limite -->
+        <circle cx="110" cy="45" r="4" fill="#0f0f0f" stroke="#3dd0a0" stroke-width="1.5"/>
+        <!-- punto isolato dove f(c) è diverso -->
+        <circle cx="110" cy="85" r="4" fill="#3dd0a0" stroke="#3dd0a0" stroke-width="1.5"/>
+        <text x="205" y="57" fill="#555" font-size="9">x</text>
+        <text x="115" y="44" fill="#888" font-size="8">L (limite)</text>
+        <text x="115" y="90" fill="#3dd0a0" font-size="8">f(c)</text>
+      </svg>
+      <div class="graph-caption">"buco" nella curva — il limite esiste ma f(c) è altrove (o mancante)</div>
+    </div>
+    <div class="block teal" style="margin-top:10px">
+      <p>Si chiama "eliminabile" perché basta <span class="kw">ridefinire f(c) = L</span> per rendere la funzione continua. È il tipo più "innocuo".</p>
+    </div>
+  </div>
+
+  <!-- TABELLA RIEPILOGO -->
+  <div class="sep">Riepilogo rapido</div>
+  <div class="card">
+    <table class="prop-table">
+      <tr>
+        <th>Specie</th>
+        <th>Condizione</th>
+        <th>Eliminabile?</th>
+      </tr>
+      <tr>
+        <td style="color:#ff7070">I — Salto</td>
+        <td>lim⁻ e lim⁺ esistono finiti ma ≠</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td style="color:#f0a830">II — Essenziale</td>
+        <td>Almeno un lim laterale = ∞ o non esiste</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td style="color:#3dd0a0">III — Eliminabile</td>
+        <td>lim esiste finito, ma f(c) ≠ lim</td>
+        <td>Sì</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========================= GRAFICI ESP E LOG ========================= -->
+<div id="grafici" class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-label">Capitolo 3</div>
+    <div class="chapter-title">Funzioni esponenziali e logaritmiche</div>
+  </div>
+
+  <div class="nav">
+    <button class="active" onclick="showG('g_exp', this)">Esponenziale</button>
+    <button onclick="showG('g_log', this)">Logaritmo</button>
+    <button onclick="showG('g_confronto', this)">Confronto e trucchi</button>
+  </div>
+
+  <!-- ESPONENZIALE -->
+  <div id="g_exp" class="section visible">
+
+    <div class="block red">
+      <div class="btitle">f(x) = aˣ &nbsp; (con a > 0, a ≠ 1)</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="badge teal">a > 1 (es. 2ˣ, eˣ, 10ˣ)</div>
+        <div class="card-title">Esponenziale crescente</div>
+        <ul>
+          <li>Passa sempre per <span class="kw">(0, 1)</span></li>
+          <li>x→+∞ : f→+∞</li>
+          <li>x→−∞ : f→0 (asintoto y = 0)</li>
+          <li>Sempre > 0, mai tocca asse x</li>
+          <li>Dominio: ℝ &nbsp;|&nbsp; Codominio: (0, +∞)</li>
+        </ul>
+        <div class="graph-wrap" style="margin-top:10px">
+          <svg viewBox="0 0 180 130" width="165" height="119">
+            <line x1="10" y1="70" x2="170" y2="70" stroke="#333" stroke-width="1"/>
+            <line x1="60" y1="10" x2="60" y2="120" stroke="#333" stroke-width="1"/>
+            <text x="166" y="68" fill="#555" font-size="9">x</text>
+            <text x="63" y="14" fill="#555" font-size="9">y</text>
+            <!-- asymptote y=0 not shown, it IS the x axis -->
+            <!-- curve aˣ a>1 growing -->
+            <path d="M 10 68 Q 30 67 50 65 Q 60 63 70 58 Q 85 45 100 25 Q 115 10 130 5" fill="none" stroke="#3dd0a0" stroke-width="2"/>
+            <!-- point (0,1) -->
+            <circle cx="60" cy="63" r="3" fill="#3dd0a0"/>
+            <text x="63" y="61" fill="#888" font-size="8">(0,1)</text>
+            <text x="105" y="14" fill="#3dd0a0" font-size="9">a &gt; 1</text>
+            <!-- asymptote label -->
+            <text x="10" y="68" fill="#555" font-size="8">y=0 (asintoto)</text>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="badge red">0 < a < 1 (es. (1/2)ˣ)</div>
+        <div class="card-title">Esponenziale decrescente</div>
+        <ul>
+          <li>Passa sempre per <span class="kw">(0, 1)</span></li>
+          <li>x→+∞ : f→0 (asintoto y = 0)</li>
+          <li>x→−∞ : f→+∞</li>
+          <li>Sempre > 0, mai tocca asse x</li>
+          <li>È il "ribaltamento" orizzontale di a > 1</li>
+        </ul>
+        <div class="graph-wrap" style="margin-top:10px">
+          <svg viewBox="0 0 180 130" width="165" height="119">
+            <line x1="10" y1="70" x2="170" y2="70" stroke="#333" stroke-width="1"/>
+            <line x1="120" y1="10" x2="120" y2="120" stroke="#333" stroke-width="1"/>
+            <text x="166" y="68" fill="#555" font-size="9">x</text>
+            <text x="123" y="14" fill="#555" font-size="9">y</text>
+            <path d="M 10 5 Q 30 15 50 30 Q 70 50 90 60 Q 105 65 120 67 Q 140 68 170 69" fill="none" stroke="#ff7070" stroke-width="2"/>
+            <circle cx="120" cy="63" r="3" fill="#ff7070"/>
+            <text x="123" y="61" fill="#888" font-size="8">(0,1)</text>
+            <text x="15" y="20" fill="#ff7070" font-size="9">0 &lt; a &lt; 1</text>
+            <text x="115" y="68" fill="#555" font-size="8">y=0</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep">Proprietà algebriche — calcolo</div>
+    <div class="block blue">
+      <div class="btitle">Regole dell'esponenziale</div>
+      <div class="formula-block">aˣ · aʸ = aˣ⁺ʸ<br>aˣ / aʸ = aˣ⁻ʸ<br>(aˣ)ʸ = aˣʸ<br>a⁰ = 1 (per ogni a ≠ 0)<br>a⁻ˣ = 1/aˣ</div>
+    </div>
+
+    <div class="sep">Varianti grafiche</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge gray">f(x) = aˣ + k</div>
+        <div class="card-title">Traslazione verticale</div>
+        <p>Il grafico si sposta di <span class="kw">k in su</span> (k > 0) o in giù (k < 0).<br>Asintoto diventa y = k.</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">f(x) = aˣ⁺ʰ</div>
+        <div class="card-title">Traslazione orizzontale</div>
+        <p>Il grafico si sposta di <span class="kw">h a sinistra</span> (h > 0) o a destra (h < 0).<br>Il punto (0,1) diventa (−h, 1).</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">f(x) = −aˣ</div>
+        <div class="card-title">Ribaltamento verticale</div>
+        <p>Il grafico si ribalta sotto l'asse x.<br>Sempre < 0. Asintoto y = 0 (da sotto).</p>
+        <div class="graph-wrap" style="margin-top:8px">
+          <svg viewBox="0 0 140 100" width="130" height="93">
+            <line x1="10" y1="25" x2="130" y2="25" stroke="#333" stroke-width="1"/>
+            <line x1="50" y1="5" x2="50" y2="95" stroke="#333" stroke-width="1"/>
+            <path d="M 10 27 Q 25 28 40 30 Q 50 32 60 37 Q 75 50 90 70 Q 105 85 120 95" fill="none" stroke="#b0a4ff" stroke-width="2"/>
+            <circle cx="50" cy="32" r="3" fill="#b0a4ff"/>
+            <text x="53" y="31" fill="#888" font-size="8">(0,−1)</text>
+            <text x="55" y="22" fill="#555" font-size="8">y=0</text>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="badge gray">f(x) = a⁻ˣ</div>
+        <div class="card-title">= (1/a)ˣ — decrescente</div>
+        <p>Riflessione rispetto all'asse y del grafico di aˣ.<br>Equivalente a usare base 1/a.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGARITMO -->
+  <div id="g_log" class="section">
+    <div class="block red">
+      <div class="btitle">f(x) = log_a(x) &nbsp; (con a > 0, a ≠ 1, x > 0)</div>
+      <p style="margin-top:6px">Il logaritmo è la <span class="kw">funzione inversa dell'esponenziale</span>.<br>log_a(x) = y &nbsp;⟺&nbsp; aʸ = x</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="badge teal">a > 1 (es. log₂, log₁₀, ln)</div>
+        <div class="card-title">Logaritmo crescente</div>
+        <ul>
+          <li>Passa per <span class="kw">(1, 0)</span> sempre (log_a(1) = 0)</li>
+          <li>Passa per <span class="kw">(a, 1)</span></li>
+          <li>x→0⁺ : f→−∞ (asintoto x = 0)</li>
+          <li>x→+∞ : f→+∞ (lentamente)</li>
+          <li>Dominio: (0, +∞) &nbsp;|&nbsp; Codominio: ℝ</li>
+        </ul>
+        <div class="graph-wrap" style="margin-top:10px">
+          <svg viewBox="0 0 180 130" width="165" height="119">
+            <line x1="10" y1="70" x2="170" y2="70" stroke="#333" stroke-width="1"/>
+            <line x1="10" y1="10" x2="10" y2="120" stroke="#333" stroke-width="1"/>
+            <line x1="10" y1="10" x2="10" y2="120" stroke="#1D9E75" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="166" y="68" fill="#555" font-size="9">x</text>
+            <text x="13" y="14" fill="#555" font-size="9">y</text>
+            <path d="M 12 115 Q 20 90 35 75 Q 50 63 70 55 Q 100 44 140 33 Q 155 29 170 25" fill="none" stroke="#3dd0a0" stroke-width="2"/>
+            <circle cx="55" cy="70" r="3" fill="#3dd0a0"/>
+            <text x="56" y="68" fill="#888" font-size="8">(1, 0)</text>
+            <text x="12" y="40" fill="#1D9E75" font-size="8">x=0 ←</text>
+            <text x="120" y="22" fill="#3dd0a0" font-size="9">a &gt; 1</text>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="badge red">0 < a < 1</div>
+        <div class="card-title">Logaritmo decrescente</div>
+        <ul>
+          <li>Passa per <span class="kw">(1, 0)</span> sempre</li>
+          <li>x→0⁺ : f→+∞</li>
+          <li>x→+∞ : f→−∞</li>
+          <li>Ribaltamento verticale del caso a > 1</li>
+        </ul>
+        <div class="graph-wrap" style="margin-top:10px">
+          <svg viewBox="0 0 180 130" width="165" height="119">
+            <line x1="10" y1="70" x2="170" y2="70" stroke="#333" stroke-width="1"/>
+            <line x1="10" y1="10" x2="10" y2="120" stroke="#333" stroke-width="1"/>
+            <line x1="10" y1="10" x2="10" y2="120" stroke="#E24B4A" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="166" y="68" fill="#555" font-size="9">x</text>
+            <text x="13" y="14" fill="#555" font-size="9">y</text>
+            <path d="M 12 15 Q 20 45 35 58 Q 50 67 70 73 Q 100 80 140 88 Q 155 91 170 95" fill="none" stroke="#ff7070" stroke-width="2"/>
+            <circle cx="55" cy="70" r="3" fill="#ff7070"/>
+            <text x="56" y="68" fill="#888" font-size="8">(1, 0)</text>
+            <text x="15" y="24" fill="#ff7070" font-size="9">0 &lt; a &lt; 1</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="sep">Proprietà algebriche — calcolo</div>
+    <div class="block blue">
+      <div class="btitle">Regole del logaritmo</div>
+      <div class="formula-block">log_a(M·N) = log_a(M) + log_a(N)<br>log_a(M/N) = log_a(M) − log_a(N)<br>log_a(Mⁿ) = n · log_a(M)<br>log_a(a) = 1<br>log_a(1) = 0<br>log_a(aˣ) = x &nbsp;&nbsp;&nbsp; a^(log_a(x)) = x<br><br>Cambio base: log_a(x) = log_b(x) / log_b(a)</div>
+    </div>
+
+    <div class="sep">Dominio — attenzione!</div>
+    <div class="block red">
+      <div class="btitle">L'argomento deve essere > 0</div>
+      <p>Se hai log_a(g(x)), il <span class="kw">C.E. è g(x) > 0</span>. Questo è spesso la parte più complicata dello studio.<br><br>Es: log(x²−4) → C.E.: x²−4 > 0 → |x| > 2 → x < −2 oppure x > 2</p>
+    </div>
+
+    <div class="sep">Varianti grafiche</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="badge gray">f(x) = log_a(x) + k</div>
+        <div class="card-title">Traslazione verticale</div>
+        <p>Il grafico si sposta di k in su/giù.<br>Il punto (1, 0) diventa (1, k).<br>Asintoto verticale rimane x = 0.</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">f(x) = log_a(x − h)</div>
+        <div class="card-title">Traslazione orizzontale</div>
+        <p>Il grafico si sposta di h a destra (h > 0).<br>Asintoto diventa x = h.<br>Dominio diventa x > h.</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">f(x) = log_a(−x)</div>
+        <div class="card-title">Riflessione sull'asse y</div>
+        <p>Funzione definita solo per x < 0.<br>Dominio: (−∞, 0). Asintoto: x = 0.</p>
+      </div>
+      <div class="card">
+        <div class="badge gray">f(x) = |log_a(x)|</div>
+        <div class="card-title">Valore assoluto</div>
+        <p>La parte negativa del grafico si ribalta sopra l'asse x.<br>Dove log < 0 (per 0 < x < 1 con a > 1) → si specchia.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFRONTO -->
+  <div id="g_confronto" class="section">
+    <div class="grid2">
+      <div class="card">
+        <div class="badge teal">Esponenziale aˣ</div>
+        <div class="card-title">Punti fissi del grafico</div>
+        <ul>
+          <li>Passa per <span class="kw">(0, 1)</span> sempre</li>
+          <li>Asintoto orizzontale: y = 0</li>
+          <li>Mai tocca asse x</li>
+          <li>Dominio: ℝ</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="badge blue">Logaritmo log_a(x)</div>
+        <div class="card-title">Punti fissi del grafico</div>
+        <ul>
+          <li>Passa per <span class="kw">(1, 0)</span> sempre</li>
+          <li>Asintoto verticale: x = 0</li>
+          <li>Mai tocca asse y</li>
+          <li>Dominio: (0, +∞)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block amber">
+      <div class="btitle">Simmetria tra esponenziale e logaritmo</div>
+      <p>I grafici di <span class="kw">f(x) = aˣ</span> e <span class="kw">f(x) = log_a(x)</span> sono simmetrici rispetto alla <span class="kw">retta y = x</span> (sono funzioni inverse).</p>
+      <div class="graph-wrap" style="margin-top:10px">
+        <svg viewBox="0 0 200 160" width="180" height="144">
+          <line x1="10" y1="80" x2="190" y2="80" stroke="#333" stroke-width="1"/>
+          <line x1="80" y1="10" x2="80" y2="150" stroke="#333" stroke-width="1"/>
+          <!-- y=x bisector -->
+          <line x1="10" y1="150" x2="150" y2="10" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+          <!-- exponential curve aˣ a>1 -->
+          <path d="M 10 79 Q 40 78 65 73 Q 75 70 85 62 Q 100 45 115 25 Q 125 15 140 8" fill="none" stroke="#3dd0a0" stroke-width="2"/>
+          <!-- logarithm curve log_a(x) a>1 (inverse of above, swapped x,y) -->
+          <path d="M 79 150 Q 78 120 73 95 Q 70 85 62 75 Q 45 60 25 45 Q 15 35 8 20" fill="none" stroke="#5aabff" stroke-width="2"/>
+          <!-- labels -->
+          <text x="130" y="10" fill="#3dd0a0" font-size="9">aˣ</text>
+          <text x="10" y="18" fill="#5aabff" font-size="9">log_a(x)</text>
+          <text x="150" y="10" fill="#555" font-size="9">y=x</text>
+          <text x="185" y="78" fill="#555" font-size="9">x</text>
+        </svg>
+        <div class="graph-caption">aˣ e log_a(x) sono specchiati rispetto a y = x</div>
+      </div>
+    </div>
+
+    <div class="sep">Trucchi e regole veloci</div>
+    <div class="block teal">
+      <div class="btitle">Come riconoscere il comportamento</div>
+      <ul>
+        <li>Se a > 1 → <span class="kw">sia esponenziale che logaritmo sono crescenti</span></li>
+        <li>Se 0 < a < 1 → <span class="kw">entrambi decrescenti</span></li>
+        <li>Esponenziale cresce/decresce <span class="kw">rapidamente</span>, logaritmo <span class="kw">lentamente</span></li>
+        <li>Per le equazioni: <span class="formula">aˣ = aʸ ⟺ x = y</span> &nbsp;&nbsp; <span class="formula">log_a(x) = log_a(y) ⟺ x = y</span></li>
+        <li>Disequazione con a > 1: <span class="formula">aˣ > aʸ ⟺ x > y</span></li>
+        <li>Disequazione con 0 < a < 1: <span class="formula">aˣ > aʸ ⟺ x < y</span> (senso cambia!)</li>
+      </ul>
+    </div>
+
+    <div class="block red">
+      <div class="btitle">Errori classici</div>
+      <ul>
+        <li>log_a(x + y) <span class="kw">≠</span> log_a(x) + log_a(y) &nbsp; (non si può spezzare la somma dentro il log)</li>
+        <li>log_a(x · y) = log_a(x) + log_a(y) ✓ &nbsp; (qui si può, è il prodotto)</li>
+        <li>Disequazione log: se a < 1, il senso della disuguaglianza si inverte</li>
+        <li>Il dominio del log è <span class="kw">strettamente > 0</span>, non ≥ 0</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchChapter(id, btn) {
+  document.querySelectorAll('.chapter').forEach(c => c.classList.remove('visible'));
+  document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('active'));
+  if (btn.classList.contains('locked')) return;
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+}
+function showS(id, btn) {
+  document.querySelectorAll('#studio .section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('#studio .nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+}
+function showG(id, btn) {
+  document.querySelectorAll('#grafici .section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('#grafici .nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
