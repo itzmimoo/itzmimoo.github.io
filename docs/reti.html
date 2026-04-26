@@ -1676,7 +1676,6 @@ function showSub(chapter, subId, btn) {
   document.getElementById(chapter + '-' + subId).classList.add('visible');
   chapterEl.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  window.scrollTo(0, 0);
 }
 
 function tq(el) {
