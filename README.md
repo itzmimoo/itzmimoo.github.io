@@ -1,4 +1,4 @@
-# itzmimoo.github.io
+# itzmimoo.github.io/studio/
 
 ---
 
