@@ -176,6 +176,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 <div class="chapter-bar">
   <button class="chapter-btn active" onclick="switchChapter('napoleone', this)">🏛 Napoleone</button>
   <button class="chapter-btn" onclick="switchChapter('vienna', this)">🗺 Vienna & Moti</button>
+  <button class="chapter-btn" onclick="switchChapter('milleottocentoquarantotto', this)">🔥 1848</button>
 </div>
 
 <!-- ============================== CAPITOLO 1: NAPOLEONE ============================== -->
@@ -793,6 +794,397 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
   </div>
 </div>
 
+<!-- ============================== CAPITOLO 3: IL 1848 ============================== -->
+<div id="milleottocentoquarantotto" class="chapter">
+  <div class="chapter-header" style="margin-top:20px">
+    <div class="chapter-label">Capitolo 3</div>
+    <div class="chapter-title">Il 1848 in Europa e in Italia</div>
+  </div>
+
+  <div class="nav">
+    <button class="active" onclick="show1848('q48_contesto', this)">Contesto</button>
+    <button onclick="show1848('q48_francia', this)">Francia</button>
+    <button onclick="show1848('q48_germania', this)">Germania & Austria</button>
+    <button onclick="show1848('q48_italia', this)">Italia</button>
+    <button onclick="show1848('q48_statuto', this)">Statuto Albertino</button>
+    <button onclick="show1848('q48_timeline', this)">Cronologia</button>
+    <button onclick="show1848('q48_domande', this)">Domande tipiche</button>
+  </div>
+
+  <!-- CONTESTO -->
+  <div id="q48_contesto" class="section visible">
+    <div class="block red">
+      <div class="byear red">1846–1847</div>
+      <div class="btitle">La crisi economica che innesca tutto <span class="pill imp">fondamentale</span></div>
+      <ul>
+        <li>Una pesante <span class="kw">crisi economica</span> colpisce l'Europa: cattivi raccolti → rialzo prezzi dei generi alimentari, tensioni sociali e miseria.</li>
+        <li>La crisi si estende al <span class="kw">settore industriale</span>: domanda di manufatti cala, fabbriche chiudono, disoccupazione cresce.</li>
+        <li>In Inghilterra gli investimenti ferroviari crollano da 130 milioni di sterline (1846) a 40 milioni (1847).</li>
+        <li>La crisi accelera la disgregazione dell'ordine europeo imposto dal Congresso di Vienna, mantenuto dalle iniziative poliziesche della Santa Alleanza.</li>
+      </ul>
+    </div>
+    <div class="block blue">
+      <div class="btitle">Le anime del Quarantotto — cosa volevano? <span class="pill imp">esame!</span></div>
+      <ul>
+        <li><span class="kw">Liberali moderati</span>: ottenere una <span class="kw">costituzione liberale</span> sul modello inglese o francese del 1830.</li>
+        <li><span class="kw">Radicali e repubblicani</span>: istituire una <span class="kw">repubblica</span> con suffragio universale e riforme sociali.</li>
+        <li><span class="kw">Socialisti</span>: abolire la proprietà privata e distruggere il sistema capitalistico.</li>
+        <li><span class="kw">Patrioti/nazionalisti</span>: indipendenza e unità dei popoli sotto dominazione straniera (es. Italia, Polonia, Ungheria).</li>
+      </ul>
+    </div>
+    <div class="block gray">
+      <div class="btitle">Perché il 1848 è diverso dai moti precedenti?</div>
+      <ul>
+        <li>Nei moti del 1820-21 e 1831 la rivolta era <span class="kw">elitaria</span>: ex ufficiali, borghesia alta.</li>
+        <li>Nel 1848 scendono in piazza anche <span class="kw">studenti, operai, artigiani</span>: la base sociale è molto più ampia.</li>
+        <li>La crisi economica crea un malcontento diffuso che attraversa le classi sociali.</li>
+        <li>Effetto domino: le rivoluzioni si diffondono rapidamente da un paese all'altro.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FRANCIA -->
+  <div id="q48_francia" class="section">
+    <div class="block amber">
+      <div class="byear amber">1847 — Svolta conservatrice</div>
+      <div class="btitle">La monarchia orleanista e Guizot</div>
+      <ul>
+        <li>La monarchia orleanista (nata dopo il 1830) ha imboccato una direzione <span class="kw">conservatrice</span>.</li>
+        <li><span class="kw">François Guizot</span>, Capo del Governo dal 1847, blocca le riforme sociali e favorisce gli interessi speculativi della borghesia.</li>
+        <li>L'opposizione organizza la <span class="kw">"campagna dei banchetti"</span>: banchetti privati in cui si raccolgono adesioni per il suffragio universale.</li>
+        <li>22 febbraio 1848: Guizot vieta uno di questi banchetti a Parigi.</li>
+      </ul>
+    </div>
+    <div class="block red">
+      <div class="byear red">febbraio 1848</div>
+      <div class="btitle">Le barricate e la Seconda Repubblica <span class="pill imp">fondamentale</span></div>
+      <ul>
+        <li>Con una reazione inaspettata, studenti e operai si riversano nelle strade e costruiscono <span class="kw">barricate</span>.</li>
+        <li>Guizot invia l'esercito (diversi morti) ma poi si dimette: troppo tardi, l'ala moderata è già stata scavalcata dai radicali.</li>
+        <li>Luigi Filippo è costretto a fuggire. Il <span class="kw">24 febbraio 1848</span> viene proclamata la <span class="kw">Repubblica</span> (la seconda, dopo quella del 1792).</li>
+      </ul>
+    </div>
+    <div class="block teal">
+      <div class="btitle">Il governo provvisorio e le riforme</div>
+      <ul>
+        <li>Governo composto da liberali, democratici e socialisti. Figura chiave: il poeta <span class="kw">Alphonse de Lamartine</span>; il socialista <span class="kw">Louis Blanc</span>.</li>
+        <li>Concesso il <span class="kw">suffragio universale maschile</span>. Giornata lavorativa ridotta a 10 ore. Abolita la schiavitù nelle colonie.</li>
+        <li>Istituiti gli <span class="kw">ateliers nationaux</span> ("opifici nazionali"): fabbriche-modello per dare lavoro ai disoccupati, idea di Louis Blanc.</li>
+        <li>I costi degli ateliers gravano sul bilancio: la borghesia moderata inizia a preoccuparsi.</li>
+      </ul>
+    </div>
+    <div class="block purple">
+      <div class="byear purple">giugno 1848</div>
+      <div class="btitle">La repressione delle giornate di giugno <span class="pill imp">svolta!</span></div>
+      <ul>
+        <li>23 giugno 1848: abolizione degli ateliers → gli operai insorgono. <span class="kw">Manifestazione operaia repressa nel sangue</span>: 1.500 morti, oltre 7.000 condannati.</li>
+        <li>Nuova Costituzione (novembre 1848): potere esecutivo al <span class="kw">Presidente della Repubblica</span>, eletto a suffragio universale per un quadriennio.</li>
+        <li>Elezioni presidenziali (10 dicembre): vince <span class="kw">Luigi Napoleone Bonaparte</span> (nipote di Napoleone I) con circa 5 milioni di voti.</li>
+        <li>Luigi Napoleone è leader del "partito dell'ordine": stile populista, appoggio di industriali, destra e gerarchie cattoliche.</li>
+        <li>Avvia una politica repressiva contro la protesta operaia, costringe all'esilio i suoi oppositori.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GERMANIA & AUSTRIA -->
+  <div id="q48_germania" class="section">
+    <div class="block blue">
+      <div class="byear blue">1834 — Contesto economico prussiano</div>
+      <div class="btitle">La Zollverein e il fermento liberale</div>
+      <ul>
+        <li>Dal 1834 la Prussia aveva creato una <span class="kw">lega doganale (Zollverein)</span> che aboliva i dazi interni alla Confederazione tedesca.</li>
+        <li>Al malcontento per le difficoltà economiche si uniscono le richieste dei liberali: riforma in senso costituzionale del sistema monarchico.</li>
+      </ul>
+    </div>
+    <div class="block amber">
+      <div class="byear amber">18-19 marzo 1848</div>
+      <div class="btitle">Insurrezioni in Prussia</div>
+      <ul>
+        <li>In diverse città prussiane, tra cui <span class="kw">Berlino</span>, scoppiano insurrezioni con l'appoggio del movimento operaio.</li>
+        <li>Il sovrano <span class="kw">Federico Guglielmo IV</span> è costretto a concedere la libertà di stampa e a istituire un Parlamento eletto a suffragio universale maschile.</li>
+      </ul>
+    </div>
+    <div class="block teal">
+      <div class="byear teal">maggio 1848</div>
+      <div class="btitle">L'Assemblea nazionale tedesca di Francoforte</div>
+      <ul>
+        <li>Il movimento rivoluzionario si estende alla Confederazione: numerosi gruppi chiedono un'<span class="kw">Assemblea nazionale tedesca</span>.</li>
+        <li>18 maggio 1848: l'Assemblea si riunisce a <span class="kw">Francoforte</span>, eletta a suffragio universale maschile.</li>
+        <li>Divisione sulla questione dell'unità nazionale: <span class="kw">Grande Germania</span> (con Austria) vs <span class="kw">Piccola Germania</span> (senza Austria).</li>
+        <li>5 aprile 1849: l'Assemblea offre la corona imperiale al re di Prussia, che la rifiuta (non vuole riceverla da un'assemblea popolare).</li>
+        <li>18 giugno 1849: l'Assemblea viene sciolta. Fallimento della via parlamentare all'unità tedesca.</li>
+      </ul>
+    </div>
+    <div class="block red">
+      <div class="byear red">13 marzo 1848</div>
+      <div class="btitle">Vienna e l'Impero asburgico</div>
+      <ul>
+        <li>Studenti e popolani assaltano Vienna, chiedendo una Costituzione. Il sovrano <span class="kw">licenzia Metternich</span> e forma un governo liberale.</li>
+        <li>Ferdinando I concede una Costituzione sul modello francese di Luigi XVIII.</li>
+        <li>Le proteste nelle province assumono il carattere di <span class="kw">rivolte per l'indipendenza nazionale</span>.</li>
+      </ul>
+    </div>
+    <div class="block purple">
+      <div class="btitle">Le rivolte nelle province asburgiche</div>
+      <ul>
+        <li><span class="kw">Budapest</span>: si solleva il 15 marzo → governo provvisorio ungherese rivendicante autonomia da Vienna.</li>
+        <li><span class="kw">Venezia</span>: insorge il 17 marzo.</li>
+        <li><span class="kw">Milano</span>: insorge il 18 marzo (le "Cinque Giornate").</li>
+        <li><span class="kw">Praga</span>: insorge l'8 aprile → nel giugno 1848 viene bombardata, governo provvisorio boemo sciolto.</li>
+        <li>Repressione ungherese: insori definitivamente battuti a <span class="kw">Világos</span> il 13 agosto 1849, con l'aiuto della Russia.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ITALIA -->
+  <div id="q48_italia" class="section">
+    <div class="block red">
+      <div class="byear red">12 gennaio 1848</div>
+      <div class="btitle">L'insurrezione separatista di Palermo <span class="pill imp">prima in Italia!</span></div>
+      <ul>
+        <li>Le insurrezioni francesi vengono anticipate dalla rivolta nel Meridione: il 12 gennaio 1848 scoppia un'<span class="kw">insurrezione separatista a Palermo</span>.</li>
+        <li>All'odio verso il governo di Napoli si unisce il <span class="kw">sentimento nazionalista</span>.</li>
+        <li>Ferdinando II chiede l'appoggio degli austriaci, ma questi non intervengono.</li>
+        <li>Ferdinando II è costretto a concedere una carta costituzionale (29 gennaio) di stampo liberale, sul modello francese del 1830.</li>
+      </ul>
+    </div>
+    <div class="block amber">
+      <div class="btitle">Le Costituzioni italiane — effetto domino</div>
+      <ul>
+        <li>Per evitare rivolte, gli altri sovrani italiani si allineano: il <span class="kw">4 marzo 1848</span> Carlo Alberto di Savoia promulga lo <span class="kw">Statuto Albertino</span>.</li>
+        <li>Altrettanto fanno <span class="kw">Leopoldo II di Toscana</span> (17 febbraio) e <span class="kw">Pio IX</span> (14 marzo).</li>
+        <li>Si tratta di <span class="kw">carte ottriate</span>: concesse dal sovrano, non votate dal popolo.</li>
+      </ul>
+    </div>
+    <div class="block teal">
+      <div class="byear teal">18 marzo 1848</div>
+      <div class="btitle">Le Cinque Giornate di Milano <span class="pill imp">fondamentale</span></div>
+      <ul>
+        <li>18-22 marzo: il popolo milanese insorge contro gli austriaci. <span class="kw">Cinque giorni di combattimento</span> urbano.</li>
+        <li>Gli austriaci (generale <span class="kw">Radetzky</span>) sono costretti ad abbandonare Milano.</li>
+        <li>Le insurrezioni si estendono: Venezia (17 marzo), le città lombarde, poi il Veneto.</li>
+      </ul>
+    </div>
+    <div class="block blue">
+      <div class="byear blue">23 marzo 1848</div>
+      <div class="btitle">Prima guerra d'indipendenza italiana <span class="pill imp">esame!</span></div>
+      <ul>
+        <li>Carlo Alberto dichiara guerra all'Austria (23 marzo 1848) per sostenere le insurrezioni lombarde.</li>
+        <li>Gli altri Stati italiani mandano inizialmente truppe a sostegno del Piemonte, ma poi si ritirano dall'alleanza, lasciando solo Carlo Alberto.</li>
+        <li><span class="kw">9 agosto 1848</span>: Carlo Alberto è sconfitto e deve firmare la pace (armistizio di Salasco).</li>
+        <li>Marzo 1849: Carlo Alberto ritenta la guerra contro l'Austria ma viene subito sconfitto. <span class="kw">Abdica</span> a favore del figlio <span class="kw">Vittorio Emanuele II</span>.</li>
+      </ul>
+    </div>
+    <div class="block purple">
+      <div class="byear purple">1849</div>
+      <div class="btitle">Le Repubbliche democratiche italiane</div>
+      <ul>
+        <li>Intanto a Venezia, in Toscana e a Roma sorgono <span class="kw">Repubbliche democratiche</span>.</li>
+        <li>A febbraio il papa è costretto all'esilio.</li>
+        <li>Entro l'estate 1849 cadono tutte sotto i colpi degli eserciti austriaco e francese.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STATUTO ALBERTINO -->
+<div id="q48_statuto" class="section">
+  <div class="block blue">
+    <div class="byear blue">4 marzo 1848</div>
+    <div class="btitle">Lo Statuto Albertino — caratteri fondamentali <span class="pill imp">fondamentale</span></div>
+    <ul>
+      <li>Concesso da <span class="kw">Carlo Alberto di Savoia</span>. Diventerà nel 1861 la Costituzione dell'Italia unita; sopravviverà fino al 1948.</li>
+      <li>È una <span class="kw">Costituzione ottriata</span>: non è il frutto di una scelta popolare, ma un "dono" del sovrano.</li>
+      <li>Forma dello Stato: <span class="kw">monarchia</span>. Religione di Stato: <span class="kw">cattolica</span>. Continuità con la tradizione assolutistica.</li>
+    </ul>
+  </div>
+  <div class="sep">Analisi dei caratteri</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="badge blue">Separazione dei poteri</div>
+      <div class="card-title">Parziale ma centrale il sovrano</div>
+      <ul>
+        <li>Potere esecutivo: il re</li>
+        <li>Potere legislativo: re + Parlamento (Senato di nomina regia + Camera dei deputati elettiva)</li>
+        <li>Potere giudiziario: giudici nominati dal sovrano</li>
+        <li>I ministri rispondono solo al re, non al Parlamento</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="badge amber">Suffragio ristrettissimo</div>
+      <div class="card-title">Solo chi paga 40 lire d'imposta</div>
+      <ul>
+        <li>Diritto al voto: chi paga un'imposta pari a 40 lire</li>
+        <li>Nel 1848: circa 40.000 cittadini su 4.900.000</li>
+        <li>Le masse popolari restano completamente escluse</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="badge teal">Compromesso tra tre principi</div>
+      <div class="card-title">Monarchico + Aristocratico + Liberale</div>
+      <ul>
+        <li>Re: principio monarchico</li>
+        <li>Senato: principio aristocratico</li>
+        <li>Camera: principio liberale</li>
+        <li>"Governo misto": partecipano le varie componenti sociali tradizionali</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="badge gray">Uguaglianza civile e giuridica</div>
+      <div class="card-title">Ispirazione liberale</div>
+      <ul>
+        <li>Tutti i cittadini uguali davanti alla legge</li>
+        <li>Libertà individuali garantite</li>
+        <li>Solo eguaglianza civile e giuridica, non politica</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="badge purple">Costituzione flessibile</div>
+      <div class="card-title">Facilmente modificabile</div>
+      <ul>
+        <li>Articoli modificabili con legge ordinaria</li>
+        <li>Questo spiega la longevità: si adattò a sistemi politici molto diversi</li>
+        <li>Al contrario delle costituzioni "rigide" (come quella italiana attuale)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="badge red">Longevità eccezionale</div>
+      <div class="card-title">1848 → 1948</div>
+      <ul>
+        <li>Diventa Costituzione dell'Italia unita nel 1861</li>
+        <li>Sopravvive al regime fascista</li>
+        <li>Sostituita solo nel 1948 dall'attuale Costituzione repubblicana</li>
+      </ul>
+    </div>
+  </div>
+  <div class="block amber">
+    <div class="btitle">Perché è ottriata e non popolare?</div>
+    <p>Carlo Alberto la concede come <span class="kw">ricompensa della fedeltà</span> dei sudditi, non come riconoscimento di una sovranità popolare. Il re resta al di sopra del potere esecutivo, nomina una delle due Camere e rimane capo della magistratura. Il modello nega sostanzialmente il concetto di sovranità popolare, ma rappresenta comunque un indubbio progresso istituzionale.</p>
+  </div>
+
+  <div class="sep">Statuto Albertino vs Costituzione Repubblicana del 1948</div>
+  <div class="block red">
+    <div class="btitle">Le differenze fondamentali <span class="pill imp">esame!</span></div>
+    <ul>
+      <li><span class="kw">Sovranità</span>: nello Statuto appartiene al re; nella Costituzione del 1948 appartiene al <span class="kw">popolo</span> (art. 1).</li>
+      <li><span class="kw">Forma di governo</span>: Statuto = monarchia costituzionale; Costituzione 1948 = <span class="kw">repubblica parlamentare</span>.</li>
+      <li><span class="kw">Rigidità</span>: lo Statuto era <span class="kw">flessibile</span> (modificabile con legge ordinaria, per questo il fascismo poté smontarlo senza formale abrogazione); la Costituzione del 1948 è <span class="kw">rigida</span> (modifiche richiedono procedura aggravata, doppia approvazione parlamentare con maggioranze qualificate).</li>
+      <li><span class="kw">Origine</span>: Statuto = <span class="kw">ottriato</span> (concesso dal re); Costituzione 1948 = elaborata dall'<span class="kw">Assemblea Costituente</span> eletta dal popolo a suffragio universale.</li>
+      <li><span class="kw">Suffragio</span>: Statuto = censitario (solo chi paga 40 lire, ~40.000 persone); Costituzione 1948 = <span class="kw">universale</span> (tutti i cittadini maggiorenni, uomini e donne).</li>
+      <li><span class="kw">Diritti</span>: nello Statuto i diritti sono elencati in modo sommario e non garantiti contro le leggi ordinarie; nella Costituzione 1948 i diritti fondamentali sono <span class="kw">inviolabili</span> e protetti da una Corte Costituzionale.</li>
+      <li><span class="kw">Corte Costituzionale</span>: assente nello Statuto; introdotta dalla Costituzione 1948 come organo di controllo della legittimità costituzionale delle leggi.</li>
+      <li><span class="kw">Religione di Stato</span>: lo Statuto dichiarava la religione cattolica religione di Stato; la Costituzione 1948 (con le modifiche ai Patti Lateranensi nel 1984) sancisce la <span class="kw">laicità</span> dello Stato.</li>
+      <li><span class="kw">Ruolo del Parlamento</span>: nello Statuto i ministri rispondono solo al re (non al Parlamento); nella Costituzione 1948 il governo deve avere la <span class="kw">fiducia del Parlamento</span>.</li>
+    </ul>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="badge amber">Statuto Albertino (1848)</div>
+      <div class="card-title">In sintesi</div>
+      <ul>
+        <li>Sovranità: al <span class="kw">re</span></li>
+        <li>Monarchia costituzionale</li>
+        <li>Flessibile (modificabile facilmente)</li>
+        <li>Ottriata (concessa dall'alto)</li>
+        <li>Suffragio censitario (~40.000 votanti)</li>
+        <li>Diritti non garantiti contro le leggi</li>
+        <li>Nessuna Corte Costituzionale</li>
+        <li>Religione di Stato: cattolica</li>
+        <li>Ministri responsabili solo al re</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="badge teal">Costituzione 1948</div>
+      <div class="card-title">In sintesi</div>
+      <ul>
+        <li>Sovranità: al <span class="kw">popolo</span></li>
+        <li>Repubblica parlamentare</li>
+        <li>Rigida (procedura aggravata per modifiche)</li>
+        <li>Votata dall'Assemblea Costituente</li>
+        <li>Suffragio universale (tutti i maggiorenni)</li>
+        <li>Diritti fondamentali <span class="kw">inviolabili</span></li>
+        <li>Corte Costituzionale</li>
+        <li>Stato laico</li>
+        <li>Governo responsabile davanti al Parlamento</li>
+      </ul>
+    </div>
+  </div>
+  <div class="block gray">
+    <div class="btitle">Perché lo Statuto sopravvisse così a lungo?</div>
+    <p>Proprio perché <span class="kw">flessibile</span>: non richiedendo una procedura speciale per essere modificato, poté adattarsi alla monarchia liberale post-unitaria, poi alla deriva autoritaria giolittiana, infine al regime fascista che lo svuotò progressivamente senza mai abrogarlo formalmente. Fu questa duttilità il suo punto di forza ma anche la sua debolezza strutturale: nessuna garanzia reale contro derive antidemocratiche.</p>
+  </div>
+</div>
+
+  <!-- TIMELINE 1848 -->
+  <div id="q48_timeline" class="section">
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-year">1846–47</div><div class="tl-text">Grave crisi economica in Europa: cattivi raccolti, rialzo prezzi, disoccupazione industriale.</div></div>
+      <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-year">12 gen 1848</div><div class="tl-text">Insurrezione separatista a Palermo: la prima d'Italia.</div></div>
+      <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-year">17 feb 1848</div><div class="tl-text">Leopoldo II di Toscana concede la Costituzione.</div></div>
+      <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-year">29 gen 1848</div><div class="tl-text">Ferdinando II di Napoli concede una Costituzione liberale.</div></div>
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-year">22 feb 1848</div><div class="tl-text">Guizot vieta il banchetto a Parigi → scoppia la rivoluzione.</div></div>
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-year">24 feb 1848</div><div class="tl-text">Proclamata la Seconda Repubblica in Francia. Luigi Filippo fugge.</div></div>
+      <div class="tl-item"><div class="tl-dot blue"></div><div class="tl-year">4 mar 1848</div><div class="tl-text">Carlo Alberto promulga lo Statuto Albertino.</div></div>
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-year">13 mar 1848</div><div class="tl-text">Vienna: studenti e popolani insorgono. Metternich licenziato.</div></div>
+      <div class="tl-item"><div class="tl-dot blue"></div><div class="tl-year">14 mar 1848</div><div class="tl-text">Pio IX concede la Costituzione.</div></div>
+      <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-year">15 mar 1848</div><div class="tl-text">Budapest insorge. Governo provvisorio ungherese.</div></div>
+      <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-year">17 mar 1848</div><div class="tl-text">Venezia insorge.</div></div>
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-year">18-22 mar 1848</div><div class="tl-text">Cinque Giornate di Milano: austriaci cacciati. Praga insorge (8 aprile).</div></div>
+      <div class="tl-item"><div class="tl-dot blue"></div><div class="tl-year">18-19 mar 1848</div><div class="tl-text">Insurrezioni a Berlino. Federico Guglielmo IV concede libertà di stampa e Parlamento.</div></div>
+      <div class="tl-item"><div class="tl-dot blue"></div><div class="tl-year">23 mar 1848</div><div class="tl-text">Carlo Alberto dichiara guerra all'Austria: Prima guerra d'indipendenza italiana.</div></div>
+      <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-year">18 mag 1848</div><div class="tl-text">Assemblea nazionale tedesca si riunisce a Francoforte.</div></div>
+      <div class="tl-item"><div class="tl-dot purple"></div><div class="tl-year">giu 1848</div><div class="tl-text">Praga bombardata. Giornate di giugno a Parigi: manifestazione operaia repressa (1.500 morti).</div></div>
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-year">9 ago 1848</div><div class="tl-text">Carlo Alberto sconfitto, firma l'armistizio di Salasco.</div></div>
+      <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-year">nov 1848</div><div class="tl-text">Nuova Costituzione francese: Presidente della Repubblica eletto a suffragio universale.</div></div>
+      <div class="tl-item"><div class="tl-dot purple"></div><div class="tl-year">10 dic 1848</div><div class="tl-text">Elezioni presidenziali Francia: vince Luigi Napoleone Bonaparte.</div></div>
+      <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-year">mar 1849</div><div class="tl-text">Carlo Alberto ritenta la guerra, sconfitto. Abdica → Vittorio Emanuele II.</div></div>
+      <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-year">5 apr 1849</div><div class="tl-text">Assemblea di Francoforte offre la corona al re di Prussia: lui rifiuta.</div></div>
+      <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-year">estate 1849</div><div class="tl-text">Repubbliche democratiche italiane (Roma, Venezia, Toscana) cadono sotto Austria e Francia.</div></div>
+      <div class="tl-item"><div class="tl-dot red"></div><div class="tl-year">13 ago 1849</div><div class="tl-text">Ungheria definitivamente sconfitta a Világos con l'aiuto della Russia.</div></div>
+      <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-year">18 giu 1849</div><div class="tl-text">Assemblea di Francoforte sciolta: fallisce la via parlamentare all'unità tedesca.</div></div>
+    </div>
+  </div>
+
+  <!-- DOMANDE 1848 -->
+  <div id="q48_domande" class="section">
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Quali cause economiche determinano il 1848? <span class="arrow">▼</span></div>
+      <div class="answer">Nel 1846-47 una grave crisi agricola porta al rialzo dei prezzi alimentari. La crisi si estende all'industria: cala la domanda di manufatti, le fabbriche chiudono, la disoccupazione cresce. Questo crea un malcontento diffuso che attraversa le classi sociali e accomuna borghesia liberale e ceti popolari nel rivendicare cambiamenti politici.</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Quali erano le diverse anime del Quarantotto? <span class="arrow">▼</span></div>
+      <div class="answer">Quattro anime principali: (1) Liberali moderati: volevano una costituzione liberale sul modello del 1830, monarchia costituzionale. (2) Radicali e repubblicani: volevano una repubblica con suffragio universale. (3) Socialisti: abolire proprietà privata e sistema capitalista. (4) Patrioti/nazionalisti: indipendenza e unità dei popoli soggetti a dominazione straniera. Le contraddizioni interne tra queste anime contribuirono al fallimento dei moti.</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Cosa succede in Francia nel 1848? Chi è Luigi Napoleone Bonaparte? <span class="arrow">▼</span></div>
+      <div class="answer">Il 22 febbraio 1848 l'opposizione organizza un banchetto proibito. Studenti e operai costruiscono barricate. Guizot si dimette ma è troppo tardi: Luigi Filippo fugge il 24 febbraio. Viene proclamata la Seconda Repubblica. Il governo provvisorio concede il suffragio universale maschile, riduce la giornata a 10 ore, istituisce gli ateliers nationaux. In giugno la manifestazione operaia viene repressa nel sangue (1.500 morti). A dicembre vince le presidenziali Luigi Napoleone Bonaparte (1808-73), nipote di Napoleone I, leader populista del "partito dell'ordine".</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Cosa sono gli ateliers nationaux? Perché falliscono? <span class="arrow">▼</span></div>
+      <div class="answer">Fabbriche-modello ("opifici nazionali") istituiti dal governo provvisorio su proposta del socialista Louis Blanc. Avrebbero dovuto coniugare produttività industriale con gestione egualitaria, dando lavoro ai disoccupati. In pratica gli operai vennero impiegati in lavori di scarsa utilità. I costi gravano sul bilancio, la borghesia moderata si preoccupa. Il 21 giugno 1848 gli ateliers vengono aboliti, scatenando l'insurrezione operaia di giugno.</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Cosa succede in Germania nel 1848? Perché fallisce l'Assemblea di Francoforte? <span class="arrow">▼</span></div>
+      <div class="answer">In marzo insurrezioni a Berlino costringono Federico Guglielmo IV a concedere riforme. Il 18 maggio 1848 si riunisce a Francoforte un'Assemblea nazionale tedesca, eletta a suffragio universale. Si divide sulla questione nazionale (Grande Germania con Austria / Piccola Germania senza Austria). Nel 1849 offre la corona imperiale al re di Prussia, che rifiuta perché non vuole riceverla da un'assemblea popolare, rivendicando il principio della legittimità dinastica. Le divisioni interne tra radicali e liberali moderati permettono al re di cancellare le riforme. L'Assemblea viene sciolta il 18 giugno 1849.</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Cosa succede nell'Impero asburgico nel 1848? <span class="arrow">▼</span></div>
+      <div class="answer">Il 13 marzo Vienna viene presa d'assalto: il sovrano licenzia Metternich, forma un governo liberale e promette una Costituzione. Le province insorgono per l'indipendenza nazionale: Budapest il 15 marzo, Venezia il 17, Milano il 18 (Cinque Giornate), Praga l'8 aprile. Vienna inizialmente accetta le riforme, poi passa alla controffensiva: Praga bombardata in giugno, governo boemo sciolto. La repressione ungherese è più lunga: gli insorti sono battuti definitivamente a Világos il 13 agosto 1849 con l'aiuto della Russia zarista.</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Cosa è la Prima guerra d'indipendenza italiana? Come finisce? <span class="arrow">▼</span></div>
+      <div class="answer">Dopo le Cinque Giornate di Milano (18-22 marzo 1848), Carlo Alberto di Savoia dichiara guerra all'Austria il 23 marzo. Gli altri Stati italiani mandano truppe inizialmente, poi si ritirano lasciandolo solo. Il 9 agosto 1848 Carlo Alberto è sconfitto e firma l'armistizio di Salasco. In marzo 1849 ritenta ma viene subito battuto e abdica a favore del figlio Vittorio Emanuele II. Nel frattempo, le Repubbliche democratiche sorte a Venezia, Roma e Toscana cadono entro l'estate del 1849.</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Cos'è lo Statuto Albertino? Quali sono i suoi caratteri fondamentali? <span class="arrow">▼</span></div>
+      <div class="answer">Concesso da Carlo Alberto il 4 marzo 1848. È una Costituzione ottriata (non votata dal popolo). Caratteri: monarchia, religione cattolica di Stato. Separazione dei poteri parziale: centralità del sovrano (esecutivo in mano al re, ministri responsabili solo al re). Parlamento bicamerale: Senato di nomina regia (aristocratico) e Camera elettiva. Suffragio ristrettissimo: solo chi paga 40 lire d'imposta (circa 40.000 persone su 4,9 milioni). Eguaglianza solo civile e giuridica. Costituzione flessibile: modificabile con legge ordinaria. Diventerà la Costituzione dell'Italia unita nel 1861, sopravviverà fino al 1948.</div>
+    </div>
+    <div class="qa-block">
+      <div class="question" onclick="tq(this)">Perché il 1848 è diverso dai moti precedenti? Perché fallisce comunque? <span class="arrow">▼</span></div>
+      <div class="answer">Diverso: base sociale più ampia (studenti, operai, artigiani, non solo élite). La crisi economica unisce borghesia liberale e ceti popolari. Effetto domino europeo. Fallisce perché: le anime del Quarantotto sono contraddittorie tra loro (liberali vs socialisti vs repubblicani); le divisioni interne permettono alle forze conservatrici di riprendere il controllo; in molti casi manca l'appoggio internazionale; la Santa Alleanza (Russia in particolare) interviene a sostegno degli Asburgo. Solo in Francia si consolida il cambiamento, ma in forma conservatrice con Luigi Napoleone.</div>
+    </div>
+  </div>
+</div>
+
 <script>
 function switchChapter(id, btn) {
   document.querySelectorAll('.chapter').forEach(c => c.classList.remove('visible'));
@@ -809,6 +1201,12 @@ function showNap(id, btn) {
 function showVien(id, btn) {
   document.querySelectorAll('#vienna .section').forEach(s => s.classList.remove('visible'));
   document.querySelectorAll('#vienna .nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+}
+function show1848(id, btn) {
+  document.querySelectorAll('#milleottocentoquarantotto .section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('#milleottocentoquarantotto .nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('visible');
   btn.classList.add('active');
 }
