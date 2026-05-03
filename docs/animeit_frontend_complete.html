@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#12121a;
+  --bg3:#1a1a26;
+  --card:#16161f;
+  --accent:#e63946;
+  --accent2:#ff6b35;
+  --gold:#f4c542;
+  --text:#f0f0f0;
+  --text2:#9898b0;
+  --text3:#555570;
+  --border:#2a2a3a;
+  --radius:10px;
+  --font-title:'Bebas Neue',sans-serif;
+  --font-jp:'Noto Sans JP',sans-serif;
+  --font:'DM Sans',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:linear-gradient(to bottom,rgba(10,10,15,0.98),transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-title);font-size:28px;letter-spacing:2px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-link{color:var(--text2);font-size:14px;font-weight:500;cursor:pointer;transition:color .2s;text-decoration:none;letter-spacing:.5px}
+.nav-link:hover,.nav-link.active{color:var(--text)}
+.nav-right{display:flex;gap:.75rem;align-items:center}
+.btn-search{background:none;border:none;color:var(--text2);cursor:pointer;font-size:18px;padding:6px;transition:color .2s}
+.btn-search:hover{color:var(--text)}
+.btn-login{background:none;border:1px solid var(--border);color:var(--text2);padding:7px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:var(--font);font-weight:500;transition:all .2s}
+.btn-login:hover{border-color:var(--text2);color:var(--text)}
+.btn-premium{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;padding:7px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:var(--font);font-weight:600;transition:opacity .2s}
+.btn-premium:hover{opacity:.85}
+
+/* PAGES */
+.page{display:none;padding-top:60px;min-height:100vh}
+.page.active{display:block}
+
+/* ============ HOME ============ */
+.hero{position:relative;height:580px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0f 0%,#1a0a1a 40%,#0a0a1f 100%)}
+.hero-art{position:absolute;right:0;top:0;bottom:0;width:55%;opacity:.3}
+.hero-art-shapes{width:100%;height:100%;position:relative}
+.hero-art-shapes div{position:absolute;border-radius:50%}
+.hero-gradient{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 25%,transparent 65%),linear-gradient(to top,var(--bg) 10%,transparent 60%)}
+.hero-content{position:relative;z-index:2;padding:3rem 2.5rem;max-width:560px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,.15);border:1px solid rgba(230,57,70,.3);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:1.5px;padding:5px 12px;border-radius:20px;margin-bottom:1.2rem;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-title{font-family:var(--font-title);font-size:72px;line-height:.95;letter-spacing:2px;margin-bottom:.5rem}
+.hero-title .jp{font-family:var(--font-jp);font-size:22px;color:var(--text2);display:block;letter-spacing:4px;margin-bottom:.3rem;font-weight:400}
+.hero-meta{display:flex;align-items:center;gap:1rem;margin:1rem 0;font-size:13px;color:var(--text2)}
+.hero-meta .rating{color:var(--gold);font-weight:600}
+.hero-meta .genre-tag{background:var(--bg3);padding:3px 10px;border-radius:20px;border:1px solid var(--border);font-size:12px}
+.hero-desc{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:1.5rem;max-width:440px}
+.hero-actions{display:flex;gap:.75rem}
+.btn-watch{background:var(--accent);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:8px;transition:all .2s}
+.btn-watch:hover{background:#c62835;transform:translateY(-1px)}
+.btn-watch svg{width:16px;height:16px}
+.btn-add{background:var(--bg3);color:var(--text);border:1px solid var(--border);padding:12px 20px;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--font);transition:all .2s}
+.btn-add:hover{border-color:var(--text2)}
+
+/* SECTIONS */
+.section{padding:2rem 2rem}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.section-title{font-family:var(--font-title);font-size:26px;letter-spacing:1px;display:flex;align-items:center;gap:.5rem}
+.section-title::before{content:'';display:inline-block;width:3px;height:22px;background:var(--accent);border-radius:2px}
+.see-all{color:var(--accent);font-size:13px;cursor:pointer;font-weight:500;text-decoration:none}
+.see-all:hover{text-decoration:underline}
+
+/* CAROUSEL */
+.carousel{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.anime-card{cursor:pointer;position:relative;border-radius:var(--radius);overflow:hidden;background:var(--card);transition:transform .2s}
+.anime-card:hover{transform:translateY(-4px)}
+.anime-card:hover .card-overlay{opacity:1}
+.card-thumb{aspect-ratio:2/3;position:relative;overflow:hidden}
+.card-thumb-img{width:100%;height:100%;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:40px}
+.card-thumb-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:44px}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 60%);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;padding:10px}
+.card-play{background:var(--accent);color:#fff;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px}
+.card-info{padding:8px 10px 10px}
+.card-title{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.card-sub{font-size:11px;color:var(--text3);display:flex;justify-content:space-between}
+.card-ep{background:rgba(230,57,70,.15);color:var(--accent);border:1px solid rgba(230,57,70,.2);font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;position:absolute;top:8px;left:8px}
+.card-new{background:rgba(244,197,66,.15);color:var(--gold);border:1px solid rgba(244,197,66,.2);font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;position:absolute;top:8px;right:8px}
+
+/* GENRES BANNER */
+.genres-strip{display:flex;gap:.75rem;overflow-x:auto;padding:0 2rem 1rem;scrollbar-width:none;margin-bottom:.5rem}
+.genres-strip::-webkit-scrollbar{display:none}
+.genre-pill{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.genre-pill:hover,.genre-pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* CONTINUE WATCHING */
+.continue-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.continue-card{background:var(--card);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .2s;border:1px solid var(--border)}
+.continue-card:hover{transform:translateY(-3px)}
+.continue-thumb{height:120px;position:relative;display:flex;align-items:center;justify-content:center;font-size:36px}
+.continue-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--bg3)}
+.continue-bar{height:100%;background:var(--accent);border-radius:2px}
+.continue-info{padding:10px 12px}
+.continue-title{font-size:13px;font-weight:500;margin-bottom:3px}
+.continue-ep{font-size:11px;color:var(--text3)}
+
+/* BANNER */
+.promo-banner{margin:1rem 2rem;background:linear-gradient(135deg,#1a0a20,#0a0a1f);border:1px solid rgba(230,57,70,.25);border-radius:12px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.promo-text h3{font-family:var(--font-title);font-size:24px;letter-spacing:1px;margin-bottom:.3rem}
+.promo-text p{font-size:13px;color:var(--text2)}
+.promo-text p span{color:var(--gold);font-weight:600}
+
+/* ============ CATALOG ============ */
+.catalog-header{padding:2rem 2rem 1rem;display:flex;align-items:flex-end;justify-content:space-between}
+.catalog-header h1{font-family:var(--font-title);font-size:38px;letter-spacing:2px}
+.catalog-header p{font-size:13px;color:var(--text2)}
+.catalog-filters{padding:0 2rem 1.5rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
+.filter-select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:7px;font-size:13px;font-family:var(--font);cursor:pointer;outline:none}
+.filter-select:focus{border-color:var(--accent)}
+.search-bar{background:var(--card);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:7px;font-size:13px;font-family:var(--font);outline:none;width:200px}
+.search-bar::placeholder{color:var(--text3)}
+.search-bar:focus{border-color:var(--accent)}
+.catalog-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;padding:0 2rem 3rem}
+
+/* ============ PLAYER ============ */
+.player-page{background:var(--bg)}
+.player-container{background:#000;aspect-ratio:16/9;position:relative;overflow:hidden;width:100%}
+.player-video-area{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0a1a,#1a0510);font-size:80px;cursor:pointer;position:relative}
+.player-center-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.play-btn-big{width:72px;height:72px;background:rgba(230,57,70,.9);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:#fff;font-size:24px}
+.play-btn-big:hover{transform:scale(1.1);background:var(--accent)}
+.player-controls{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.95),transparent);padding:1rem 1.25rem .75rem}
+.progress-bar{height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin-bottom:.75rem;cursor:pointer;position:relative}
+.progress-fill{height:100%;width:35%;background:var(--accent);border-radius:2px;position:relative}
+.progress-fill::after{content:'';position:absolute;right:-6px;top:-4px;width:12px;height:12px;background:#fff;border-radius:50%}
+.controls-row{display:flex;align-items:center;gap:.75rem}
+.ctrl-btn{background:none;border:none;color:#fff;cursor:pointer;font-size:18px;opacity:.8;transition:opacity .2s;padding:4px}
+.ctrl-btn:hover{opacity:1}
+.time-display{font-size:13px;color:rgba(255,255,255,.7);margin-left:.25rem}
+.ctrl-spacer{flex:1}
+.quality-badge{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2);padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer}
+.player-info-area{padding:1.25rem 2rem;display:grid;grid-template-columns:1fr 340px;gap:2rem;max-width:1200px;margin:0 auto}
+.player-main h1{font-size:22px;font-weight:600;margin-bottom:.4rem}
+.player-main h2{font-size:15px;color:var(--text2);font-weight:400;margin-bottom:1rem}
+.ep-meta{display:flex;gap:1rem;font-size:13px;color:var(--text2);margin-bottom:1rem;flex-wrap:wrap}
+.ep-meta span{display:flex;align-items:center;gap:4px}
+.player-actions{display:flex;gap:.75rem;margin-bottom:1.25rem}
+.btn-sm{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:7px 14px;border-radius:7px;font-size:13px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:5px;font-weight:500;transition:all .2s}
+.btn-sm:hover{border-color:var(--text2);color:var(--text)}
+.player-desc{font-size:13px;color:var(--text2);line-height:1.7}
+.episodes-panel{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.ep-panel-header{padding:.75rem 1rem;font-weight:600;font-size:14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.ep-list{max-height:420px;overflow-y:auto}
+.ep-item{display:flex;align-items:center;gap:.75rem;padding:.6rem 1rem;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(255,255,255,.04)}
+.ep-item:hover,.ep-item.active{background:rgba(230,57,70,.08)}
+.ep-item.active .ep-num{color:var(--accent)}
+.ep-num{font-family:var(--font-title);font-size:20px;color:var(--text3);min-width:28px}
+.ep-details{flex:1}
+.ep-name{font-size:13px;font-weight:500;margin-bottom:2px}
+.ep-dur{font-size:11px;color:var(--text3)}
+.ep-prog{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text3)}
+.ep-prog.watched{border-color:var(--accent);color:var(--accent)}
+
+/* ============ PREMIUM ============ */
+.premium-page{padding:4rem 2rem 3rem}
+.premium-hero{text-align:center;margin-bottom:3rem}
+.premium-hero h1{font-family:var(--font-title);font-size:52px;letter-spacing:2px;margin-bottom:.5rem}
+.premium-hero p{color:var(--text2);font-size:16px;max-width:500px;margin:0 auto}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:900px;margin:0 auto 3rem}
+.plan-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;position:relative;transition:border-color .2s}
+.plan-card.featured{border-color:var(--accent);background:linear-gradient(135deg,var(--card),rgba(230,57,70,.06))}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap;letter-spacing:.5px;text-transform:uppercase}
+.plan-name{font-family:var(--font-title);font-size:24px;letter-spacing:1px;margin-bottom:.5rem}
+.plan-price{margin-bottom:1.25rem}
+.plan-price .amount{font-size:42px;font-weight:700;line-height:1}
+.plan-price .period{font-size:13px;color:var(--text2)}
+.plan-price .free{font-size:28px;color:var(--text2)}
+.plan-features{list-style:none;margin-bottom:1.5rem}
+.plan-features li{display:flex;align-items:center;gap:.5rem;font-size:13px;color:var(--text2);margin-bottom:.6rem}
+.plan-features li .check{color:var(--accent);font-size:14px;font-weight:700}
+.plan-features li .cross{color:var(--text3);font-size:16px}
+.plan-btn{width:100%;padding:11px;border-radius:8px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;transition:all .2s}
+.plan-btn.outline{background:none;border:1px solid var(--border);color:var(--text2)}
+.plan-btn.outline:hover{border-color:var(--text2);color:var(--text)}
+.plan-btn.primary{background:var(--accent);border:none;color:#fff}
+.plan-btn.primary:hover{background:#c62835;transform:translateY(-1px)}
+.plan-btn.gold{background:linear-gradient(135deg,#c9a227,var(--gold));border:none;color:#000;font-weight:700}
+.plan-btn.gold:hover{opacity:.9;transform:translateY(-1px)}
+.perks-section{max-width:900px;margin:0 auto;padding-bottom:2rem}
+.perks-section h2{font-family:var(--font-title);font-size:28px;letter-spacing:1px;margin-bottom:1.5rem;text-align:center}
+.perks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.perk-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;text-align:center}
+.perk-icon{font-size:28px;margin-bottom:.75rem}
+.perk-title{font-size:14px;font-weight:600;margin-bottom:.4rem}
+.perk-desc{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* AD BANNER (mock) */
+.ad-banner{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px dashed var(--border);border-radius:8px;padding:.75rem 1.25rem;text-align:center;color:var(--text3);font-size:12px;letter-spacing:.5px;margin:0 2rem 1.5rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 18px;border-radius:8px;font-size:13px;font-weight:500;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none;display:flex;align-items:center;gap:8px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+/* ANIME COLORS */
+.anime-c1{background:linear-gradient(135deg,#1a0a2e,#2d0a3e)}
+.anime-c2{background:linear-gradient(135deg,#0a1a2e,#0a2e3e)}
+.anime-c3{background:linear-gradient(135deg,#2e1a0a,#3e2a0a)}
+.anime-c4{background:linear-gradient(135deg,#0a2e1a,#0a3e2a)}
+.anime-c5{background:linear-gradient(135deg,#2e0a0a,#3e1a0a)}
+.anime-c6{background:linear-gradient(135deg,#1a2e0a,#2a3e0a)}
+
+/* ADS in player */
+.ad-overlay{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.7);color:var(--gold);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:.5px;pointer-events:none}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="showPage('home')">ANIME<span>IT</span></div>
+  <div class="nav-links">
+    <a class="nav-link active" onclick="showPage('home');setActive(this)">Home</a>
+    <a class="nav-link" onclick="showPage('catalog');setActive(this)">Catalogo</a>
+    <a class="nav-link" onclick="showPage('premium');setActive(this)">Premium</a>
+    <a class="nav-link">Novità</a>
+    <a class="nav-link">Calendario</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-search" onclick="showPage('catalog');setActive(document.querySelectorAll('.nav-link')[1])">&#9906;</button>
+    <button class="btn-login">Accedi</button>
+    <button class="btn-premium" onclick="showPage('premium');setActive(document.querySelectorAll('.nav-link')[2])">✦ Premium</button>
+  </div>
+</nav>
+
+<!-- ========== HOME ========== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-art">
+      <div class="hero-art-shapes">
+        <div style="width:400px;height:400px;top:-50px;right:-50px;background:rgba(230,57,70,.08);border-radius:50%;filter:blur(60px)"></div>
+        <div style="width:300px;height:300px;bottom:50px;right:150px;background:rgba(100,50,200,.08);border-radius:50%;filter:blur(50px)"></div>
+      </div>
+    </div>
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Simulcast — Nuovo Episodio</div>
+      <div class="hero-title">
+        <span class="jp">進撃の巨人</span>
+        ATTACK ON<br>TITAN
+      </div>
+      <div class="hero-meta">
+        <span class="rating">★ 9.8</span>
+        <span class="genre-tag">Azione</span>
+        <span class="genre-tag">Dark Fantasy</span>
+        <span>87 episodi</span>
+        <span>2013–2023</span>
+      </div>
+      <p class="hero-desc">Cent'anni fa, l'umanità fu costretta a rifugiarsi dietro enormi mura per sopravvivere ai Titani. Eren Jaeger giura vendetta dopo aver assistito alla distruzione della sua città.</p>
+      <div class="hero-actions">
+        <button class="btn-watch" onclick="showPage('player')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Guarda ora
+        </button>
+        <button class="btn-add" onclick="showToast('Aggiunto alla tua lista!')">+ Lista</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERI -->
+  <div class="genres-strip">
+    <div class="genre-pill active">Tutti</div>
+    <div class="genre-pill">Azione</div>
+    <div class="genre-pill">Shonen</div>
+    <div class="genre-pill">Seinen</div>
+    <div class="genre-pill">Romance</div>
+    <div class="genre-pill">Slice of Life</div>
+    <div class="genre-pill">Horror</div>
+    <div class="genre-pill">Isekai</div>
+    <div class="genre-pill">Mecha</div>
+    <div class="genre-pill">Sportivo</div>
+    <div class="genre-pill">Fantasy</div>
+    <div class="genre-pill">Psicologico</div>
+  </div>
+
+  <!-- CONTINUA A GUARDARE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Continua a guardare</div>
+    </div>
+    <div class="continue-grid">
+      <div class="continue-card" onclick="showPage('player')">
+        <div class="continue-thumb anime-c2">🔱
+          <div class="continue-progress"><div class="continue-bar" style="width:65%"></div></div>
+        </div>
+        <div class="continue-info">
+          <div class="continue-title">Demon Slayer</div>
+          <div class="continue-ep">Ep. 14 • 65% completato</div>
+        </div>
+      </div>
+      <div class="continue-card" onclick="showPage('player')">
+        <div class="continue-thumb anime-c4">⚡
+          <div class="continue-progress"><div class="continue-bar" style="width:30%"></div></div>
+        </div>
+        <div class="continue-info">
+          <div class="continue-title">Jujutsu Kaisen</div>
+          <div class="continue-ep">Ep. 8 • 30% completato</div>
+        </div>
+      </div>
+      <div class="continue-card" onclick="showPage('player')">
+        <div class="continue-thumb anime-c5">🏀
+          <div class="continue-progress"><div class="continue-bar" style="width:90%"></div></div>
+        </div>
+        <div class="continue-info">
+          <div class="continue-title">Kuroko's Basketball</div>
+          <div class="continue-ep">Ep. 22 • 90% completato</div>
+        </div>
+      </div>
+      <div class="continue-card" onclick="showPage('player')">
+        <div class="continue-thumb anime-c3">☠️
+          <div class="continue-progress"><div class="continue-bar" style="width:15%"></div></div>
+        </div>
+        <div class="continue-info">
+          <div class="continue-title">One Piece</div>
+          <div class="continue-ep">Ep. 1087 • 15% completato</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOCK AD BANNER -->
+  <div class="ad-banner">📢 SPAZIO PUBBLICITARIO — Pubblicità automatica in questa area</div>
+
+  <!-- NUOVI EPISODI -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Nuovi episodi oggi</div>
+      <a class="see-all" onclick="showPage('catalog')">Vedi tutti →</a>
+    </div>
+    <div class="carousel" id="new-episodes">
+    </div>
+  </div>
+
+  <!-- PROMO PREMIUM -->
+  <div class="promo-banner">
+    <div class="promo-text">
+      <h3>✦ Passa a Premium</h3>
+      <p>Nessuna pubblicità, download offline, qualità fino a 4K. <span>Da €4,99/mese.</span></p>
+    </div>
+    <button class="btn-premium" style="padding:10px 24px;font-size:15px" onclick="showPage('premium')">Scopri Premium</button>
+  </div>
+
+  <!-- POPOLARI -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Più popolari</div>
+      <a class="see-all" onclick="showPage('catalog')">Vedi tutti →</a>
+    </div>
+    <div class="carousel" id="popular-grid">
+    </div>
+  </div>
+
+  <!-- CLASSICI -->
+  <div class="section" style="padding-bottom:3rem">
+    <div class="section-header">
+      <div class="section-title">Classici Italiani</div>
+      <a class="see-all">Vedi tutti →</a>
+    </div>
+    <div class="carousel" id="classics-grid">
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== CATALOG ========== -->
+<div id="page-catalog" class="page">
+  <div class="catalog-header">
+    <div>
+      <h1>Catalogo Completo</h1>
+      <p>Oltre 12.000 titoli disponibili</p>
+    </div>
+  </div>
+  <div class="catalog-filters">
+    <input type="text" class="search-bar" placeholder="🔍  Cerca anime..." id="searchInput" oninput="filterCatalog()">
+    <select class="filter-select" onchange="filterCatalog()" id="genreFilter">
+      <option value="">Tutti i generi</option>
+      <option>Azione</option>
+      <option>Shonen</option>
+      <option>Seinen</option>
+      <option>Romance</option>
+      <option>Slice of Life</option>
+      <option>Horror</option>
+      <option>Isekai</option>
+      <option>Mecha</option>
+    </select>
+    <select class="filter-select">
+      <option>Tutti gli anni</option>
+      <option>2024</option>
+      <option>2023</option>
+      <option>2022</option>
+      <option>2021</option>
+      <option>2010-2020</option>
+      <option>Classici</option>
+    </select>
+    <select class="filter-select">
+      <option>Ordina per: Popolarità</option>
+      <option>Ordina per: Voto</option>
+      <option>Ordina per: Recenti</option>
+      <option>Ordina per: A-Z</option>
+    </select>
+    <select class="filter-select">
+      <option>Tutti i doppiaggi</option>
+      <option>🇮🇹 Italiano</option>
+      <option>🇯🇵 Giapponese + Sub</option>
+    </select>
+  </div>
+  <div class="catalog-grid" id="catalog-grid"></div>
+</div>
+
+<!-- ========== PLAYER ========== -->
+<div id="page-player" class="page">
+  <div class="player-container">
+    <div class="player-video-area" onclick="togglePlay(this)">
+      ⚔️
+      <div class="ad-overlay">ANNUNCIO • 12s</div>
+      <div class="player-center-play" id="playOverlay">
+        <button class="play-btn-big" id="playBtnBig">▶</button>
+      </div>
+    </div>
+    <div class="player-controls">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="controls-row">
+        <button class="ctrl-btn" onclick="prevEp()">⏮</button>
+        <button class="ctrl-btn" id="playPauseBtn" onclick="togglePlayBtn()">⏸</button>
+        <button class="ctrl-btn" onclick="nextEp()">⏭</button>
+        <button class="ctrl-btn">🔊</button>
+        <span class="time-display" id="timeDisplay">08:42 / 24:00</span>
+        <div class="ctrl-spacer"></div>
+        <span class="quality-badge">1080p</span>
+        <button class="ctrl-btn">⚙</button>
+        <button class="ctrl-btn">⛶</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="player-info-area">
+    <div class="player-main">
+      <h1>Attack on Titan — Final Season</h1>
+      <h2>Episodio 14: "Gli ultimi fuochi della terra"</h2>
+      <div class="ep-meta">
+        <span>⭐ 9.8</span>
+        <span>⏱ 24 min</span>
+        <span>📅 2023</span>
+        <span>🇮🇹 Doppiato in italiano</span>
+        <span>🇯🇵 Sub disponibile</span>
+      </div>
+      <div class="player-actions">
+        <button class="btn-sm" onclick="showToast('Aggiunto alla lista!')">♡ Lista</button>
+        <button class="btn-sm">↗ Condividi</button>
+        <button class="btn-sm">📥 Download <span style="color:var(--accent);font-size:11px">(Premium)</span></button>
+        <button class="btn-sm">🇮🇹 Italiano ▾</button>
+      </div>
+      <p class="player-desc">Eren e Zeke hanno finalmente attivato il potere del Fondatore, ma le conseguenze del Rombo della Terra iniziano a manifestarsi. I Jaegeristi si preparano all'ultima battaglia mentre il mondo intero trema.</p>
+      <div style="margin-top:1.25rem;padding:1rem;background:var(--bg2);border-radius:8px;border:1px dashed var(--border)">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:.5rem;letter-spacing:.5px;text-transform:uppercase">ANNUNCIO PUBBLICITARIO</div>
+        <div style="font-size:12px;color:var(--text2)">Spazio per banner pubblicitario — visibile agli utenti Free</div>
+      </div>
+    </div>
+
+    <div class="episodes-panel">
+      <div class="ep-panel-header">
+        <span>Episodi — Stagione 4</span>
+        <span style="color:var(--text3);font-size:12px">28 ep</span>
+      </div>
+      <div class="ep-list" id="ep-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PREMIUM ========== -->
+<div id="page-premium" class="page">
+  <div class="premium-page">
+    <div class="premium-hero">
+      <h1>SCEGLI IL TUO PIANO</h1>
+      <p>Accedi a tutto il catalogo italiano di anime, senza limiti.</p>
+    </div>
+    <div class="plans-grid">
+      <!-- FREE -->
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price"><span class="free">Gratis</span></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Streaming illimitato</li>
+          <li><span class="check">✓</span> Qualità fino a 720p</li>
+          <li><span class="check">✓</span> Tutto il catalogo</li>
+          <li><span class="cross">✗</span> <span style="color:var(--text3)">Download offline</span></li>
+          <li><span class="cross">✗</span> <span style="color:var(--text3)">Nessuna pubblicità</span></li>
+          <li><span class="cross">✗</span> <span style="color:var(--text3)">Qualità 4K</span></li>
+          <li><span class="cross">✗</span> <span style="color:var(--text3)">Accesso anticipato</span></li>
+        </ul>
+        <button class="plan-btn outline">Piano attuale</button>
+      </div>
+      <!-- PREMIUM -->
+      <div class="plan-card featured">
+        <div class="plan-badge">✦ PIÙ SCELTO</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price"><span class="amount">€4<small style="font-size:22px">,99</small></span><span class="period">/mese</span></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Streaming illimitato</li>
+          <li><span class="check">✓</span> Qualità fino a 1080p</li>
+          <li><span class="check">✓</span> Tutto il catalogo</li>
+          <li><span class="check">✓</span> Download offline (20)</li>
+          <li><span class="check">✓</span> <strong>Zero pubblicità</strong></li>
+          <li><span class="check">✓</span> Accesso anticipato</li>
+          <li><span class="cross">✗</span> <span style="color:var(--text3)">Qualità 4K</span></li>
+        </ul>
+        <button class="plan-btn primary" onclick="showToast('Reindirizzamento al pagamento...')">Inizia ora</button>
+      </div>
+      <!-- ULTIMATE -->
+      <div class="plan-card">
+        <div class="plan-name">Ultimate</div>
+        <div class="plan-price"><span class="amount">€8<small style="font-size:22px">,99</small></span><span class="period">/mese</span></div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Streaming illimitato</li>
+          <li><span class="check">✓</span> <strong>Qualità 4K HDR</strong></li>
+          <li><span class="check">✓</span> Tutto il catalogo</li>
+          <li><span class="check">✓</span> Download illimitati</li>
+          <li><span class="check">✓</span> Zero pubblicità</li>
+          <li><span class="check">✓</span> Accesso anticipato</li>
+          <li><span class="check">✓</span> <strong>5 profili famiglia</strong></li>
+        </ul>
+        <button class="plan-btn gold" onclick="showToast('Reindirizzamento al pagamento...')">Passa a Ultimate</button>
+      </div>
+    </div>
+
+    <div class="perks-section">
+      <h2>Perché scegliere AnimeIT?</h2>
+      <div class="perks-grid">
+        <div class="perk-card">
+          <div class="perk-icon">🇮🇹</div>
+          <div class="perk-title">Doppiaggio Italiano</div>
+          <div class="perk-desc">Oltre 8.000 titoli doppiati in italiano con voci professionali</div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon">📡</div>
+          <div class="perk-title">Simulcast</div>
+          <div class="perk-desc">Nuovi episodi disponibili in contemporanea con il Giappone</div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon">📱</div>
+          <div class="perk-title">Multi-dispositivo</div>
+          <div class="perk-desc">Guarda su TV, smartphone, tablet e PC senza limiti</div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon">📥</div>
+          <div class="perk-title">Download Offline</div>
+          <div class="perk-desc">Scarica gli episodi e guardali ovunque, anche senza internet</div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon">🎌</div>
+          <div class="perk-title">Catalogo Storico</div>
+          <div class="perk-desc">Dai classici degli anni '80 ai simulcast di oggi: tutto in un posto</div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon">⚡</div>
+          <div class="perk-title">Qualità 4K</div>
+          <div class="perk-desc">Streaming adattivo fino a 4K HDR con Dolby Audio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><div class="toast-dot"></div><span id="toast-msg"></span></div>
+
+<script>
+const animeData=[
+  {title:"Demon Slayer",jp:"鬼滅の刃",ep:"Ep 44",rating:"9.5",genre:"Azione",color:"anime-c1",emoji:"⚔️",isNew:true},
+  {title:"Jujutsu Kaisen",jp:"呪術廻戦",ep:"Ep 47",rating:"9.3",genre:"Soprannaturale",color:"anime-c4",emoji:"💥",isNew:true},
+  {title:"One Piece",jp:"ワンピース",ep:"Ep 1115",rating:"9.1",genre:"Avventura",color:"anime-c3",emoji:"☠️",isNew:false},
+  {title:"Naruto",jp:"ナルト",ep:"Ep 220",rating:"9.0",genre:"Shonen",color:"anime-c2",emoji:"🍜",isNew:false},
+  {title:"Dragon Ball Z",jp:"ドラゴンボール",ep:"Ep 291",rating:"9.0",genre:"Azione",color:"anime-c5",emoji:"🔮",isNew:false},
+  {title:"Fullmetal Alchemist",jp:"鋼の錬金術師",ep:"Ep 64",rating:"9.7",genre:"Fantasy",color:"anime-c6",emoji:"⚗️",isNew:false},
+  {title:"Hunter x Hunter",jp:"ハンターxハンター",ep:"Ep 148",rating:"9.5",genre:"Avventura",color:"anime-c1",emoji:"🎯",isNew:false},
+  {title:"Vinland Saga",jp:"ヴィンランド・サガ",ep:"Ep 48",rating:"9.2",genre:"Storico",color:"anime-c3",emoji:"⚓",isNew:true},
+  {title:"Spy x Family",jp:"スパイファミリー",ep:"Ep 37",rating:"8.9",genre:"Commedia",color:"anime-c2",emoji:"🕵️",isNew:true},
+  {title:"Chainsaw Man",jp:"チェンソーマン",ep:"Ep 12",rating:"9.1",genre:"Azione",color:"anime-c5",emoji:"🔪",isNew:false},
+  {title:"Bleach",jp:"ブリーチ",ep:"Ep 366",rating:"8.8",genre:"Shonen",color:"anime-c4",emoji:"⚡",isNew:false},
+  {title:"Death Note",jp:"デスノート",ep:"Ep 37",rating:"9.6",genre:"Thriller",color:"anime-c1",emoji:"📓",isNew:false},
+  {title:"Evangelion",jp:"エヴァンゲリオン",ep:"Ep 26",rating:"9.4",genre:"Mecha",color:"anime-c6",emoji:"🤖",isNew:false},
+  {title:"Cowboy Bebop",jp:"カウボーイビバップ",ep:"Ep 26",rating:"9.3",genre:"Sci-Fi",color:"anime-c3",emoji:"🚀",isNew:false},
+  {title:"Steins;Gate",jp:"シュタインズ・ゲート",ep:"Ep 24",rating:"9.7",genre:"Sci-Fi",color:"anime-c2",emoji:"⏰",isNew:false},
+  {title:"Haikyuu!!",jp:"ハイキュー",ep:"Ep 85",rating:"9.4",genre:"Sportivo",color:"anime-c4",emoji:"🏐",isNew:false},
+  {title:"Tokyo Revengers",jp:"東京リベンジャーズ",ep:"Ep 61",rating:"8.7",genre:"Thriller",color:"anime-c5",emoji:"🏍️",isNew:false},
+  {title:"Blue Lock",jp:"ブルーロック",ep:"Ep 24",rating:"9.0",genre:"Sportivo",color:"anime-c1",emoji:"⚽",isNew:true},
+  {title:"Mushoku Tensei",jp:"無職転生",ep:"Ep 46",rating:"9.1",genre:"Isekai",color:"anime-c6",emoji:"🌟",isNew:false},
+  {title:"Re:Zero",jp:"リゼロ",ep:"Ep 50",rating:"9.2",genre:"Isekai",color:"anime-c3",emoji:"🔄",isNew:false},
+  {title:"Overlord",jp:"オーバーロード",ep:"Ep 52",rating:"8.9",genre:"Isekai",color:"anime-c2",emoji:"💀",isNew:false},
+  {title:"Dr. Stone",jp:"ドクターストーン",ep:"Ep 56",rating:"9.0",genre:"Avventura",color:"anime-c4",emoji:"🧪",isNew:false},
+  {title:"Berserk",jp:"ベルセルク",ep:"Ep 25",rating:"9.6",genre:"Dark Fantasy",color:"anime-c5",emoji:"🗡️",isNew:false},
+  {title:"Slam Dunk",jp:"スラムダンク",ep:"Ep 101",rating:"9.2",genre:"Sportivo",color:"anime-c1",emoji:"🏀",isNew:false},
+];
+
+const classicsData=[
+  {title:"Dragon Ball",jp:"ドラゴンボール",ep:"Ep 153",rating:"9.1",color:"anime-c3",emoji:"🐉"},
+  {title:"Sailor Moon",jp:"セーラームーン",ep:"Ep 200",rating:"8.8",color:"anime-c1",emoji:"🌙"},
+  {title:"Pokemon",jp:"ポケモン",ep:"Ep 280",rating:"9.0",color:"anime-c4",emoji:"⚡"},
+  {title:"Candy Candy",jp:"キャンディキャンディ",ep:"Ep 115",rating:"8.7",color:"anime-c6",emoji:"🍬"},
+  {title:"Holly e Benji",jp:"キャプテン翼",ep:"Ep 128",rating:"8.9",color:"anime-c2",emoji:"⚽"},
+  {title:"City Hunter",jp:"シティーハンター",ep:"Ep 140",rating:"9.0",color:"anime-c5",emoji:"🔫"},
+];
+
+function makeCard(a,clickFn){
+  return `<div class="anime-card" onclick="${clickFn}">
+    <div class="card-thumb">
+      <div class="card-thumb-bg ${a.color}">${a.emoji}</div>
+      <div class="card-ep">${a.ep}</div>
+      ${a.isNew?'<div class="card-new">NUOVO</div>':''}
+      <div class="card-overlay"><button class="card-play" onclick="event.stopPropagation();showPage('player')">▶</button></div>
+    </div>
+    <div class="card-info">
+      <div class="card-title">${a.title}</div>
+      <div class="card-sub"><span style="font-family:var(--font-jp);font-size:10px">${a.jp}</span><span>★ ${a.rating}</span></div>
+    </div>
+  </div>`;
+}
+
+function buildGrids(){
+  const newEps=animeData.filter(a=>a.isNew).slice(0,6);
+  document.getElementById('new-episodes').innerHTML=newEps.map(a=>makeCard(a,"showPage('player')")).join('');
+  document.getElementById('popular-grid').innerHTML=animeData.slice(0,6).map(a=>makeCard(a,"showPage('player')")).join('');
+  document.getElementById('classics-grid').innerHTML=classicsData.map(a=>makeCard(a,"showPage('player')")).join('');
+  document.getElementById('catalog-grid').innerHTML=animeData.map(a=>makeCard(a,"showPage('player')")).join('');
+}
+
+function filterCatalog(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const g=document.getElementById('genreFilter').value;
+  const filtered=animeData.filter(a=>{
+    const matchQ=!q||a.title.toLowerCase().includes(q)||a.jp.includes(q);
+    const matchG=!g||a.genre===g;
+    return matchQ&&matchG;
+  });
+  document.getElementById('catalog-grid').innerHTML=filtered.map(a=>makeCard(a,"showPage('player')")).join('');
+}
+
+function buildEpList(){
+  const eps=[
+    "L'inizio della guerra","Il piano dei Jaegeristi","Libertà","La scelta di Hange","La memoria del futuro",
+    "Padre e figlio","Verso la costa","I figli della foresta","Scontro finale","Il Rombo della Terra",
+    "L'alba del nuovo mondo","Promesse","I fantasmi","Gli ultimi fuochi della terra"
+  ];
+  document.getElementById('ep-list').innerHTML=eps.map((e,i)=>`
+    <div class="ep-item ${i===13?'active':''}" onclick="selectEp(this,${i+1},'${e}')">
+      <div class="ep-num">${i+1}</div>
+      <div class="ep-details"><div class="ep-name">${e}</div><div class="ep-dur">24 min</div></div>
+      <div class="ep-prog ${i<13?'watched':''}">${i<13?'✓':''}</div>
+    </div>`).join('');
+}
+
+function selectEp(el,num,name){
+  document.querySelectorAll('.ep-item').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelector('.player-main h2').textContent=`Episodio ${num}: "${name}"`;
+  resetPlayer();
+}
+
+let playing=true,progress=35,timer;
+function startTimer(){
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    if(playing&&progress<100){
+      progress+=0.1;
+      document.getElementById('progressFill').style.width=progress+'%';
+      const secs=Math.floor(progress*1440/100);
+      const m=Math.floor(secs/60),s=secs%60;
+      document.getElementById('timeDisplay').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} / 24:00`;
+    }
+  },200);
+}
+
+function resetPlayer(){progress=35;document.getElementById('progressFill').style.width='35%';playing=true;document.getElementById('playPauseBtn').textContent='⏸';startTimer()}
+function togglePlay(el){playing=!playing;document.getElementById('playPauseBtn').textContent=playing?'⏸':'▶';document.getElementById('playOverlay').style.display=playing?'none':'flex'}
+function togglePlayBtn(){playing=!playing;document.getElementById('playPauseBtn').textContent=playing?'⏸':'▶';document.getElementById('playOverlay').style.display=playing?'none':'flex'}
+function prevEp(){showToast('Episodio precedente')}
+function nextEp(){showToast('Episodio successivo')}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='player'){startTimer()}else{clearInterval(timer)}
+}
+
+function setActive(el){
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+document.querySelectorAll('.genre-pill').forEach(p=>{
+  p.addEventListener('click',function(){
+    document.querySelectorAll('.genre-pill').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+buildGrids();
+buildEpList();
+startTimer();
+</script>
+</body>
+</html>
