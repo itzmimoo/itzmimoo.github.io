@@ -688,7 +688,7 @@ CHECKSUM VISUAL
 <div class="block amber">
   <div class="btitle">RTO vs Fast Retransmit: quando si usa quale</div>
   <ul>
-    <li><strong>RTO (Retransmission TimeOut)</strong>: scatta quando non arriva nessun ACK entro il timeout calcolato. Il mittente deduce che il segmento si è perso o il destinatario è irraggiungibile. L'RTO è adattivo: calcolato con la formula di Jacobson/Karels basata sul RTT misurato (<code>RTO = SRTT + 4×RTTVAR</code>). Quando scatta, TCP dimezza la congestion window e ritrasmette il segmento più vecchio non confermato. Reazione drastica.</li>
+    <li><strong>RTO (Retransmission TimeOut)</strong>: scatta quando non arriva nessun ACK entro il timeout calcolato. Il mittente deduce che il segmento si è perso o il destinatario è irraggiungibile. L'RTO è adattivo: calcolato con la formula di Jacobson/Karels basata sul RTT misurato (<code>RTO = SRTT + 4×RTTVAR</code>). Quando scatta, TCP riporta congestion window allo stato iniziale e ritrasmette il segmento più vecchio non confermato. Reazione drastica.</li>
     <li><strong>Fast Retransmit (3 dup-ACK)</strong>: tre ACK duplicati per lo stesso sequence number sono un forte segnale che quel segmento è perduto ma la rete funziona (i segmenti successivi arrivano). TCP ritrasmette <em>subito</em> senza aspettare l'RTO. Reazione meno drastica: cwnd dimezzata ma non azzerata (<strong>Fast Recovery</strong>).</li>
   </ul>
 </div>
