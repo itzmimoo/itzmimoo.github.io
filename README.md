@@ -1,29 +1,18 @@
 # itzmimoo.github.io/studio/
 
+> ignore this repo
+
+## What is this repository?
+
+This is the source code for a static study website hosted via GitHub Pages.
+
+The site serves as a quick-access reference for notes across the main subjects: networking, mathematics, and history.
+
+## Why is it public?
+
+GitHub Pages requires the repository to be public to serve a free static site. There is no sensitive data here... just HTML, CSS, and JavaScript.
+
+The public nature is also intentional: the site is accessible from any device during oral exams and tests, making it easy to look up notes on the fly (we literally just cheat).
 ---
 
-## 🎯 Obiettivi del Progetto
-
-Lo studio può essere intenso. Abbiamo deciso di sviluppare questo sito per:
-- 📚 **Semplificare la ricerca** di appunti e dispense.
-- 🛠️ **Fornire appunti strutturati utili** per le materie di indirizzo.
-- 🕒 **Ottimizzare i tempi** di preparazione alle verifiche e interrogazioni.
-
-## 👥 Chi Siamo
-
-| Developer | Ruolo | Classe |
-| :--- | :--- | :--- |
-| **Mimo** | Founder & Contributor | 4° Superiore |
-| **Darkmaster** | Co-Founder | 4° Superiore |
-
-## 🛠️ Tecnologie utilizzate
-
-Il sito è sviluppato con tecnologie web standard e ospitato tramite **GitHub Pages**:
-- HTML5 / CSS3 / JavaScript
-- GitHub Actions per il deployment
-
----
-
-<p align="center">
-  Sviluppato da <b>Mimo</b> e <b>Darkmaster</b>
-</p>
+Developed by **Mimo** and **Darkmaster**
